@@ -1,25 +1,266 @@
-body {
-  background-color: white;
-  color: #6F6F6F;
-  font-family: 'Droid Sans', 'Helvetica', 'sans';
-  font-size: 12pt;
-  margin: 2ex 2em;
+#page-container{
+	width: 1000px;
+	margin: auto;
+	background: white;
 }
 
-h1, h3, h4 {
-  color: #E9601A;
+html, body {
+	margin: 0;
+	padding: 0;
+	font-size:12px;
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	color: #000;
+}
+h1 {
+	color: #72d706;
+	margin-top: 45px;
+	margin-bottom: 1em;
+	font-family:Arial, Verdana, Serif;
+	font-size: 24pt;
 }
 
-h2{
-  font-family:Sans-serif;
+h2 {
+	color: #72d706;
+	font-family:Arial, Verdana, Serif;
+	margin-bottom: 1.5em;
+	margin-top: 25px;
+	font-size: 20pt;
 }
-
+h3 {
+	color: #72d706;
+	font-family:Arial, Verdana, Serif;
+	margin-bottom: 1.5em;
+	font-size: 16pt;
+}
+p {
+	margin-bottom:1em;
+	line-height:1.6em;
+}
+img, a img {
+	border:#6c6cd9 1px solid;
+	margin: 20px;
+}
+blockquote {
+	border-left:#72d706 2px solid;
+	margin:1em;
+	padding:0 0.5em;
+}
 a {
-  color: #6F6F6F;
-  text-decoration: underline;
+	color: #6c6cd9;
+	text-decoration:none;
 }
 
-div#datetime {
-  font-size: 80%;
-  text-align: right;
+a:hover {
+	text-decoration: underline;
+	color: #6c6cd9;
+}
+
+/*HEADER*/
+
+#header {
+	width: 1000px;
+	height: 180px;
+	margin: 10px auto;
+	background: url(images/header.png) no-repeat;
+}
+
+/*comment out until the end of the HEADER Section, if you want to put your own fonts on the header image */
+
+#header h1 {
+	font-size: 24px;
+	color:#72d706;
+	padding:15px 100px 0 0;
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	letter-spacing:4px;
+	text-decoration:none;
+	text-align: right;
+}
+#header a {
+	font-size: 24px;
+	color:#72d706;
+	padding:15px 5px 0 0;
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	letter-spacing:4px;
+	text-decoration:none;
+	text-align: right;
+}
+#header a:hover {
+	font-size: 24px;
+	color:#72d706;
+	padding:15px 5px 0 0;
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	letter-spacing:4px;
+	text-decoration:underline;
+	text-align: right;
+}
+
+#header h2 {
+	font-size: 16px;
+	color:#72d706;
+	padding: 50px 0 0 20px;
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	letter-spacing:2px;
+	text-decoration:none;
+	text-align: left;
+}
+
+/*TOP MENU*/
+
+#menu {
+	width: 1000px;
+	height: 40px;
+	margin: auto;
+}
+#menu li {
+	display: inline;
+}
+#menu a {
+	display: block;
+	float: left;
+	height: 27px;
+	padding: 5px 15px 0px 0px;
+	text-transform: lowercase;
+	text-decoration: none;
+	font-size: 17px;
+
+	color: #72d706;
+}
+
+#menu a:hover, #menu li.current_page_item a {
+	text-decoration: underline;
+}
+
+/*SEARCH FORM*/
+
+#search-form {
+	float: right;
+	height: 28px;
+	width:230px;
+	margin: auto;
+	padding: 9px 0 0 0;
+}
+
+.s {
+	width: 140px;
+	padding: 2px 5px;
+	background: #edf3e8;
+	border: none;
+	margin-right:5px;
+	margin-bottom:5px;
+	color:#6c6cd9;
+}
+
+.btnSearch {
+	height: 20px;
+	background: #72d706;
+	margin-bottom:5px;
+	border: none;
+	text-transform: lowercase;
+	font-size: 10px;
+	font-weight: bold;
+	color: #fff;
+}
+
+/*SIDEBAR*/
+
+#sidebar {
+	float:left;
+	width: 200px;
+	margin-top: 20px;
+	text-align: justify;
+	font-size: 12px;
+}
+#sidebar a {
+	color: #6c6cd9;
+	height: 27px;;
+	text-decoration: none;
+	font-size: 14px;
+	text-align: justify;
+}
+#sidebar a:hover {
+	text-decoration: underline;
+}
+
+#sidebar h1{
+	color: #72d706;
+	margin-bottom: 1.5em;
+	font-family:Arial, Verdana, Serif;
+	font-size: 15px;
+	text-align:center;
+}
+#sidebar h2 {
+	color: #72d706;
+	margin-bottom: 1.5em;
+	font-family:Arial, Verdana, Serif;
+	font-size: 14px;
+	text-align: center;
+}
+#sidebar h3{
+	color: #72d706;
+	margin-bottom: 1.5em;
+	font-family:Arial, Verdana, Serif;
+	font-size: 13px;
+	text-align:center;
+}
+
+/*MAIN CONTENT*/
+
+#content{
+	width:700px;
+	margin-left:300px;
+	text-align: justify;
+	margin-bottom: 25px;
+}
+
+/*FOOTER*/
+
+#footer {
+	clear: both;
+	width: 1000px;
+	height: 120px;
+	margin: 0 auto;
+	margin-top: 40px;
+	background: url(images/footer.png) no-repeat;
+}
+
+#footer li {
+	display: inline;
+}
+
+#footer a {
+	display: block;
+	float: left;
+	padding: 15px 0px 0px 15px;
+	text-transform: lowercase;
+	text-decoration: none;
+	font-size: 15px;
+	font-weight: bold;
+	color: #72d706;
+}
+
+#footer a:hover, #footer li.current_page_item a {
+	text-decoration: underline;
+}
+
+#altnav {
+	margin-top: -20px;
+	margin-bottom: 30px;
+	text-align: center;
+	font-size:10px;
+	text-decoration: none;
+	text-align:center;
+	font-family: Arial, serif;
+	color: #000;
+}	
+
+#altnav li {
+	display: inline;
+}
+
+#altnav a {
+	padding: 0 4px 0 4px;
+	color: #6c6cd9;
+	height: 27px;
+	text-decoration: none;
+	font-size: 10px;
 }
