@@ -18,6 +18,11 @@ def profile_page():
     now = datetime.datetime.now()
     return render_template('profile_page.html', current_time=now.ctime())
 
+@app.route('/friends')
+def friends_page():
+    now = datetime.datetime.now()
+    return render_template('friends_page.html', current_time=now.ctime())
+
 if __name__ == '__main__':
     VCAP_APP_PORT = os.getenv('VCAP_APP_PORT')
     if VCAP_APP_PORT is not None:
