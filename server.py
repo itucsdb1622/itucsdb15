@@ -23,6 +23,11 @@ def myGallery():
     now = datetime.datetime.now()
     return render_template('myGallery.html', current_time=now.ctime())
 
+@app.route('/search')
+def search():
+    now = datetime.datetime.now()
+    return render_template('search.html', current_time=now.ctime())
+
 if __name__ == '__main__':
     VCAP_APP_PORT = os.getenv('VCAP_APP_PORT')
     if VCAP_APP_PORT is not None:
