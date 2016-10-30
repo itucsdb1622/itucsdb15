@@ -127,6 +127,24 @@ def create_table_for_user_images():
 
         return redirect(url_for('home_page'))
 
+# Added by Umut(umutyazgan)
+@app.route('/Events')
+def create_table_for_events():
+    with aligramdb.connect(app.config['dsn']) as connection:
+        cursor = connection.cursor()
+
+        query="""DROP TABLE IF EXISTS events_tb"""
+        cursor.execute(query)
+
+        query="""CREATE TABLE events_tb(ID INTEGER NOT NULL,eventName VARCHAR(50),eventDate VARCHAR(20),eventLocation VARCHAR(50))"""
+        cursor.execute(query)
+
+        query="""INSERT INTO events_tb(ID, eventName, eventDate, eventLocation) VALUES (1,'Birthday Party','09.12.2016','Not decided yet')"""
+        cursor.execute(query)
+
+        connection.commit()
+
+        return redirect(url_for('home_page'))
 
 
 if __name__ == '__main__':
