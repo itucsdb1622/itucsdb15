@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=iso-8859-1" />
+	<title>Aligram</title>
+	<meta http-equiv="Content-Language" content="en-us" />
+	<meta http-equiv="imagetoolbar" content="no" />
+	<meta name="MSSmartTagsPreventParsing" content="true" />
+	<meta name="description" content="Description" />
+	<meta name="keywords" content="Keywords" />
+	<meta name="author" content="robojiannis" />
+
+	<style type="text/css" media="all">@import "../static/style.css";</style>
+</head>
+
+<body>
+
+<div id="page-container">
+
+	<div id="header">
+	<h1><a href="#">Aligram</a></h1>
+	<h2>bringing people together</h2>
+	</div>
+
+	<div id="search-form">
+		<form action="" method="get">
+			<input type="text" class="s" />
+			<button value="search" class="btnSearch"><a href="/search">Search</a></button>
+
+		</form>
+	</div>
+
+	<div id="menu">
+	<ul>
+		<li><a href="">Home</a></li>
+		<li><a href="/profile">My Profile</a></li>
+		<li><a href="/friends">My Friends</a></li>
+		<li><a href="/myGallery">My Gallery</a></li>
+		<li><a href="/post">Posts</a></li>
+	</ul>
+	</div>
+
+
+	<div id="sidebar">
+			<h2>Login</h2>
+			<form method="post" action="#">
+				<input type="text" value="Login Name" class="s" />
+				<input type="password" value="Password" class="s" />
+			</form>
+				<input type="submit" value="Login" class="btnSearch" />
+
+
+	<div id="content">
+		{% block content %}
+        {% endblock %}
+	</div>
+
+	<div id="footer">
+		<ul>
+			<li><a href="#">Home</a></li>
+			<li><a href="#">My Profile</a></li>
+			<li><a href="#">My Friends</a></li>
+			<li><a href="#">My Gallery</a></li>
+			<li><a href="#">Posts</a></li>
+		</ul>
+	</div>
+	<div id="altnav">
+		(C) 2016. Aligram</a>
+	</div>
+
+</div>
+</body>
+</html>
