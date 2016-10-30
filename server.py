@@ -84,7 +84,7 @@ def create_table_for_post():
         query="""CREATE TABLE POST(ID INTEGER,MESSAGE VARCHAR(50), USER VARCHAR(50))"""
         cursor.execute(query)
 
-        query="""INSERT INTO POST(ID ,WORD,USER) VALUES (1,'First Post','Berhak')"""
+        query="""INSERT INTO POST(ID ,MESSAGE,USER) VALUES (1,'First Post','Berhak')"""
         cursor.execute(query)
 
         connection.commit()
