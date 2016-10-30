@@ -80,7 +80,7 @@ def create_table_for_post():
         query="""DROP TABLE IF EXISTS POST"""
         cursor.execute(query)
 
-        query="""CREATE TABLE POST(ID INTEGER,MESSAGE VARCHAR(50), USER VARCHAR(50))"""
+        query="""CREATE TABLE IF NOT EXISTS POST(ID INTEGER,MESSAGE VARCHAR(50), USER VARCHAR(50))"""
         cursor.execute(query)
 
         query="""INSERT INTO POST(ID ,MESSAGE,USER) VALUES (1,'First Post','Berhak')"""
