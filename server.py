@@ -57,8 +57,8 @@ def post():
 
 @app.route('/DbCreate')
 def create_tables_search():
-    with aligramdb.connect(app.config['dsn']) as connection_post:
-        cursor = connection_post.cursor()
+    with aligramdb.connect(app.config['dsn']) as connection:
+        cursor = connection.cursor()
 
         query="""DROP TABLE IF EXISTS SEARCH"""
         cursor.execute(query)
@@ -69,7 +69,7 @@ def create_tables_search():
         query="""INSERT INTO SEARCH(ID ,WORD) VALUES (1,'DENEME')"""
         cursor.execute(query)
 
-        connection_post.commit()
+        connection.commit()
 
     return redirect(url_for('home_page'))
 
@@ -77,13 +77,13 @@ def create_tables_search():
 def create_table_for_post():
     with aligramdb.connect(app.config['dsn']) as connection:
         cursor = connection.cursor()
-        query="""DROP TABLE IF EXISTS POST"""
+        query="""DROP TABLE IF EXISTS post_tb"""
         cursor.execute(query)
 
-        query="""CREATE TABLE IF NOT EXISTS POST(ID INTEGER,MESSAGE VARCHAR(50), USER VARCHAR(50))"""
+        query="""CREATE TABLE post_tb(ID INTEGER,MESSAGE VARCHAR(50))"""
         cursor.execute(query)
 
-        query="""INSERT INTO POST(ID ,MESSAGE,USER) VALUES (1,'First Post','Berhak')"""
+        query="""INSERT INTO post_tb(ID ,MESSAGE) VALUES (1,'First Post')"""
         cursor.execute(query)
 
         connection.commit()
@@ -95,13 +95,13 @@ def create_table_for_user():
     with aligramdb.connect(app.config['dsn']) as connection:
         cursor = connection.cursor()
 
-        query="DROP TABLE IF EXISTS USER"
+        query = """DROP TABLE IF EXISTS user_tb"""
         cursor.execute(query)
 
-        query="CREATE TABLE USER (ID VARCHAR(100) NOT NULL,Firstname VARCHAR(40),Lastname VARCHAR(40),Age int,Gender VARCHAR(10),Email VARCHAR(100),PRIMARY KEY (ID))"
+        query="""CREATE TABLE user_tb(ID INTEGER NOT NULL,Firstname VARCHAR(40),Lastname VARCHAR(40),Age int,Gender VARCHAR(10),Email VARCHAR(100),PRIMARY KEY (ID))"""
         cursor.execute(query)
 
-        query="INSERT INTO USER(ID ,Firstname, Lastname) VALUES (1,'kerim','yildirim')"
+        query="""INSERT INTO user_tb(ID ,Firstname, Lastname) VALUES (1,'kerim','yildirim')"""
         cursor.execute(query)
 
         connection.commit()
@@ -112,7 +112,7 @@ def create_table_for_user():
 if __name__ == '__main__':
     VCAP_APP_PORT = os.getenv('VCAP_APP_PORT')
     if VCAP_APP_PORT is not None:
-        port, debug = int(VCAP_APP_PORT), False
+        port, debug = int(VCAP_APP_PORT), False 
     else:
         port, debug = 5000, True
     VCAP_SERVICES = os.getenv('VCAP_SERVICES')
@@ -120,7 +120,7 @@ if __name__ == '__main__':
         app.config['dsn'] = get_elephantsql_dsn(VCAP_SERVICES)
     else:
         app.config['dsn'] = """user='vagrant' password='vagrant'
-                               host='localhost' port=5432 dbname='itucsdb1622'"""
+                               host='localhost' port=5432 dbname='itucsdb'"""
     app.run(host='0.0.0.0', port=port, debug=debug)
 
 
