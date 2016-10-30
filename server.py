@@ -74,7 +74,7 @@ def create_table_for_search():
     return redirect(url_for('home_page'))
 
 @app.route('/postTable')
-def create_table_for_search():
+def create_table_for_post():
     with aligramdb.connect(app.config['dsn']) as connection:
         cursor = connection.cursor()
 
