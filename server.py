@@ -20,11 +20,10 @@ def get_elephantsql_dsn(vcap_services):
     parsed = json.loads(vcap_services)
     uri = parsed["elephantsql"][0]["credentials"]["uri"]
     match = re.match('postgres://(.*?):(.*?)@(.*?)(:(\d+))?/(.*)', uri)
-    user, password, host, _,  dbname = match.groups()
-    dsn = """user='{}' password='{}' host='{}'
-             dbname='{}'""".format(user, password, host, dbname)
+    user, password, host, _, port, dbname = match.groups()
+    dsn = """user='{}' password='{}' host='{}' port={}
+             dbname='{}'""".format(user, password, host, port, dbname)
     return dsn
-
 
 @app.route('/')
 def home_page():
@@ -85,8 +84,8 @@ if __name__ == '__main__':
     if VCAP_SERVICES is not None:
         app.config['dsn'] = get_elephantsql_dsn(VCAP_SERVICES)
     else:
-        app.config['dsn'] = """user='suxlzcvz' password='Fn5SZ6FkjXt1qTZpq52uSqWfqX90S4yi'
-                               host='jumbo.db.elephantsql.com'  dbname='suxlzcvz'"""
+        app.config['dsn'] = """user='vagrant' password='vagrant'
+                               host='localhost' port=54321 dbname='itucsdb'"""
     app.run(host='0.0.0.0', port=port, debug=debug)
 
 
