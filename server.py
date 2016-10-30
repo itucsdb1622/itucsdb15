@@ -108,6 +108,26 @@ def create_table_for_user():
 
     return redirect(url_for('home_page'))
 
+## Added by Adem(yenicead)
+@app.route('/UserImages')
+def create_table_for_user_images():
+    with aligramdb.connect(app.config['dsn']) as connection:
+        cursor = connection.cursor()
+
+        query="""DROP TABLE IF EXISTS images"""
+        cursor.execute(query)
+
+        query="""CREATE TABLE images(imageID int not null primary key,imageName nvarchar(100),imageContent varbinary(max))"""
+        cursor.execute(query)
+
+        query="""INSERT INTO images(imageID ,imageName, imageContent) VALUES (1,'adem','yenice')"""
+        cursor.execute(query)
+
+        connection.commit()
+
+        return redirect(url_for('home_page'))
+
+
 
 if __name__ == '__main__':
     VCAP_APP_PORT = os.getenv('VCAP_APP_PORT')
