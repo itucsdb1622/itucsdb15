@@ -55,8 +55,8 @@ def post():
     now = datetime.datetime.now()
     return render_template('post.html', current_time=now.ctime())
 
-@app.route('/searchDbCreate')
-def create_table_for_search():
+@app.route('/DbCreate')
+def create_tables_search():
     with aligramdb.connect(app.config['dsn']) as connection:
         cursor = connection.cursor()
 
@@ -68,16 +68,7 @@ def create_table_for_search():
 
         query="""INSERT INTO SEARCH(ID ,WORD) VALUES (1,'DENEME')"""
         cursor.execute(query)
-
-        connection.commit()
-
-    return redirect(url_for('home_page'))
-
-@app.route('/postTable')
-def create_table_for_post():
-    with aligramdb.connect(app.config['dsn']) as connection:
-        cursor = connection.cursor()
-
+        
         query="""DROP TABLE IF EXISTS POST"""
         cursor.execute(query)
 
@@ -90,6 +81,8 @@ def create_table_for_post():
         connection.commit()
 
     return redirect(url_for('home_page'))
+
+
 
 if __name__ == '__main__':
     VCAP_APP_PORT = os.getenv('VCAP_APP_PORT')
