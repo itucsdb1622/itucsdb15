@@ -68,7 +68,6 @@ def create_tables_search():
 
         query="""INSERT INTO SEARCH(ID ,WORD) VALUES (1,'DENEME')"""
         cursor.execute(query)
-<<<<<<< HEAD
 
         connection.commit()
 
