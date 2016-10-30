@@ -114,13 +114,13 @@ def create_table_for_user_images():
     with aligramdb.connect(app.config['dsn']) as connection:
         cursor = connection.cursor()
 
-        query="""DROP TABLE IF EXISTS images"""
+        query="""DROP TABLE IF EXISTS images_tb"""
         cursor.execute(query)
 
-        query="""CREATE TABLE images(imageID int not null primary key,imageName nvarchar(100),imageContent varbinary(max))"""
+        query="""CREATE TABLE images_tb(imageID int not null primary key,imageName VARCHAR(50),imageContent varbinary(max))"""
         cursor.execute(query)
 
-        query="""INSERT INTO images(imageID ,imageName, imageContent) VALUES (1,'adem','yenice')"""
+        query="""INSERT INTO images_tb(imageID ,imageName) VALUES (1,'adem')"""
         cursor.execute(query)
 
         connection.commit()
