@@ -144,7 +144,7 @@ def create_table_for_events():
 
         connection.commit()
 
-        return redirect(url_for('home_page'))
+    return redirect(url_for('home_page'))
 
 
 if __name__ == '__main__':
