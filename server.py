@@ -117,10 +117,10 @@ def create_table_for_user_images():
         query="""DROP TABLE IF EXISTS images_tb"""
         cursor.execute(query)
 
-        query="""CREATE TABLE images_tb(imageID int not null primary key,imageName VARCHAR(50),imageContent varbinary(max))"""
+        query="""CREATE TABLE images_tb(imageID INTEGER NOT NULL,imageName VARCHAR(50),imageContent VARCHAR(10))"""
         cursor.execute(query)
 
-        query="""INSERT INTO images_tb(imageID ,imageName) VALUES (1,'adem')"""
+        query="""INSERT INTO images_tb(imageID ,imageName, imageContent) VALUES (1,'adem','yenice')"""
         cursor.execute(query)
 
         connection.commit()
