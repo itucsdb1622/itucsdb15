@@ -73,6 +73,23 @@ def create_table_for_search():
 
     return redirect(url_for('home_page'))
 
+@app.route('/postTable')
+def create_table_for_search():
+    with aligramdb.connect(app.config['dsn']) as connection:
+        cursor = connection.cursor()
+
+        query="""DROP TABLE IF EXISTS POST"""
+        cursor.execute(query)
+
+        query="""CREATE TABLE POST(ID INTEGER,MESSAGE VARCHAR(50), USER VARCHAR(50))"""
+        cursor.execute(query)
+
+        query="""INSERT INTO SEARCH(ID ,WORD,USER) VALUES (1,'First Post','Berhak')"""
+        cursor.execute(query)
+
+        connection.commit()
+
+    return redirect(url_for('home_page'))
 
 if __name__ == '__main__':
     VCAP_APP_PORT = os.getenv('VCAP_APP_PORT')
