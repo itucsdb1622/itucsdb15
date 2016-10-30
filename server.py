@@ -57,8 +57,8 @@ def post():
 
 @app.route('/DbCreate')
 def create_tables_search():
-    with aligramdb.connect(app.config['dsn']) as connection:
-        cursor = connection.cursor()
+    with aligramdb.connect(app.config['dsn']) as connection_post:
+        cursor = connection_post.cursor()
 
         query="""DROP TABLE IF EXISTS SEARCH"""
         cursor.execute(query)
@@ -69,7 +69,7 @@ def create_tables_search():
         query="""INSERT INTO SEARCH(ID ,WORD) VALUES (1,'DENEME')"""
         cursor.execute(query)
 
-        connection.commit()
+        connection_post.commit()
 
     return redirect(url_for('home_page'))
 
