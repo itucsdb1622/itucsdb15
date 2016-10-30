@@ -73,6 +73,24 @@ def create_table_for_search():
 
     return redirect(url_for('home_page'))
 
+@app.route('/UserDbCreate')
+def create_table_for_search():
+    with aligramdb.connect(app.config['dsn']) as connection:
+        cursor = connection.cursor()
+
+        query="DROP TABLE IF EXISTS USER"
+        cursor.execute(query)
+
+        query="CREATE TABLE USER (ID VARCHAR(100) NOT NULL,Firstname VARCHAR(40),Lastname VARCHAR(40),Age int,Gender VARCHAR(10),Email VARCHAR(100),PRIMARY KEY (ID))"
+        cursor.execute(query)
+
+        query="INSERT INTO SEARCH(ID ,Firstname, Lastname) VALUES (1,'kerim','yildirim')"
+        cursor.execute(query)
+
+        connection.commit()
+
+    return redirect(url_for('home_page'))
+
 @app.route('/postTable')
 def create_table_for_post():
     with aligramdb.connect(app.config['dsn']) as connection:
