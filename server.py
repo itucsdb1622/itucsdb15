@@ -117,7 +117,7 @@ def create_table_for_user_images():
         query="""DROP TABLE IF EXISTS images_tb"""
         cursor.execute(query)
 
-        query="""CREATE TABLE images_tb(imageID INTEGER NOT NULL,imageName VARCHAR(50),imageContent VARCHAR(10))"""
+        query="""CREATE TABLE images_tb(imageID INTEGER NOT NULL,imageName VARCHAR(50),imageContent VARCHAR(100))"""
         cursor.execute(query)
 
         query="""INSERT INTO images_tb(imageID ,imageName, imageContent) VALUES (1,'adem','yenice')"""
@@ -150,7 +150,7 @@ def create_table_for_events():
 if __name__ == '__main__':
     VCAP_APP_PORT = os.getenv('VCAP_APP_PORT')
     if VCAP_APP_PORT is not None:
-        port, debug = int(VCAP_APP_PORT), False 
+        port, debug = int(VCAP_APP_PORT), False
     else:
         port, debug = 5000, True
     VCAP_SERVICES = os.getenv('VCAP_SERVICES')
