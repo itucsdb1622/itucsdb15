@@ -240,11 +240,49 @@ def create_table_for_user():
 
     return redirect(url_for('home_page'))
 
+## Added by Adem(yenicead)
+@app.route('/UserImages')
+def create_table_for_user_images():
+    with aligramdb.connect(app.config['dsn']) as connection:
+        cursor = connection.cursor()
+
+        query="""DROP TABLE IF EXISTS images_tb"""
+        cursor.execute(query)
+
+        query="""CREATE TABLE images_tb(imageID INTEGER NOT NULL,imageName VARCHAR(50),imageContent VARCHAR(100))"""
+        cursor.execute(query)
+
+        query="""INSERT INTO images_tb(imageID ,imageName, imageContent) VALUES (1,'adem','yenice')"""
+        cursor.execute(query)
+
+        connection.commit()
+
+        return redirect(url_for('home_page'))
+
+# Added by Umut(umutyazgan)
+@app.route('/Events')
+def create_table_for_events():
+    with aligramdb.connect(app.config['dsn']) as connection:
+        cursor = connection.cursor()
+
+        query="""DROP TABLE IF EXISTS events_tb"""
+        cursor.execute(query)
+
+        query="""CREATE TABLE events_tb(ID INTEGER NOT NULL,eventName VARCHAR(50),eventDate VARCHAR(20),eventLocation VARCHAR(50))"""
+        cursor.execute(query)
+
+        query="""INSERT INTO events_tb(ID, eventName, eventDate, eventLocation) VALUES (1,'Birthday Party','09.12.2016','Not decided yet')"""
+        cursor.execute(query)
+
+        connection.commit()
+
+    return redirect(url_for('home_page'))
+
 
 if __name__ == '__main__':
     VCAP_APP_PORT = os.getenv('VCAP_APP_PORT')
     if VCAP_APP_PORT is not None:
-        port, debug = int(VCAP_APP_PORT), False 
+        port, debug = int(VCAP_APP_PORT), False
     else:
         port, debug = 5000, True
     VCAP_SERVICES = os.getenv('VCAP_SERVICES')
