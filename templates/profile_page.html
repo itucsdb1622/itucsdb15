@@ -1,7 +1,38 @@
 {% extends 'template.html' %}
 
 {% block content %}
-<h2>Bu sayfa kullanici profili sayfasidir</h2>
+	{% if session != None %}
+		<div class="container">
+	     
+	    <p> If you want to update your account info, you can do it by clicking on the button below </p>
+	    <button id="update" class="float-left submit-button" >Update</button>
+
+		<script type="text/javascript">
+		    document.getElementById("update").onclick = function () {
+		        location.href = "../update_user";
+		    };
+		</script>
+
+		<p> If you want to delete your account info, you can do it by clicking on the button below </p>
+	    <button id="delete" class="float-left submit-button" >Delete your account</button>
+
+		<script type="text/javascript">
+		    document.getElementById("delete").onclick = function () {
+		        location.href = "../delete_user";
+		    };
+		</script>
+
+	      
+	    </div>
+
+	{% elif session == None %}
+		<div class="container">
+	     
+	    <p> You are not logged in </p>
+	      
+	    </div>
+
+    {% endif %}
 {% endblock %}
 
 
