@@ -54,7 +54,7 @@ def home_page():
         for row in data:
             if username == row[0] and password == row[1]:
                 exists = True
-        
+
         if exists == False:
             error = 'Invalid Credentials. Please try again.'
             session['loggedUser'] = None
@@ -96,7 +96,7 @@ def update_user():
         for row in data:
             if new_username == row[0]:
                 exists = True
-        
+
         if exists == False:
             with aligramdb.connect(app.config['dsn']) as connection:
                 cursor = connection.cursor()
@@ -148,7 +148,7 @@ def register():
     error = None
     if request.method == 'POST':
 
-        username =  request.form['username'] 
+        username =  request.form['username']
         password = request.form['password']
 
         exists = False
@@ -159,7 +159,7 @@ def register():
             error = 'Username is in use! Please choose another username'
 
         else:
-        
+
             with aligramdb.connect(app.config['dsn']) as connection:
 
                 cursor = connection.cursor()
@@ -169,7 +169,7 @@ def register():
                 counter = str(int(data[0][0]) + 1)
 
                 cursor.execute("INSERT INTO user_tb(ID, Username, Password) VALUES ('%s', '%s', '%s')"%(counter, username, password))
-                
+
                 connection.commit()
 
                 return redirect(url_for('home_page'))
@@ -291,7 +291,7 @@ def create_table_for_events():
 if __name__ == '__main__':
     VCAP_APP_PORT = os.getenv('VCAP_APP_PORT')
     if VCAP_APP_PORT is not None:
-        port, debug = int(VCAP_APP_PORT), False
+        port, debug = int(VCAP_APP_PORT), True
     else:
         port, debug = 5000, True
     VCAP_SERVICES = os.getenv('VCAP_SERVICES')
