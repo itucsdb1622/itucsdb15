@@ -18,7 +18,6 @@ app = Flask(__name__)
 app.config['SESSION_TYPE'] = 'aligram'
 app.config['SECRET_KEY'] = 'itucsdb1622'
 
-first_time_run_project = True
 
 def get_elephantsql_dsn(vcap_services):
     """Returns the data source name for ElephantSQL."""
@@ -32,12 +31,6 @@ def get_elephantsql_dsn(vcap_services):
 
 @app.route('/', methods=['GET', 'POST'])
 def home_page():
-    global first_time_run_project
-    if first_time_run_project == True:
-        session['loggedUser'] = None
-        session['loggedUserID'] = None
-        session['loginStatus'] = None
-        first_time_run_project = False
 
     with aligramdb.connect(app.config['dsn']) as connection:
         cursor = connection.cursor()
@@ -74,7 +67,10 @@ def home_page():
 
             return redirect(url_for('home_page'))
     now = datetime.datetime.now()
-    return render_template('home.html', error=error, session=session['loginStatus'], current_time=now.ctime())
+    try:
+        return render_template('home.html', error=error, session=session['loginStatus'], current_time=now.ctime())
+    except:
+        return render_template('home.html', error=error, session=None, current_time=now.ctime())
 
 @app.route('/profile')
 def profile_page():
