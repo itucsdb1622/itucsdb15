@@ -18,6 +18,8 @@ app = Flask(__name__)
 app.config['SESSION_TYPE'] = 'aligram'
 app.config['SECRET_KEY'] = 'itucsdb1622'
 
+first_time_run_project = True
+
 def get_elephantsql_dsn(vcap_services):
     """Returns the data source name for ElephantSQL."""
     parsed = json.loads(vcap_services)
@@ -30,6 +32,13 @@ def get_elephantsql_dsn(vcap_services):
 
 @app.route('/', methods=['GET', 'POST'])
 def home_page():
+    global first_time_run_project
+    if first_time_run_project == True:
+        session['loggedUser'] = None
+        session['loggedUserID'] = None
+        session['loginStatus'] = None
+        first_time_run_project = False
+
     with aligramdb.connect(app.config['dsn']) as connection:
         cursor = connection.cursor()
 
@@ -282,7 +291,7 @@ def create_table_for_events():
 if __name__ == '__main__':
     VCAP_APP_PORT = os.getenv('VCAP_APP_PORT')
     if VCAP_APP_PORT is not None:
-        port, debug = int(VCAP_APP_PORT), True
+        port, debug = int(VCAP_APP_PORT), False
     else:
         port, debug = 5000, True
     VCAP_SERVICES = os.getenv('VCAP_SERVICES')
