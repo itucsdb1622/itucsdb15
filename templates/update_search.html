@@ -1,0 +1,21 @@
+{% extends 'template.html' %}
+
+{% block content %}
+
+
+
+      {% if message %}
+         {{ message }}
+      {% endif %}
+	<div class="container">
+      <br>
+      <form action="" method="post">
+      	<input type="text" placeholder="ID of the search you want to update" name="id" value="{{
+          request.form.id }}">
+        <input type="text" placeholder="New Text" name="text" value="{{
+          request.form.text }}">
+        <input class="btn btn-default" type="submit" value="search_update">
+
+      </form>
+    </div>
+{% endblock %}
