@@ -1,5 +1,33 @@
 {% extends 'template.html' %}
 
 {% block content %}
-<h2>Bu sayfa arama sonuclari olacak</h2>
+
+	<div id="search-form">
+		<form action="" method="post">
+		<input type="text" name="search" value="{{
+          request.form.search }}"/>
+		<input class="btnSearch" type="submit" value="Search"/>
+        </form>
+	</div>
+
+	{% if message %}
+	{{message}}
+	{% endif %}
+	<p> To update a search </p>
+	    <button id="update" class="float-left submit-button" >Update Search</button>
+
+		<script type="text/javascript">
+		    document.getElementById("update").onclick = function () {
+		        location.href = "../update_search";
+		    };
+		</script>
+
+		<p> Delete a search</p>
+	    <button id="delete" class="float-left submit-button" >Delete Search</button>
+
+		<script type="text/javascript">
+		    document.getElementById("delete").onclick = function () {
+		        location.href = "../delete_search";
+		    };
+		</script>
 {% endblock %}

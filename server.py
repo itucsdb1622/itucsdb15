@@ -24,9 +24,12 @@ def get_elephantsql_dsn(vcap_services):
     parsed = json.loads(vcap_services)
     uri = parsed["elephantsql"][0]["credentials"]["uri"]
     match = re.match('postgres://(.*?):(.*?)@(.*?)(:(\d+))?/(.*)', uri)
-    user, password, host, _, port, dbname = match.groups()
-    dsn = """user='{}' password='{}' host='{}' port={}
-             dbname='{}'""".format(user, password, host, port, dbname)
+    user, password, host, _, dbname = match.groups()
+    dsn = """user='{}' password='{}' host='{}'
+             dbname='{}'""".format(user, password, host, dbname)
+    #user, password, host, _, port, dbname = match.groups()
+    #dsn = """user='{}' password='{}' host='{}' port={}
+    #         dbname='{}'""".format(user, password, host, port, dbname)
     return dsn
 
 @app.route('/', methods=['GET', 'POST'])
@@ -182,10 +185,81 @@ def myGallery():
     now = datetime.datetime.now()
     return render_template('myGallery.html', current_time=now.ctime())
 
-@app.route('/search')
+@app.route('/search', methods=['GET', 'POST'])
 def search():
-    now = datetime.datetime.now()
-    return render_template('search.html', current_time=now.ctime())
+    message=" "
+
+    if request.method == 'POST':
+        word =  request.form['search']
+        with aligramdb.connect(app.config['dsn']) as connection:
+            cursor = connection.cursor()
+            query="""SELECT MAX(ID) FROM SEARCH ID"""
+            cursor.execute(query)
+            data = cursor.fetchall()
+            counter = int(data[0][0]) + 1
+
+            cursor.execute("INSERT INTO SEARCH(ID, WORD) VALUES ('%d', '%s')"%(counter, word))
+
+            connection.commit()
+    with aligramdb.connect(app.config['dsn']) as connection:
+        cursor = connection.cursor()
+
+        query="""SELECT * FROM SEARCH"""
+        cursor.execute(query)
+        data = cursor.fetchall()
+        for row in data:
+            message+=str(row[0])+" "+ row[1]+ "\n"
+
+    return render_template('search.html', message=message)
+
+@app.route('/update_search', methods=['GET', 'POST'])
+def update_search():
+    message=" "
+
+    if request.method == 'POST':
+        id = int(request.form['id'])
+        text = request.form['text']
+        with aligramdb.connect(app.config['dsn']) as connection:
+            cursor = connection.cursor()
+            query=""""""
+            cursor.execute("UPDATE SEARCH SET WORD = '%s' WHERE ID = '%d'"%(text, id))
+
+            connection.commit()
+    with aligramdb.connect(app.config['dsn']) as connection:
+        cursor = connection.cursor()
+
+        query="""SELECT * FROM SEARCH"""
+        cursor.execute(query)
+        data = cursor.fetchall()
+        for row in data:
+            message+=str(row[0])+" "+ row[1]+ "\n"
+
+
+    return render_template('update_search.html', message=message)
+
+@app.route('/delete_search', methods=['GET', 'POST'])
+def delete_search():
+    message=" "
+
+    if request.method == 'POST':
+        id = int(request.form['id_del'])
+        with aligramdb.connect(app.config['dsn']) as connection:
+            cursor = connection.cursor()
+            query=""""""
+            cursor.execute("DELETE FROM SEARCH WHERE ID = '%d'"%(id))
+
+            connection.commit()
+    with aligramdb.connect(app.config['dsn']) as connection:
+        cursor = connection.cursor()
+
+        query="""SELECT * FROM SEARCH"""
+        cursor.execute(query)
+        data = cursor.fetchall()
+        for row in data:
+            message+=str(row[0])+" "+ row[1]+ "\n"
+
+
+    return render_template('delete_search.html', message=message)
 
 @app.route('/post')
 def post():
@@ -203,7 +277,7 @@ def create_tables_search():
         query="""CREATE TABLE SEARCH(ID INTEGER,WORD VARCHAR(15))"""
         cursor.execute(query)
 
-        query="""INSERT INTO SEARCH(ID ,WORD) VALUES (1,'DENEME')"""
+        query="""INSERT INTO SEARCH(ID, WORD) VALUES (0, 'FIRST')"""
         cursor.execute(query)
 
         connection.commit()
@@ -294,8 +368,10 @@ if __name__ == '__main__':
     if VCAP_SERVICES is not None:
         app.config['dsn'] = get_elephantsql_dsn(VCAP_SERVICES)
     else:
-        app.config['dsn'] = """user='vagrant' password='vagrant'
-                               host='localhost' port=5432 dbname='itucsdb'"""
+        app.config['dsn'] = """user='suxlzcvz' password='Fn5SZ6FkjXt1qTZpq52uSqWfqX90S4yi'
+                               host='jumbo.db.elephantsql.com' dbname='suxlzcvz'"""
+        #app.config['dsn'] = """user='vagrant' password='vagrant'
+        #                       host='localhost' port=5432 dbname='itucsdb'"""
     app.run(host='0.0.0.0', port=port, debug=debug)
 
 
