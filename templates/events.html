@@ -1,0 +1,38 @@
+{% extends 'template.html' %}
+
+{% block content %}
+	
+{% if session == None %}
+	<div class="container">
+      <h1>List of events:</h1>
+      <br>
+<!--      <form action="" method="post">
+        <input type="text" placeholder="Username" name="username" value="{{
+          request.form.username }}">
+         <input type="password" placeholder="Password" name="password" value="{{
+          request.form.password }}">
+        <input class="btn btn-default" type="submit" value="Login">
+
+      </form>
+--!>
+    
+
+    {% if error %}
+        <p class="error"><strong>Error:</strong> {{ error }}
+      {% endif %}
+
+    <p>Create new event:</p>
+    <button id="addEvent" class="float-left submit-button" >Creae event</button>
+
+	<script type="text/javascript">
+	    document.getElementById("addEvent").onclick = function () {
+	        location.href = "/addEvent";
+	    };
+	</script>
+
+      
+    </div>
+    {% endif %}
+{% endblock %}
+
+

@@ -1,0 +1,21 @@
+
+{% extends 'template.html' %}
+
+{% block content %}
+	<div class="container">
+      <h1>Please fill in the blank fields below</h1>
+      <br>
+      <form action="" method="post">
+        <input type="text" placeholder="Event name" name="event_name" value="{{
+          request.form.event_name }}" required>
+         <input type="text" placeholder="Event date" name="event_date" value="{{
+          request.form.event_date }}" required>
+         <input type="text" placeholder="Event location" name="even_location" value="{{
+          request.form.event_location }}" required>
+        <input class="btn btn-default" type="submit" value="addEvent">
+      </form>
+      {% if error %}
+        <p class="error"><strong>Error:</strong> {{ error }}
+      {% endif %}
+    </div>
+{% endblock %}
