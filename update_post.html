@@ -1,0 +1,21 @@
+{% extends 'template.html' %}
+
+{% block content %}
+
+
+
+      {% if message %}
+         {{ message }}
+      {% endif %}
+	<div class="container">
+      <br>
+      <form action="" method="post">
+      	<input type="text" placeholder="ID of the post you want to update" name="id_post_update" value="{{
+          request.form.id_post_update }}">
+        <input type="text" placeholder="New Post" name="new_post_text" value="{{
+          request.form.new_post_text }}">
+        <input class="btn btn-default" type="submit" value="Update Post">
+
+      </form>
+    </div>
+{% endblock %}
