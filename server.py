@@ -391,7 +391,39 @@ def create_table_for_user_images():
         return redirect(url_for('home_page'))
 
 # Added by Umut(umutyazgan)
-@app.route('/Events')
+@app.route('/addEvent', methods=['GET', 'POST'])
+def add_event():
+    with aligramdb.connect(app.config['dsn']) as connection:
+        cursor = connection.cursor()
+
+        query="""SELECT eventName, eventDate, eventLocation FROM events_tb"""
+        cursor.execute(query)
+        data = cursor.fetchall()
+
+    error = None
+    if request.method == 'POST':
+
+        event_name =  request.form['event_name']
+        event_date = request.form['event_date']
+        event_location = request.form['event_location']
+
+        with aligramdb.connect(app.config['dsn']) as connection:
+
+            cursor = connection.cursor()
+            query="""SELECT MAX(ID) FROM event_tb ID"""
+            cursor.execute(query)
+            data = cursor.fetchall()
+#            counter = str(int(data[0][0]) + 1)
+            counter = int(data[0][0]) + 1
+            cursor.execute("INSERT INTO event_tb(ID, eventName, eventDate, eventLocation) VALUES ('%d', '%s', '%s', '%s')"%(counter, event_name, event_date, event_location))
+
+            connection.commit()
+
+#            return redirect(url_for('home_page'))
+
+    return render_template('addEvent.html', error=None)
+
+@app.route('/events')
 def create_table_for_events():
     with aligramdb.connect(app.config['dsn']) as connection:
         cursor = connection.cursor()
@@ -407,7 +439,8 @@ def create_table_for_events():
 
         connection.commit()
 
-    return redirect(url_for('home_page'))
+    now = datetime.datetime.now()
+    return render_template('events.html', session=None, current_time=now.ctime())
 
 
 if __name__ == '__main__':
