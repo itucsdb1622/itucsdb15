@@ -261,28 +261,80 @@ def delete_search():
 
     return render_template('delete_search.html', message=message)
 
-@app.route('/post')
+@app.route('/post', methods=['GET', 'POST'])
 def post():
-    now = datetime.datetime.now()
-    return render_template('post.html', current_time=now.ctime())
+    message=" "
 
-@app.route('/DbCreate')
-def create_tables_search():
+    if request.method == 'POST':
+        post_user =  request.form['post_user']
+        post_word = request.form['post_word']
+        with aligramdb.connect(app.config['dsn']) as connection:
+            cursor = connection.cursor()
+            query="""SELECT MAX(ID) FROM post_tb ID"""
+            cursor.execute(query)
+            data = cursor.fetchall()
+            counter = int(data[0][0]) + 1
+
+            cursor.execute("INSERT INTO post_tb(ID, SENDER, MESSAGE) VALUES ('%d', '%s','%s')"%(counter, post_user,post_word))
+
+            connection.commit()
     with aligramdb.connect(app.config['dsn']) as connection:
         cursor = connection.cursor()
 
-        query="""DROP TABLE IF EXISTS SEARCH"""
+        query="""SELECT * FROM post_tb"""
         cursor.execute(query)
+        data = cursor.fetchall()
+        for row in data:
+            message+=str(row[0])+" "+ row[1]+ " " + row[2]
 
-        query="""CREATE TABLE SEARCH(ID INTEGER,WORD VARCHAR(15))"""
+    return render_template('post.html', message=message)
+
+@app.route('/delete_post', methods=['GET', 'POST'])
+def delete_post():
+    message=" "
+
+    if request.method == 'POST':
+        id = int(request.form['id_post_delete'])
+        with aligramdb.connect(app.config['dsn']) as connection:
+            cursor = connection.cursor()
+            cursor.execute("DELETE FROM post_tb WHERE ID = '%d'"%(id))
+
+            connection.commit()
+    with aligramdb.connect(app.config['dsn']) as connection:
+        cursor = connection.cursor()
+
+        query="""SELECT * FROM post_tb"""
         cursor.execute(query)
+        data = cursor.fetchall()
+        for row in data:
+            message+=str(row[0])+" "+ row[1]+ " " + row[2]
 
-        query="""INSERT INTO SEARCH(ID, WORD) VALUES (0, 'FIRST')"""
+
+    return render_template('delete_post.html', message=message)
+
+@app.route('/update_post', methods=['GET', 'POST'])
+def update_post():
+    message=" "
+
+    if request.method == 'POST':
+        id = int(request.form['id_post_update'])
+        text = request.form['new_post_text']
+        with aligramdb.connect(app.config['dsn']) as connection:
+            cursor = connection.cursor()
+            cursor.execute("UPDATE post_tb SET MESSAGE = '%s' WHERE ID = '%d'"%(text, id))
+
+            connection.commit()
+    with aligramdb.connect(app.config['dsn']) as connection:
+        cursor = connection.cursor()
+
+        query="""SELECT * FROM post_tb"""
         cursor.execute(query)
+        data = cursor.fetchall()
+        for row in data:
+            message+=str(row[0])+" "+ row[1]+ " " + row[2]
 
-        connection.commit()
 
-    return redirect(url_for('home_page'))
+    return render_template('update_post.html', message=message)
 
 @app.route('/postTable')
 def create_table_for_post():
@@ -291,10 +343,10 @@ def create_table_for_post():
         query="""DROP TABLE IF EXISTS post_tb"""
         cursor.execute(query)
 
-        query="""CREATE TABLE post_tb(ID INTEGER,MESSAGE VARCHAR(50))"""
+        query="""CREATE TABLE post_tb(ID INTEGER,SENDER VARCHAR(15),MESSAGE VARCHAR(50))"""
         cursor.execute(query)
 
-        query="""INSERT INTO post_tb(ID ,MESSAGE) VALUES (1,'First Post')"""
+        query="""INSERT INTO post_tb(ID, SENDER ,MESSAGE) VALUES (1,'First user','First Post')"""
         cursor.execute(query)
 
         connection.commit()
