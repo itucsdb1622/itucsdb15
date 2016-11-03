@@ -1,5 +1,34 @@
 {% extends 'template.html' %}
 
 {% block content %}
-<h2>Gonderiler burada olacak</h2>
+<div id="search-form">
+		<form action="" method="post">
+		<input type="text" name="post_user" value="{{
+          request.form.post_user }}"/>
+        <input type="text" name="post_word" value="{{
+          request.form.post_word }}"/>
+		<input class="float-left submit-button" type="submit" value="Post"/>
+        </form>
+	</div>
+
+	{% if message %}
+	{{message}}
+	{% endif %}
+	<p> To update a search </p>
+	    <button id="update" class="float-left submit-button" >Update a Post</button>
+
+		<script type="text/javascript">
+		    document.getElementById("update").onclick = function () {
+		        location.href = "../update_post";
+		    };
+		</script>
+
+		<p> Delete a search</p>
+	    <button id="delete" class="float-left submit-button" >Delete a Post</button>
+
+		<script type="text/javascript">
+		    document.getElementById("delete").onclick = function () {
+		        location.href = "../delete_post";
+		    };
+		</script>
 {% endblock %}
