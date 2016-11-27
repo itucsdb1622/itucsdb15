@@ -1,0 +1,22 @@
+{% extends 'template.html' %}
+
+{% block content %}
+
+	<div class="container">
+      <form action="" method="post">
+        <input type="text" placeholder="Facebook account" name="facebook account" value="{{
+          request.form.facebook_account }}">
+          <br>
+          <input type="text" placeholder="Twitter account" name="twitter account" value="{{
+          request.form.twitter_account }}">
+          <br>
+          <input type="text" placeholder="Instagram account" name="instagram account" value="{{
+          request.form.instagram_account }}">
+          <br>
+        <input class="btn btn-default" type="submit" value="Submit">
+
+      </form>
+
+
+    </div>
+{% endblock %}
