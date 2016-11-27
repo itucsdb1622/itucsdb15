@@ -77,8 +77,32 @@ def home_page():
 
 @app.route('/profile')
 def profile_page():
+    with aligramdb.connect(app.config['dsn']) as connection:
+        cursor = connection.cursor()
+
+        cursor.execute("SELECT Social_ID FROM user_tb WHERE Username = '%s' "%session['loggedUser'])
+        data = cursor.fetchall()
+
+        social_id = None
+
+        if len(data) > 0:
+            social_id = data[0][0]
+
+        facebook_acc = ''
+        twitter_acc = ''
+        instagram_acc = ''
+
+        if social_id != None:
+            cursor.execute("SELECT facebook, twitter, instagram FROM social_accounts_tb WHERE ID = '%s' "%social_id)
+            data = cursor.fetchall()
+
+            facebook_acc = data[0][0]
+            twitter_acc = data[0][1]
+            instagram_acc = data[0][2]
+
+
     now = datetime.datetime.now()
-    return render_template('profile_page.html', session=session['loginStatus'], current_time=now.ctime())
+    return render_template('profile_page.html', session=session['loginStatus'], facebook = facebook_acc, twitter = twitter_acc, instagram = instagram_acc, current_time=now.ctime())
 
 @app.route('/update_user', methods=['GET', 'POST'])
 def update_user():
@@ -111,6 +135,54 @@ def update_user():
                 error = 'the new username already exists'
     now = datetime.datetime.now()
     return render_template('update_user.html', error=error, current_time=now.ctime())
+
+@app.route('/social_accounts', methods=['GET', 'POST'])
+def social_accounts():
+    with aligramdb.connect(app.config['dsn']) as connection:
+        cursor = connection.cursor()
+
+        cursor.execute("SELECT Social_ID FROM user_tb WHERE Username = '%s' "%session['loggedUser'])
+        data = cursor.fetchall()
+
+        error = None
+        if request.method == 'POST':
+
+            facebook_acc = request.form['facebook account']
+            twitter_acc = request.form['twitter account']
+            instagram_acc = request.form['instagram account']
+            if len(data) > 0:
+                if data[0][0] == None:
+                    cursor.execute("INSERT INTO social_accounts_tb(facebook, twitter, instagram) VALUES ('%s', '%s', '%s') RETURNING id"%(facebook_acc, twitter_acc, instagram_acc))
+                    
+                    cursor.execute("SELECT lastval()")
+                    social_id = cursor.fetchall()
+                    social_id = social_id[0][0]
+                    
+                    cursor.execute("UPDATE user_tb SET Social_ID = '%d' WHERE Username = '%s' "%(social_id, session['loggedUser']))
+                
+                else:
+                    cursor.execute("UPDATE social_accounts_tb SET facebook ='%s', twitter = '%s', instagram = '%s' WHERE ID='%s' "%(facebook_acc, twitter_acc, instagram_acc, data[0][0]))
+                return redirect(url_for('profile_page'))
+
+    now = datetime.datetime.now()
+    return render_template('social_accounts.html', current_time=now.ctime())
+
+@app.route('/remove_social_accounts', methods=['GET', 'POST'])
+def remove_social_accounts():
+    with aligramdb.connect(app.config['dsn']) as connection:
+        cursor = connection.cursor()
+
+        if request.method == 'POST':
+            cursor.execute("SELECT Social_ID FROM user_tb WHERE Username = '%s' "%session['loggedUser'])
+            data = cursor.fetchall()
+            if len(data) > 0:
+                print ('i am in')
+                if data[0][0] != None:
+                    cursor.execute("DELETE FROM social_accounts_tb WHERE ID = '%d' "%int(data[0][0]))
+                    return redirect(url_for('profile_page'))
+        
+    now = datetime.datetime.now()
+    return render_template('remove_social_accounts.html', current_time=now.ctime())
 
 @app.route('/delete_user', methods=['GET', 'POST'])
 def delete_user():
@@ -365,7 +437,13 @@ def create_table_for_user():
         query = """DROP TABLE IF EXISTS user_tb"""
         cursor.execute(query)
 
-        query="""CREATE TABLE user_tb(ID SERIAL,Username VARCHAR(40), Password VARCHAR(10), Firstname VARCHAR(40),Lastname VARCHAR(40), Age int,Gender VARCHAR(10),Email VARCHAR(100), PRIMARY KEY (ID), UNIQUE(Username))"""
+        query = """DROP TABLE IF EXISTS social_accounts_tb"""
+        cursor.execute(query)
+
+        query="""CREATE TABLE social_accounts_tb(ID SERIAL, facebook VARCHAR(100), twitter VARCHAR(100), instagram VARCHAR(100), PRIMARY KEY (ID))"""
+        cursor.execute(query)
+
+        query="""CREATE TABLE user_tb(ID SERIAL,Username VARCHAR(40), Password VARCHAR(10), Firstname VARCHAR(40),Lastname VARCHAR(40), Age int,Gender VARCHAR(10),Email VARCHAR(100), Social_ID INTEGER REFERENCES social_accounts_tb(ID) ON DELETE SET NULL, PRIMARY KEY (ID), UNIQUE(Username))"""
         cursor.execute(query)
 
         query="""INSERT INTO user_tb(Username, Password) VALUES ('kerim','test')"""

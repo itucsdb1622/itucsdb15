@@ -22,6 +22,43 @@
 		    };
 		</script>
 
+		<p> If you want to add or remove your social media account info, you can do it by clicking on the buttons below </p>
+	    <button id="add social accounts" class="float-left submit-button" >Add social media account</button>
+	    <button id="remove social account info" class="float-left submit-button" >Remove social media info</button>
+
+		<script type="text/javascript">
+		    document.getElementById("add social accounts").onclick = function () {
+		        location.href = "../social_accounts";
+		    };
+
+		    document.getElementById("remove social account info").onclick = function () {
+		        location.href = "../remove_social_accounts";
+		    };
+		</script>
+
+		<style type="text/css">
+			table, th, td {
+			    border: 1px solid black;
+			    padding: 5px;
+			}
+			table {
+			    border-spacing: 15px;
+			}
+		</style>
+
+		<table style="width:100%">
+		  <tr>
+		    <th>Facebook</th>
+		    <th>Twitter</th> 
+		    <th>Instagram</th>
+		  </tr>
+		  <tr>
+		    <td>{{facebook}}</td>
+		    <td>{{twitter}}</td>
+		    <td>{{instagram}}</td>
+		  </tr>
+		</table>
+
 	      
 	    </div>
 
