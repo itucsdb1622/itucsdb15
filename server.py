@@ -152,7 +152,7 @@ def register():
 
         exists = False
         for row in data:
-            if username == row[0] and password == row[1]:
+            if username == row[0]:
                 exists = True
         if exists:
             error = 'Username is in use! Please choose another username'
