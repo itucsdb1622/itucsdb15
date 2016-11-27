@@ -119,7 +119,7 @@ def delete_user():
     error = None
     if request.method == 'POST':
         with aligramdb.connect(app.config['dsn']) as connection:
-            if(request.form['id'] == session['loggedUserID']):
+            if(int(request.form['id']) == session['loggedUserID']):
                 cursor = connection.cursor()
 
                 cursor.execute("DELETE FROM user_tb WHERE ID='%s' "%(session['loggedUserID']))
@@ -162,18 +162,22 @@ def register():
             with aligramdb.connect(app.config['dsn']) as connection:
 
                 cursor = connection.cursor()
-                query="""SELECT MAX(ID) FROM user_tb ID"""
-                cursor.execute(query)
-                data = cursor.fetchall()
-                counter = str(int(data[0][0]) + 1)
 
-                cursor.execute("INSERT INTO user_tb(ID, Username, Password) VALUES ('%s', '%s', '%s')"%(counter, username, password))
+                cursor.execute("INSERT INTO user_tb(Username, Password) VALUES ('%s', '%s')"%(username, password))
 
                 connection.commit()
 
                 return redirect(url_for('home_page'))
 
     return render_template('register.html', error=error)
+
+@app.route('/logout')
+def logout():
+    session['loggedUser'] = None
+    session['loggedUserID'] = None
+    session['loginStatus'] = None    
+
+    return redirect(url_for('home_page'))
 
 @app.route('/friends')
 def friends_page():
@@ -361,10 +365,10 @@ def create_table_for_user():
         query = """DROP TABLE IF EXISTS user_tb"""
         cursor.execute(query)
 
-        query="""CREATE TABLE user_tb(ID VARCHAR(100) NOT NULL,Username VARCHAR(40), Password VARCHAR(10), Firstname VARCHAR(40),Lastname VARCHAR(40), Age int,Gender VARCHAR(10),Email VARCHAR(100), PRIMARY KEY (ID), UNIQUE(Username))"""
+        query="""CREATE TABLE user_tb(ID SERIAL,Username VARCHAR(40), Password VARCHAR(10), Firstname VARCHAR(40),Lastname VARCHAR(40), Age int,Gender VARCHAR(10),Email VARCHAR(100), PRIMARY KEY (ID), UNIQUE(Username))"""
         cursor.execute(query)
 
-        query="""INSERT INTO user_tb(ID ,Username, Password) VALUES (1,'kerim','test')"""
+        query="""INSERT INTO user_tb(Username, Password) VALUES ('kerim','test')"""
         cursor.execute(query)
 
         connection.commit()

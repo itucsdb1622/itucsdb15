@@ -3,36 +3,47 @@
 {% block content %}
 	
 	{% if session == None %}
-	<div class="container">
-      <h1>Please login</h1>
-      <br>
-      <form action="" method="post">
-        <input type="text" placeholder="Username" name="username" value="{{
-          request.form.username }}">
-         <input type="password" placeholder="Password" name="password" value="{{
-          request.form.password }}">
-        <input class="btn btn-default" type="submit" value="Login">
+  	<div class="container">
+        <h1>Please login</h1>
+        <br>
+        <form action="" method="post">
+          <input type="text" placeholder="Username" name="username" value="{{
+            request.form.username }}">
+           <input type="password" placeholder="Password" name="password" value="{{
+            request.form.password }}">
+          <input class="btn btn-default" type="submit" value="Login">
 
-      </form>
-
-    
-
-    {% if error %}
-        <p class="error"><strong>Error:</strong> {{ error }}
-      {% endif %}
-
-    <p> If you have not already an account, you can register by clickin on the button below </p>
-    <button id="register" class="float-left submit-button" >Register</button>
-
-	<script type="text/javascript">
-	    document.getElementById("register").onclick = function () {
-	        location.href = "/register";
-	    };
-	</script>
+        </form>
 
       
-    </div>
-    {% endif %}
+
+      {% if error %}
+          <p class="error"><strong>Error:</strong> {{ error }}
+        {% endif %}
+
+      <p> If you have not already an account, you can register by clickin on the button below </p>
+      <button id="register" class="float-left submit-button" >Register</button>
+
+    	<script type="text/javascript">
+    	    document.getElementById("register").onclick = function () {
+    	        location.href = "/register";
+    	    };
+    	</script>
+
+        
+      </div>
+
+  {% elif session != None %}
+  
+    <button id="logout" class="float-left submit-button" >Logout</button>
+    <script type="text/javascript">
+          document.getElementById("logout").onclick = function () {
+              location.href = "/logout";
+          };
+      </script>
+
+
+  {% endif %}
 {% endblock %}
 
 
