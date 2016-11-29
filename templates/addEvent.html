@@ -10,9 +10,9 @@
           request.form.event_name }}" required>
          <input type="text" placeholder="Event date" name="event_date" value="{{
           request.form.event_date }}" required>
-         <input type="text" placeholder="Event location" name="even_location" value="{{
+         <input type="text" placeholder="Event location" name="event_location" value="{{
           request.form.event_location }}" required>
-        <input class="btn btn-default" type="submit" value="addEvent">
+        <input class="btn btn-default" type="submit" value="Add Event">
       </form>
       {% if error %}
         <p class="error"><strong>Error:</strong> {{ error }}

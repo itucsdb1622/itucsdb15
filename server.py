@@ -14,7 +14,7 @@ from psycopg2.psycopg1 import connection, cursor
 import uuid
 
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static')
 app.config['SESSION_TYPE'] = 'aligram'
 app.config['SECRET_KEY'] = 'itucsdb1622'
 
@@ -434,7 +434,7 @@ def create_table_for_user():
     with aligramdb.connect(app.config['dsn']) as connection:
         cursor = connection.cursor()
 
-        query = """DROP TABLE IF EXISTS user_tb"""
+        query = """DROP TABLE IF EXISTS user_tb CASCADE"""
         cursor.execute(query)
 
         query = """DROP TABLE IF EXISTS social_accounts_tb"""
@@ -475,54 +475,153 @@ def create_table_for_user_images():
 # Added by Umut(umutyazgan)
 @app.route('/addEvent', methods=['GET', 'POST'])
 def add_event():
-    with aligramdb.connect(app.config['dsn']) as connection:
-        cursor = connection.cursor()
-
-        query="""SELECT eventName, eventDate, eventLocation FROM events_tb"""
-        cursor.execute(query)
-        data = cursor.fetchall()
-
-    error = None
     if request.method == 'POST':
 
         event_name =  request.form['event_name']
         event_date = request.form['event_date']
         event_location = request.form['event_location']
+        userID = session["loggedUserID"]
 
         with aligramdb.connect(app.config['dsn']) as connection:
 
             cursor = connection.cursor()
-            query="""SELECT MAX(ID) FROM event_tb ID"""
-            cursor.execute(query)
-            data = cursor.fetchall()
-#            counter = str(int(data[0][0]) + 1)
-            counter = int(data[0][0]) + 1
-            cursor.execute("INSERT INTO event_tb(ID, eventName, eventDate, eventLocation) VALUES ('%d', '%s', '%s', '%s')"%(counter, event_name, event_date, event_location))
+            cursor.execute("""INSERT INTO events_tb
+                                 (userID, eventName, eventDate, eventLocation) 
+                              VALUES 
+                                 ('%d', '%s', '%s', '%s')"""
+                            %(userID, event_name, event_date, event_location))
 
             connection.commit()
 
-#            return redirect(url_for('home_page'))
+            return redirect('events')
 
     return render_template('addEvent.html', error=None)
+
+@app.route('/events/<event_id>', methods=['GET'])
+def display_event(event_id):
+
+    with aligramdb.connect(app.config['dsn']) as connection:
+        cursor = connection.cursor()
+        query = """SELECT * FROM events_tb WHERE ID = {}""".format(event_id)
+        cursor.execute(query)
+        event = cursor.fetchone()
+        query = """SELECT * FROM event_pics_tb 
+                       WHERE event_id = %s"""
+        data = (event_id,)
+        cursor.execute(query, data)
+        event_pics = cursor.fetchall()
+
+    return render_template('manage_event.html', event=event, event_pics=event_pics)
+
+@app.route('/events/<event_id>/delete', methods=['POST'])
+def delete_event(event_id):
+    with aligramdb.connect(app.config['dsn']) as connection:
+        cursor = connection.cursor()
+        query = """DELETE FROM events_tb WHERE ID = {}""".format(event_id)
+        cursor.execute(query)
+    
+    return redirect('events')
+
+@app.route('/events/<event_id>/update', methods=['POST'])
+def update_event(event_id):
+
+    with aligramdb.connect(app.config['dsn']) as connection:
+        cursor = connection.cursor()
+        event_name =  request.form['event_name']
+        event_date = request.form['event_date']
+        event_location = request.form['event_location']
+            
+        query = """UPDATE events_tb 
+                   SET eventname = %s, eventdate = %s, eventlocation = %s
+                   WHERE ID = %s"""
+        data = (event_name, event_date, event_location, event_id)
+        cursor.execute(query, data)
+    
+    return redirect('events')
+
+@app.route('/events/<event_id>/add_picture', methods=['GET', 'POST'])
+def add_picture_to_event(event_id):
+    
+    if request.method == 'POST':
+
+        with aligramdb.connect(app.config['dsn']) as connection:
+            cursor = connection.cursor()
+            image_url = request.form['image_url']
+            query = """INSERT INTO event_pics_tb (image_url, event_id)
+                           VALUES (%s, %s)"""
+            data = (image_url, event_id)
+            cursor.execute(query, data)
+    
+            return redirect('events/%s' % event_id)
+
+    return render_template('add_picture_to_event.html', event_id=event_id)
+
+@app.route('/events/<event_id>/images/<image_id>', methods=['GET'])
+def display_image(event_id, image_id):
+
+    with aligramdb.connect(app.config['dsn']) as connection:
+        cursor = connection.cursor()
+        query = """SELECT * FROM event_pics_tb WHERE ID = {}""".format(image_id)
+        cursor.execute(query)
+        image = cursor.fetchone()
+
+    return render_template('manage_image.html', image=image, event_id=event_id)
+
+@app.route('/events/<event_id>/images/<image_id>/delete', methods=['POST'])
+def delete_image(event_id, image_id):
+    with aligramdb.connect(app.config['dsn']) as connection:
+        cursor = connection.cursor()
+        query = """DELETE FROM event_pics_tb WHERE ID = {}""".format(image_id)
+        cursor.execute(query)
+    
+    return redirect('events/%s' % event_id)
+
+@app.route('/events/<event_id>/images/<image_id>/update', methods=['POST'])
+def update_image(event_id, image_id):
+
+    with aligramdb.connect(app.config['dsn']) as connection:
+        cursor = connection.cursor()
+        image_url =  request.form['image_url']
+            
+        query = """UPDATE event_pics_tb 
+                   SET image_url = %s
+                   WHERE ID = %s"""
+        data = (image_url, image_id)
+        cursor.execute(query, data)
+    
+    return redirect('events/%s' % event_id)
 
 @app.route('/events')
 def create_table_for_events():
     with aligramdb.connect(app.config['dsn']) as connection:
         cursor = connection.cursor()
 
-        query="""DROP TABLE IF EXISTS events_tb"""
+        query="""CREATE TABLE IF NOT EXISTS events_tb(
+                    ID              SERIAL PRIMARY KEY,
+                    userID          INTEGER NOT NULL REFERENCES user_tb (ID) 
+                                    ON DELETE CASCADE ON UPDATE CASCADE,
+                    eventName       VARCHAR(50),
+                    eventDate       VARCHAR(20),
+                    eventLocation   VARCHAR(50))"""
+
         cursor.execute(query)
 
-        query="""CREATE TABLE events_tb(ID INTEGER NOT NULL,eventName VARCHAR(50),eventDate VARCHAR(20),eventLocation VARCHAR(50))"""
-        cursor.execute(query)
 
-        query="""INSERT INTO events_tb(ID, eventName, eventDate, eventLocation) VALUES (1,'Birthday Party','09.12.2016','Not decided yet')"""
+        query="""SELECT * FROM events_tb"""
+        cursor.execute(query)
+        events = cursor.fetchall()
+
+        query = """CREATE TABLE IF NOT EXISTS event_pics_tb(
+                       ID           SERIAL PRIMARY KEY,
+                       image_url    VARCHAR(256),
+                       event_id     INTEGER NOT NULL REFERENCES events_tb (ID)
+                                    ON DELETE CASCADE ON UPDATE CASCADE)"""
         cursor.execute(query)
 
         connection.commit()
 
     now = datetime.datetime.now()
-    return render_template('events.html', session=None, current_time=now.ctime())
+    return render_template('events.html', session=None, current_time=now.ctime(), events=events)
 
 
 if __name__ == '__main__':

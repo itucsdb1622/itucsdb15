@@ -6,23 +6,29 @@
 	<div class="container">
       <h1>List of events:</h1>
       <br>
-<!--      <form action="" method="post">
-        <input type="text" placeholder="Username" name="username" value="{{
-          request.form.username }}">
-         <input type="password" placeholder="Password" name="password" value="{{
-          request.form.password }}">
-        <input class="btn btn-default" type="submit" value="Login">
-
-      </form>
---!>
-    
+	  <table>
+	  <tr>
+	  <th>Event Name</th>
+	  <th>Date</th>
+	  <th>Location</th>
+	  <th>Manage</th>
+	  </tr>
+	  {% for event in events %}
+	  	<tr>
+	  	<td>{{event[2]}}</td>
+	  	<td>{{event[3]}}</td>
+	  	<td>{{event[4]}}</td>
+	  	<td><a href="/events/{{event[0]}}">Manage</a></td>
+	  {% endfor %}
+	  </tr>
+	  </table>
 
     {% if error %}
         <p class="error"><strong>Error:</strong> {{ error }}
       {% endif %}
 
     <p>Create new event:</p>
-    <button id="addEvent" class="float-left submit-button" >Creae event</button>
+    <button id="addEvent" class="float-left submit-button" >Create event</button>
 
 	<script type="text/javascript">
 	    document.getElementById("addEvent").onclick = function () {
