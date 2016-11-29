@@ -1,0 +1,17 @@
+
+{% extends 'template.html' %}
+
+{% block content %}
+	<div class="container">
+      <h1>Enter image url below:</h1>
+      <br>
+      <form action="" method="post">
+        <input type="text" placeholder="Image URL" name="image_url" required>
+        <input class="btn btn-default" type="submit" value="Add">
+      </form>
+      {% if error %}
+        <p class="error"><strong>Error:</strong> {{ error }}
+      {% endif %}
+    </div>
+{% endblock %}
+
