@@ -1,5 +1,17 @@
+
 {% extends 'template.html' %}
 
 {% block content %}
-<h2>This page is used for users' photos.</h2>
+	<div class="container">
+		<h1>Add your photos..</h1>
+			<form action="" enctype="multipart/form-data" method="POST">
+				<input type="file" name="myfile" value="{{ request.form.myfile }}" required>
+				<input type="text" placeholder="Image Name" name="imageName" value="{{
+          request.form.imageName }}" required>
+						<input type="submit" value="Upload" name="submit" />
+				</form>
+      {% if error %}
+        <p class="error"><strong>Error:</strong> {{ error }}
+      {% endif %}
+    </div>
 {% endblock %}

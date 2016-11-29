@@ -256,10 +256,9 @@ def friends_page():
     now = datetime.datetime.now()
     return render_template('friends_page.html', current_time=now.ctime())
 
-@app.route('/myGallery')
+@app.route('/myGallery', methods=['GET', 'POST'])
 def myGallery():
-    now = datetime.datetime.now()
-    return render_template('myGallery.html', current_time=now.ctime())
+        return render_template('myGallery.html')
 
 @app.route('/SearchAndCommentDatabase')
 def create_table_for_search_and_comment():
@@ -540,7 +539,7 @@ def create_table_for_user_images():
         query="""DROP TABLE IF EXISTS images_tb"""
         cursor.execute(query)
 
-        query="""CREATE TABLE images_tb(imageID INTEGER NOT NULL,imageName VARCHAR(50),imageContent VARCHAR(100))"""
+        query="""CREATE TABLE images_tb(imageID INTEGER PRIMARY KEY, UserID INTEGER REFERENCES user_tb(ID) ON DELETE SET NULL, imageName VARCHAR(50),imageContent VARCHAR(100))"""
         cursor.execute(query)
 
         query="""INSERT INTO images_tb(imageID ,imageName, imageContent) VALUES (1,'adem','yenice')"""
@@ -564,8 +563,8 @@ def add_event():
 
             cursor = connection.cursor()
             cursor.execute("""INSERT INTO events_tb
-                                 (userID, eventName, eventDate, eventLocation) 
-                              VALUES 
+                                 (userID, eventName, eventDate, eventLocation)
+                              VALUES
                                  ('%d', '%s', '%s', '%s')"""
                             %(userID, event_name, event_date, event_location))
 
@@ -583,7 +582,7 @@ def display_event(event_id):
         query = """SELECT * FROM events_tb WHERE ID = {}""".format(event_id)
         cursor.execute(query)
         event = cursor.fetchone()
-        query = """SELECT * FROM event_pics_tb 
+        query = """SELECT * FROM event_pics_tb
                        WHERE event_id = %s"""
         data = (event_id,)
         cursor.execute(query, data)
@@ -597,7 +596,7 @@ def delete_event(event_id):
         cursor = connection.cursor()
         query = """DELETE FROM events_tb WHERE ID = {}""".format(event_id)
         cursor.execute(query)
-    
+
     return redirect('events')
 
 @app.route('/events/<event_id>/update', methods=['POST'])
@@ -608,18 +607,18 @@ def update_event(event_id):
         event_name =  request.form['event_name']
         event_date = request.form['event_date']
         event_location = request.form['event_location']
-            
-        query = """UPDATE events_tb 
+
+        query = """UPDATE events_tb
                    SET eventname = %s, eventdate = %s, eventlocation = %s
                    WHERE ID = %s"""
         data = (event_name, event_date, event_location, event_id)
         cursor.execute(query, data)
-    
+
     return redirect('events')
 
 @app.route('/events/<event_id>/add_picture', methods=['GET', 'POST'])
 def add_picture_to_event(event_id):
-    
+
     if request.method == 'POST':
 
         with aligramdb.connect(app.config['dsn']) as connection:
@@ -629,7 +628,7 @@ def add_picture_to_event(event_id):
                            VALUES (%s, %s)"""
             data = (image_url, event_id)
             cursor.execute(query, data)
-    
+
             return redirect('events/%s' % event_id)
 
     return render_template('add_picture_to_event.html', event_id=event_id)
@@ -651,7 +650,7 @@ def delete_image(event_id, image_id):
         cursor = connection.cursor()
         query = """DELETE FROM event_pics_tb WHERE ID = {}""".format(image_id)
         cursor.execute(query)
-    
+
     return redirect('events/%s' % event_id)
 
 @app.route('/events/<event_id>/images/<image_id>/update', methods=['POST'])
@@ -660,13 +659,13 @@ def update_image(event_id, image_id):
     with aligramdb.connect(app.config['dsn']) as connection:
         cursor = connection.cursor()
         image_url =  request.form['image_url']
-            
-        query = """UPDATE event_pics_tb 
+
+        query = """UPDATE event_pics_tb
                    SET image_url = %s
                    WHERE ID = %s"""
         data = (image_url, image_id)
         cursor.execute(query, data)
-    
+
     return redirect('events/%s' % event_id)
 
 @app.route('/events')
@@ -676,7 +675,7 @@ def create_table_for_events():
 
         query="""CREATE TABLE IF NOT EXISTS events_tb(
                     ID              SERIAL PRIMARY KEY,
-                    userID          INTEGER NOT NULL REFERENCES user_tb (ID) 
+                    userID          INTEGER NOT NULL REFERENCES user_tb (ID)
                                     ON DELETE CASCADE ON UPDATE CASCADE,
                     eventName       VARCHAR(50),
                     eventDate       VARCHAR(20),
