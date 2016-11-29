@@ -556,7 +556,7 @@ def add_event():
             cursor.execute("""INSERT INTO events_tb
                                  (userID, eventName, eventDate, eventLocation)
                               VALUES
-                                 (%s, %s, %s, %s)"""
+                                 (%s, '%s', '%s', '%s')"""
                             %(userID, event_name, event_date, event_location))
 
             connection.commit()
