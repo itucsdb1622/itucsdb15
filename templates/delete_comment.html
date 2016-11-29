@@ -1,0 +1,32 @@
+{% extends 'template.html' %}
+
+{% block content %}
+
+
+
+      <table style="width:100%" border=" 1px solid black">
+  	<tr>
+    <th>Comment Id</th>
+    <th>Post Id</th>
+    <th>Comment</th>
+  	</tr>
+  	{% for comment in comment_list %}
+
+  	<tr>
+    <td>{{ comment[0]}}</td>
+    <td>{{ comment[1]}}</td>
+    <td>{{ comment[2]}}</td>
+    </tr>
+
+    {% endfor %}
+    </table>
+	<div class="container">
+      <br>
+      <form action="" method="post">
+      	<input type="text" placeholder="ID of the comment you want to delete" name="comment_delete_id" value="{{
+          request.form.comment_delete_id }}">
+        <input class="btn btn-default" type="submit" value="Delete Comment">
+
+      </form>
+    </div>
+{% endblock %}

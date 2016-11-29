@@ -1,0 +1,50 @@
+{% extends 'template.html' %}
+
+{% block content %}
+<div id="search-form">
+		<form action="" method="post">
+		<input type="text" name="post_id" value="{{
+          request.form.post_id }}"/>
+        <input type="text" name="comment" value="{{
+          request.form.comment }}"/>
+		<input class="float-left submit-button" type="submit" value="Post"/>
+        </form>
+	</div>
+	<table style="width:100%" border=" 1px solid black">
+  	<tr>
+    <th>Comment Id</th>
+    <th>Post Id</th>
+    <th>Comment</th>
+  	</tr>
+  	{% for comment in comment_list %}
+
+  	<tr>
+    <td>{{ comment[0]}}</td>
+    <td>{{ comment[1]}}</td>
+    <td>{{ comment[2]}}</td>
+    </tr>
+
+    {% endfor %}
+    </table>
+
+
+	<p> To update a comment </p>
+	    <button id="update" class="float-left submit-button" >Update a Comment</button>
+
+		<script type="text/javascript">
+		    document.getElementById("update").onclick = function () {
+		        location.href = "../update_comment";
+		    };
+		</script>
+
+		<p> Delete a comment</p>
+	    <button id="delete" class="float-left submit-button" >Delete a Comment</button>
+
+		<script type="text/javascript">
+		    document.getElementById("delete").onclick = function () {
+		        location.href = "../delete_comment";
+		    };
+		</script>
+{% endblock %}
+
+
