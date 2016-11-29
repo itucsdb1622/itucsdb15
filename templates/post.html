@@ -10,11 +10,26 @@
 		<input class="float-left submit-button" type="submit" value="Post"/>
         </form>
 	</div>
+	<table style="width:100%" border=" 1px solid black">
+  <tr>
+    <th>Post Id</th>
+    <th>User Id</th>
+    <th>Post</th>
 
-	{% if message %}
-	{{message}}
-	{% endif %}
-	<p> To update a search </p>
+  </tr>
+  {% for post in post_list %}
+  <tr>
+
+    <td>{{ post[0]}}</td>
+    <td>{{ post[1]}}</td>
+    <td>{{ post[2]}}</td>
+  </tr>
+	{% endfor %}
+
+</table>
+
+<a href="/comment">Click for comment oprations</a>
+	<p> To update a post </p>
 	    <button id="update" class="float-left submit-button" >Update a Post</button>
 
 		<script type="text/javascript">
@@ -23,7 +38,7 @@
 		    };
 		</script>
 
-		<p> Delete a search</p>
+		<p> Delete a post</p>
 	    <button id="delete" class="float-left submit-button" >Delete a Post</button>
 
 		<script type="text/javascript">

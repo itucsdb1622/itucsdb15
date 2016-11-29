@@ -24,12 +24,12 @@ def get_elephantsql_dsn(vcap_services):
     parsed = json.loads(vcap_services)
     uri = parsed["elephantsql"][0]["credentials"]["uri"]
     match = re.match('postgres://(.*?):(.*?)@(.*?)(:(\d+))?/(.*)', uri)
-    #user, password, host, _, dbname = match.groups()
-    #dsn = """user='{}' password='{}' host='{}'
-    #         dbname='{}'""".format(user, password, host, dbname)
-    user, password, host, _, port, dbname = match.groups()
-    dsn = """user='{}' password='{}' host='{}' port={}
-             dbname='{}'""".format(user, password, host, port, dbname)
+    user, password, host, _, dbname = match.groups()
+    dsn = """user='{}' password='{}' host='{}'
+             dbname='{}'""".format(user, password, host, dbname)
+    #user, password, host, _, port, dbname = match.groups()
+    #dsn = """user='{}' password='{}' host='{}' port={}
+    #         dbname='{}'""".format(user, password, host, port, dbname)
     return dsn
 
 @app.route('/', methods=['GET', 'POST'])
@@ -153,13 +153,13 @@ def social_accounts():
             if len(data) > 0:
                 if data[0][0] == None:
                     cursor.execute("INSERT INTO social_accounts_tb(facebook, twitter, instagram) VALUES ('%s', '%s', '%s') RETURNING id"%(facebook_acc, twitter_acc, instagram_acc))
-                    
+
                     cursor.execute("SELECT lastval()")
                     social_id = cursor.fetchall()
                     social_id = social_id[0][0]
-                    
+
                     cursor.execute("UPDATE user_tb SET Social_ID = '%d' WHERE Username = '%s' "%(social_id, session['loggedUser']))
-                
+
                 else:
                     cursor.execute("UPDATE social_accounts_tb SET facebook ='%s', twitter = '%s', instagram = '%s' WHERE ID='%s' "%(facebook_acc, twitter_acc, instagram_acc, data[0][0]))
                 return redirect(url_for('profile_page'))
@@ -180,7 +180,7 @@ def remove_social_accounts():
                 if data[0][0] != None:
                     cursor.execute("DELETE FROM social_accounts_tb WHERE ID = '%d' "%int(data[0][0]))
                     return redirect(url_for('profile_page'))
-        
+
     now = datetime.datetime.now()
     return render_template('remove_social_accounts.html', current_time=now.ctime())
 
@@ -247,7 +247,7 @@ def register():
 def logout():
     session['loggedUser'] = None
     session['loggedUserID'] = None
-    session['loginStatus'] = None    
+    session['loginStatus'] = None
 
     return redirect(url_for('home_page'))
 
@@ -261,6 +261,90 @@ def myGallery():
     now = datetime.datetime.now()
     return render_template('myGallery.html', current_time=now.ctime())
 
+@app.route('/SearchAndCommentDatabase')
+def create_table_for_search_and_comment():
+    with aligramdb.connect(app.config['dsn']) as connection:
+        cursor = connection.cursor()
+
+        query = """DROP TABLE IF EXISTS SEARCH"""
+        cursor.execute(query)
+
+        query = """DROP TABLE IF EXISTS COMMENT"""
+        cursor.execute(query)
+
+        query="""CREATE TABLE SEARCH(SearchID SERIAL, UserID INTEGER REFERENCES user_tb(ID) ON DELETE SET NULL, WORD VARCHAR(20), PRIMARY KEY (SearchID))"""
+        cursor.execute(query)
+
+        query="""CREATE TABLE COMMENT(CommentID SERIAL,PostID INTEGER REFERENCES post_tb(ID) ON DELETE SET NULL, MESSAGE VARCHAR(140), PRIMARY KEY (CommentID))"""
+        cursor.execute(query)
+
+        connection.commit()
+
+    return redirect(url_for('home_page'))
+
+
+@app.route('/comment', methods=['GET', 'POST'])
+def comment():
+    message=" "
+
+    if request.method == 'POST':
+        post_id =  request.form['post_id']
+        comment = request.form['comment']
+        with aligramdb.connect(app.config['dsn']) as connection:
+            cursor = connection.cursor()
+            cursor.execute("INSERT INTO COMMENT(PostID, MESSAGE) VALUES ('%d', '%s')"%(int(post_id), comment))
+            connection.commit()
+
+    with aligramdb.connect(app.config['dsn']) as connection:
+        cursor = connection.cursor()
+
+        query="""SELECT * FROM COMMENT"""
+        cursor.execute(query)
+        data = cursor.fetchall()
+
+
+    return render_template('add_comment.html', comment_list=data)
+
+@app.route('/delete_comment', methods=['GET', 'POST'])
+def delete_comment():
+
+    if request.method == 'POST':
+        id = int(request.form['comment_delete_id'])
+        with aligramdb.connect(app.config['dsn']) as connection:
+            cursor = connection.cursor()
+            cursor.execute("DELETE FROM COMMENT WHERE CommentID = '%d'"%(id))
+
+            connection.commit()
+    with aligramdb.connect(app.config['dsn']) as connection:
+        cursor = connection.cursor()
+
+        query="""SELECT * FROM COMMENT"""
+        cursor.execute(query)
+        data = cursor.fetchall()
+
+
+    return render_template('delete_comment.html', comment_list=data)
+
+@app.route('/update_comment', methods=['GET', 'POST'])
+def update_comment():
+
+    if request.method == 'POST':
+        id = int(request.form['commment_update_id'])
+        text = request.form['new_commment_text']
+        with aligramdb.connect(app.config['dsn']) as connection:
+            cursor = connection.cursor()
+            cursor.execute("UPDATE COMMENT SET MESSAGE = '%s' WHERE CommentID = '%d'"%(text, id))
+
+            connection.commit()
+    with aligramdb.connect(app.config['dsn']) as connection:
+        cursor = connection.cursor()
+
+        query="""SELECT * FROM COMMENT"""
+        cursor.execute(query)
+        data = cursor.fetchall()
+
+    return render_template('update_comment.html', comment_list=data)
+
 @app.route('/search', methods=['GET', 'POST'])
 def search():
     message=" "
@@ -269,14 +353,9 @@ def search():
         word =  request.form['search']
         with aligramdb.connect(app.config['dsn']) as connection:
             cursor = connection.cursor()
-            query="""SELECT MAX(ID) FROM SEARCH ID"""
-            cursor.execute(query)
-            data = cursor.fetchall()
-            counter = int(data[0][0]) + 1
-
-            cursor.execute("INSERT INTO SEARCH(ID, WORD) VALUES ('%d', '%s')"%(counter, word))
-
+            cursor.execute("INSERT INTO SEARCH(UserID,WORD) VALUES ('%d', '%s')"%(session['loggedUserID'],word))
             connection.commit()
+
     with aligramdb.connect(app.config['dsn']) as connection:
         cursor = connection.cursor()
 
@@ -284,9 +363,10 @@ def search():
         cursor.execute(query)
         data = cursor.fetchall()
         for row in data:
-            message+=str(row[0])+" "+ row[1]+ "\n"
+            message+=str(row[0])+" "+ row[2]+ "\n"
 
-    return render_template('search.html', message=message)
+
+    return render_template('search.html', search_list=data)
 
 @app.route('/update_search', methods=['GET', 'POST'])
 def update_search():
@@ -298,7 +378,7 @@ def update_search():
         with aligramdb.connect(app.config['dsn']) as connection:
             cursor = connection.cursor()
             query=""""""
-            cursor.execute("UPDATE SEARCH SET WORD = '%s' WHERE ID = '%d'"%(text, id))
+            cursor.execute("UPDATE SEARCH SET WORD = '%s' WHERE SearchID = '%d'"%(text, id))
 
             connection.commit()
     with aligramdb.connect(app.config['dsn']) as connection:
@@ -307,11 +387,8 @@ def update_search():
         query="""SELECT * FROM SEARCH"""
         cursor.execute(query)
         data = cursor.fetchall()
-        for row in data:
-            message+=str(row[0])+" "+ row[1]+ "\n"
 
-
-    return render_template('update_search.html', message=message)
+    return render_template('update_search.html', search_list=data)
 
 @app.route('/delete_search', methods=['GET', 'POST'])
 def delete_search():
@@ -322,7 +399,7 @@ def delete_search():
         with aligramdb.connect(app.config['dsn']) as connection:
             cursor = connection.cursor()
             query=""""""
-            cursor.execute("DELETE FROM SEARCH WHERE ID = '%d'"%(id))
+            cursor.execute("DELETE FROM SEARCH WHERE SearchID = '%d'"%(id))
 
             connection.commit()
     with aligramdb.connect(app.config['dsn']) as connection:
@@ -331,11 +408,9 @@ def delete_search():
         query="""SELECT * FROM SEARCH"""
         cursor.execute(query)
         data = cursor.fetchall()
-        for row in data:
-            message+=str(row[0])+" "+ row[1]+ "\n"
 
 
-    return render_template('delete_search.html', message=message)
+    return render_template('delete_search.html', search_list=data)
 
 @app.route('/post', methods=['GET', 'POST'])
 def post():
@@ -360,10 +435,13 @@ def post():
         query="""SELECT * FROM post_tb"""
         cursor.execute(query)
         data = cursor.fetchall()
-        for row in data:
-            message+=str(row[0])+" "+ row[1]+ " " + row[2]
 
-    return render_template('post.html', message=message)
+        query="""SELECT * FROM COMMENT"""
+        cursor.execute(query)
+        data_comment = cursor.fetchall()
+
+
+    return render_template('post.html', post_list=data,comment_list=data_comment)
 
 @app.route('/delete_post', methods=['GET', 'POST'])
 def delete_post():
@@ -419,7 +497,7 @@ def create_table_for_post():
         query="""DROP TABLE IF EXISTS post_tb"""
         cursor.execute(query)
 
-        query="""CREATE TABLE post_tb(ID INTEGER,SENDER VARCHAR(15),MESSAGE VARCHAR(50))"""
+        query="""CREATE TABLE post_tb(ID INTEGER,SENDER VARCHAR(15),MESSAGE VARCHAR(50), PRIMARY KEY (ID))"""
         cursor.execute(query)
 
         query="""INSERT INTO post_tb(ID, SENDER ,MESSAGE) VALUES (1,'First user','First Post')"""
@@ -535,10 +613,10 @@ if __name__ == '__main__':
     if VCAP_SERVICES is not None:
         app.config['dsn'] = get_elephantsql_dsn(VCAP_SERVICES)
     else:
-        #app.config['dsn'] = """user='suxlzcvz' password='Fn5SZ6FkjXt1qTZpq52uSqWfqX90S4yi'
-        #                       host='jumbo.db.elephantsql.com' dbname='suxlzcvz'"""
-        app.config['dsn'] = """user='vagrant' password='vagrant'
-                               host='localhost' port=5432 dbname='itucsdb'"""
+        app.config['dsn'] = """user='ggrqloat' password='Y-o7U1SQA7t70-eHhAZ61Tm5AUQ9P3E3'
+                               host='jumbo.db.elephantsql.com' dbname='ggrqloat'"""
+        #app.config['dsn'] = """user='vagrant' password='vagrant'
+        #                       host='localhost' port=5432 dbname='itucsdb'"""
     app.run(host='0.0.0.0', port=port, debug=debug)
 
 
