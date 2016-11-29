@@ -24,12 +24,12 @@ def get_elephantsql_dsn(vcap_services):
     parsed = json.loads(vcap_services)
     uri = parsed["elephantsql"][0]["credentials"]["uri"]
     match = re.match('postgres://(.*?):(.*?)@(.*?)(:(\d+))?/(.*)', uri)
-    user, password, host, _, dbname = match.groups()
-    dsn = """user='{}' password='{}' host='{}'
-             dbname='{}'""".format(user, password, host, dbname)
-    #user, password, host, _, port, dbname = match.groups()
-    #dsn = """user='{}' password='{}' host='{}' port={}
-    #         dbname='{}'""".format(user, password, host, port, dbname)
+    #user, password, host, _, dbname = match.groups()
+    #dsn = """user='{}' password='{}' host='{}'
+    #         dbname='{}'""".format(user, password, host, dbname)
+    user, password, host, _, port, dbname = match.groups()
+    dsn = """user='{}' password='{}' host='{}' port={}
+             dbname='{}'""".format(user, password, host, port, dbname)
     return dsn
 
 @app.route('/', methods=['GET', 'POST'])
@@ -410,22 +410,19 @@ def delete_search():
 
 
     return render_template('delete_search.html', search_list=data)
-
 @app.route('/post', methods=['GET', 'POST'])
 def post():
     message=" "
 
     if request.method == 'POST':
-        post_user =  request.form['post_user']
         post_word = request.form['post_word']
         with aligramdb.connect(app.config['dsn']) as connection:
             cursor = connection.cursor()
             query="""SELECT MAX(ID) FROM post_tb ID"""
             cursor.execute(query)
             data = cursor.fetchall()
-            counter = int(data[0][0]) + 1
 
-            cursor.execute("INSERT INTO post_tb(ID, SENDER, MESSAGE) VALUES ('%d', '%s','%s')"%(counter, post_user,post_word))
+            cursor.execute("INSERT INTO post_tb(UserID,MESSAGE) VALUES ('%d','%s')"%(session['loggedUserID'],post_word))
 
             connection.commit()
     with aligramdb.connect(app.config['dsn']) as connection:
@@ -435,12 +432,8 @@ def post():
         cursor.execute(query)
         data = cursor.fetchall()
 
-        query="""SELECT * FROM COMMENT"""
-        cursor.execute(query)
-        data_comment = cursor.fetchall()
 
-
-    return render_template('post.html', post_list=data,comment_list=data_comment)
+    return render_template('post.html', post_list=data)
 
 @app.route('/delete_post', methods=['GET', 'POST'])
 def delete_post():
@@ -459,11 +452,9 @@ def delete_post():
         query="""SELECT * FROM post_tb"""
         cursor.execute(query)
         data = cursor.fetchall()
-        for row in data:
-            message+=str(row[0])+" "+ row[1]+ " " + row[2]
 
 
-    return render_template('delete_post.html', message=message)
+    return render_template('delete_post.html',  post_list=data)
 
 @app.route('/update_post', methods=['GET', 'POST'])
 def update_post():
@@ -483,23 +474,23 @@ def update_post():
         query="""SELECT * FROM post_tb"""
         cursor.execute(query)
         data = cursor.fetchall()
-        for row in data:
-            message+=str(row[0])+" "+ row[1]+ " " + row[2]
 
-
-    return render_template('update_post.html', message=message)
+    return render_template('update_post.html',  post_list=data)
 
 @app.route('/postTable')
 def create_table_for_post():
     with aligramdb.connect(app.config['dsn']) as connection:
         cursor = connection.cursor()
+
+        query="""DROP TABLE IF EXISTS COMMENT"""
+        cursor.execute(query)
+
         query="""DROP TABLE IF EXISTS post_tb"""
         cursor.execute(query)
 
-        query="""CREATE TABLE post_tb(ID INTEGER,SENDER VARCHAR(15),MESSAGE VARCHAR(50), PRIMARY KEY (ID))"""
-        cursor.execute(query)
 
-        query="""INSERT INTO post_tb(ID, SENDER ,MESSAGE) VALUES (1,'First user','First Post')"""
+
+        query="""CREATE TABLE post_tb(ID SERIAL,UserID INTEGER REFERENCES user_tb(ID) ON DELETE SET NULL, MESSAGE VARCHAR(140), PRIMARY KEY (ID))"""
         cursor.execute(query)
 
         connection.commit()
@@ -711,10 +702,10 @@ if __name__ == '__main__':
     if VCAP_SERVICES is not None:
         app.config['dsn'] = get_elephantsql_dsn(VCAP_SERVICES)
     else:
-        app.config['dsn'] = """user='ggrqloat' password='Y-o7U1SQA7t70-eHhAZ61Tm5AUQ9P3E3'
-                               host='jumbo.db.elephantsql.com' dbname='ggrqloat'"""
-        #app.config['dsn'] = """user='vagrant' password='vagrant'
-        #                       host='localhost' port=5432 dbname='itucsdb'"""
+        #app.config['dsn'] = """user='ggrqloat' password='Y-o7U1SQA7t70-eHhAZ61Tm5AUQ9P3E3'
+        #                       host='jumbo.db.elephantsql.com' dbname='ggrqloat'"""
+        app.config['dsn'] = """user='vagrant' password='vagrant'
+                               host='localhost' port=5432 dbname='itucsdb'"""
     app.run(host='0.0.0.0', port=port, debug=debug)
 
 
