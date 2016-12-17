@@ -260,26 +260,6 @@ def friends_page():
 def myGallery():
         return render_template('myGallery.html')
 
-@app.route('/SearchAndCommentDatabase')
-def create_table_for_search_and_comment():
-    with aligramdb.connect(app.config['dsn']) as connection:
-        cursor = connection.cursor()
-
-        query = """DROP TABLE IF EXISTS SEARCH"""
-        cursor.execute(query)
-
-        query = """DROP TABLE IF EXISTS COMMENT"""
-        cursor.execute(query)
-
-        query="""CREATE TABLE SEARCH(SearchID SERIAL, UserID INTEGER REFERENCES user_tb(ID) ON DELETE SET NULL, WORD VARCHAR(20), PRIMARY KEY (SearchID))"""
-        cursor.execute(query)
-
-        query="""CREATE TABLE COMMENT(CommentID SERIAL,PostID INTEGER REFERENCES post_tb(ID) ON DELETE SET NULL, MESSAGE VARCHAR(140), PRIMARY KEY (CommentID))"""
-        cursor.execute(query)
-
-        connection.commit()
-
-    return redirect(url_for('home_page'))
 
 
 @app.route('/comment', methods=['GET', 'POST'])
@@ -410,6 +390,7 @@ def delete_search():
 
 
     return render_template('delete_search.html', search_list=data)
+
 @app.route('/post', methods=['GET', 'POST'])
 def post():
     message=" "
@@ -477,27 +458,8 @@ def update_post():
 
     return render_template('update_post.html',  post_list=data)
 
-@app.route('/postTable')
-def create_table_for_post():
-    with aligramdb.connect(app.config['dsn']) as connection:
-        cursor = connection.cursor()
 
-        query="""DROP TABLE IF EXISTS COMMENT"""
-        cursor.execute(query)
-
-        query="""DROP TABLE IF EXISTS post_tb"""
-        cursor.execute(query)
-
-
-
-        query="""CREATE TABLE post_tb(ID SERIAL,UserID INTEGER REFERENCES user_tb(ID) ON DELETE SET NULL, MESSAGE VARCHAR(140), PRIMARY KEY (ID))"""
-        cursor.execute(query)
-
-        connection.commit()
-
-    return redirect(url_for('home_page'))
-
-@app.route('/UserDbCreate')
+@app.route('/DbCreate')
 def create_table_for_user():
     with aligramdb.connect(app.config['dsn']) as connection:
         cursor = connection.cursor()
@@ -508,37 +470,71 @@ def create_table_for_user():
         query = """DROP TABLE IF EXISTS social_accounts_tb"""
         cursor.execute(query)
 
+        query="""DROP TABLE IF EXISTS COMMENT"""
+        cursor.execute(query)
+
+        query="""DROP TABLE IF EXISTS post_tb"""
+        cursor.execute(query)
+
+        query = """DROP TABLE IF EXISTS SEARCH"""
+        cursor.execute(query)
+
+        query = """DROP TABLE IF EXISTS event_pics_tb"""
+        cursor.execute(query)
+
+        query = """DROP TABLE IF EXISTS events_tb"""
+        cursor.execute(query)
+
+        query="""DROP TABLE IF EXISTS images_tb"""
+        cursor.execute(query)
+
+
+
         query="""CREATE TABLE social_accounts_tb(ID SERIAL, facebook VARCHAR(100), twitter VARCHAR(100), instagram VARCHAR(100), PRIMARY KEY (ID))"""
         cursor.execute(query)
 
         query="""CREATE TABLE user_tb(ID SERIAL,Username VARCHAR(40), Password VARCHAR(10), Firstname VARCHAR(40),Lastname VARCHAR(40), Age int,Gender VARCHAR(10),Email VARCHAR(100), Social_ID INTEGER REFERENCES social_accounts_tb(ID) ON DELETE SET NULL, PRIMARY KEY (ID), UNIQUE(Username))"""
         cursor.execute(query)
 
-        query="""INSERT INTO user_tb(Username, Password) VALUES ('kerim','test')"""
+        query="""CREATE TABLE SEARCH(SearchID SERIAL, UserID INTEGER REFERENCES user_tb(ID) ON DELETE SET NULL, WORD VARCHAR(20), PRIMARY KEY (SearchID))"""
+        cursor.execute(query)
+
+        query="""CREATE TABLE post_tb(ID SERIAL,UserID INTEGER REFERENCES user_tb(ID) ON DELETE SET NULL, MESSAGE VARCHAR(140), PRIMARY KEY (ID))"""
+        cursor.execute(query)
+
+
+        query="""CREATE TABLE COMMENT(CommentID SERIAL,PostID INTEGER REFERENCES post_tb(ID) ON DELETE SET NULL, MESSAGE VARCHAR(140), PRIMARY KEY (CommentID))"""
+        cursor.execute(query)
+
+        query="""CREATE TABLE IF NOT EXISTS events_tb(
+                    ID              SERIAL PRIMARY KEY,
+                    userID          INTEGER NOT NULL REFERENCES user_tb (ID)
+                                    ON DELETE CASCADE ON UPDATE CASCADE,
+                    eventName       VARCHAR(50),
+                    eventDate       VARCHAR(20),
+                    eventLocation   VARCHAR(50))"""
+
+        cursor.execute(query)
+
+
+        query="""SELECT * FROM events_tb"""
+        cursor.execute(query)
+        events = cursor.fetchall()
+
+        query = """CREATE TABLE IF NOT EXISTS event_pics_tb(
+                       ID           SERIAL PRIMARY KEY,
+                       image_url    VARCHAR(256),
+                       event_id     INTEGER NOT NULL REFERENCES events_tb (ID)
+                                    ON DELETE CASCADE ON UPDATE CASCADE)"""
+        cursor.execute(query)
+
+        query="""CREATE TABLE images_tb(imageID INTEGER PRIMARY KEY, UserID INTEGER REFERENCES user_tb(ID) ON DELETE SET NULL, imageName VARCHAR(50),imageContent VARCHAR(100))"""
         cursor.execute(query)
 
         connection.commit()
 
     return redirect(url_for('home_page'))
 
-## Added by Adem(yenicead)
-@app.route('/UserImages')
-def create_table_for_user_images():
-    with aligramdb.connect(app.config['dsn']) as connection:
-        cursor = connection.cursor()
-
-        query="""DROP TABLE IF EXISTS images_tb"""
-        cursor.execute(query)
-
-        query="""CREATE TABLE images_tb(imageID INTEGER PRIMARY KEY, UserID INTEGER REFERENCES user_tb(ID) ON DELETE SET NULL, imageName VARCHAR(50),imageContent VARCHAR(100))"""
-        cursor.execute(query)
-
-        query="""INSERT INTO images_tb(imageID ,imageName, imageContent) VALUES (1,'adem','yenice')"""
-        cursor.execute(query)
-
-        connection.commit()
-
-        return redirect(url_for('home_page'))
 
 # Added by Umut(umutyazgan)
 @app.route('/addEvent', methods=['GET', 'POST'])
@@ -664,27 +660,7 @@ def create_table_for_events():
     with aligramdb.connect(app.config['dsn']) as connection:
         cursor = connection.cursor()
 
-        query="""CREATE TABLE IF NOT EXISTS events_tb(
-                    ID              SERIAL PRIMARY KEY,
-                    userID          INTEGER NOT NULL REFERENCES user_tb (ID)
-                                    ON DELETE CASCADE ON UPDATE CASCADE,
-                    eventName       VARCHAR(50),
-                    eventDate       VARCHAR(20),
-                    eventLocation   VARCHAR(50))"""
 
-        cursor.execute(query)
-
-
-        query="""SELECT * FROM events_tb"""
-        cursor.execute(query)
-        events = cursor.fetchall()
-
-        query = """CREATE TABLE IF NOT EXISTS event_pics_tb(
-                       ID           SERIAL PRIMARY KEY,
-                       image_url    VARCHAR(256),
-                       event_id     INTEGER NOT NULL REFERENCES events_tb (ID)
-                                    ON DELETE CASCADE ON UPDATE CASCADE)"""
-        cursor.execute(query)
 
         connection.commit()
 
