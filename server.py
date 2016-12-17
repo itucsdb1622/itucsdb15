@@ -12,6 +12,7 @@ from flask.helpers import url_for
 from flask import session
 from psycopg2.psycopg1 import connection, cursor
 import uuid
+from _overlapped import NULL
 
 
 app = Flask(__name__, static_url_path='/static')
@@ -100,9 +101,12 @@ def profile_page():
             twitter_acc = data[0][1]
             instagram_acc = data[0][2]
 
+        cursor.execute("SELECT ilkOkul, lise, universite FROM egitim_gecmisi WHERE UserID = '%d' "%session['loggedUserID'])
+        egitimArray = cursor.fetchall()
+
 
     now = datetime.datetime.now()
-    return render_template('profile_page.html', session=session['loginStatus'], facebook = facebook_acc, twitter = twitter_acc, instagram = instagram_acc, current_time=now.ctime())
+    return render_template('profile_page.html', session=session['loginStatus'], facebook = facebook_acc, twitter = twitter_acc, instagram = instagram_acc, current_time=now.ctime(),egitimArray=egitimArray)
 
 @app.route('/update_user', methods=['GET', 'POST'])
 def update_user():
@@ -150,6 +154,9 @@ def social_accounts():
             facebook_acc = request.form['facebook account']
             twitter_acc = request.form['twitter account']
             instagram_acc = request.form['instagram account']
+
+
+
             if len(data) > 0:
                 if data[0][0] == None:
                     cursor.execute("INSERT INTO social_accounts_tb(facebook, twitter, instagram) VALUES ('%s', '%s', '%s') RETURNING id"%(facebook_acc, twitter_acc, instagram_acc))
@@ -162,8 +169,27 @@ def social_accounts():
 
                 else:
                     cursor.execute("UPDATE social_accounts_tb SET facebook ='%s', twitter = '%s', instagram = '%s' WHERE ID='%s' "%(facebook_acc, twitter_acc, instagram_acc, data[0][0]))
-                return redirect(url_for('profile_page'))
 
+
+
+            ilk_okul=request.form['ilk_okul']
+            lise=request.form['lise']
+            universite=request.form['universite']
+
+            cursor.execute("SELECT * FROM egitim_gecmisi WHERE UserID = '%d' "%session['loggedUserID'])
+            egitim=cursor.fetchall()
+            if not egitim:
+                cursor.execute("INSERT INTO egitim_gecmisi(UserID, ilkOkul, lise, universite) VALUES ('%d','%s', '%s', '%s')"%(session['loggedUserID'],ilk_okul, lise, universite))
+
+            else:
+                if ilk_okul:
+                    cursor.execute("UPDATE egitim_gecmisi SET ilkOkul='%s'  WHERE UserID='%d' "%(ilk_okul,  session['loggedUserID']))
+                if lise:
+                    cursor.execute("UPDATE egitim_gecmisi SET  lise='%s' WHERE UserID='%d' "%( lise,  session['loggedUserID']))
+                if universite:
+                    cursor.execute("UPDATE egitim_gecmisi SET universite='%s' WHERE UserID='%d' "%(universite, session['loggedUserID']))
+
+            return redirect(url_for('profile_page'))
     now = datetime.datetime.now()
     return render_template('social_accounts.html', current_time=now.ctime())
 
@@ -181,6 +207,18 @@ def remove_social_accounts():
                     cursor.execute("DELETE FROM social_accounts_tb WHERE ID = '%d' "%int(data[0][0]))
                     return redirect(url_for('profile_page'))
 
+            ilkOkul = request.form.get('ilkOkulDelete')
+            if ilkOkul:
+                cursor.execute("UPDATE egitim_gecmisi SET ilkOkul='%s'  WHERE UserID='%d' "%("",  session['loggedUserID']))
+
+            lise = request.form.get('liseDelete')
+            if lise:
+                cursor.execute("UPDATE egitim_gecmisi SET  lise='%s' WHERE UserID='%d' "%( "",  session['loggedUserID']))
+
+            universite = request.form.get('universiteDelete')
+            if universite:
+                cursor.execute("UPDATE egitim_gecmisi SET universite='%s' WHERE UserID='%d' "%("", session['loggedUserID']))
+            return redirect(url_for('profile_page'))
     now = datetime.datetime.now()
     return render_template('remove_social_accounts.html', current_time=now.ctime())
 
@@ -488,6 +526,9 @@ def create_table_for_user():
         query="""DROP TABLE IF EXISTS images_tb"""
         cursor.execute(query)
 
+        query = """DROP TABLE IF EXISTS egitim_gecmisi"""
+        cursor.execute(query)
+
 
 
         query="""CREATE TABLE social_accounts_tb(ID SERIAL, facebook VARCHAR(100), twitter VARCHAR(100), instagram VARCHAR(100), PRIMARY KEY (ID))"""
@@ -502,6 +543,8 @@ def create_table_for_user():
         query="""CREATE TABLE post_tb(ID SERIAL,UserID INTEGER REFERENCES user_tb(ID) ON DELETE SET NULL, MESSAGE VARCHAR(140), PRIMARY KEY (ID))"""
         cursor.execute(query)
 
+        query="""CREATE TABLE egitim_gecmisi(ID SERIAL,UserID INTEGER REFERENCES user_tb(ID) ON DELETE SET NULL, ilkOkul VARCHAR(140),lise VARCHAR(140),universite VARCHAR(140), PRIMARY KEY (ID))"""
+        cursor.execute(query)
 
         query="""CREATE TABLE COMMENT(CommentID SERIAL,PostID INTEGER REFERENCES post_tb(ID) ON DELETE SET NULL, MESSAGE VARCHAR(140), PRIMARY KEY (CommentID))"""
         cursor.execute(query)

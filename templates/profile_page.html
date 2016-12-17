@@ -3,7 +3,7 @@
 {% block content %}
 	{% if session != None %}
 		<div class="container">
-	     
+
 	    <p> If you want to update your account info, you can do it by clicking on the button below </p>
 	    <button id="update" class="float-left submit-button" >Update</button>
 
@@ -23,8 +23,8 @@
 		</script>
 
 		<p> If you want to add or remove your social media account info, you can do it by clicking on the buttons below </p>
-	    <button id="add social accounts" class="float-left submit-button" >Add social media account</button>
-	    <button id="remove social account info" class="float-left submit-button" >Remove social media info</button>
+	    <button id="add social accounts" class="float-left submit-button" >Add or update profile informations</button>
+	    <button id="remove social account info" class="float-left submit-button" >Remove profile informations</button>
 
 		<script type="text/javascript">
 		    document.getElementById("add social accounts").onclick = function () {
@@ -49,7 +49,7 @@
 		<table style="width:100%">
 		  <tr>
 		    <th>Facebook</th>
-		    <th>Twitter</th> 
+		    <th>Twitter</th>
 		    <th>Instagram</th>
 		  </tr>
 		  <tr>
@@ -59,14 +59,29 @@
 		  </tr>
 		</table>
 
-	      
+	    <div>
+	    	<table style="width:100%" border=" 1px solid black">
+  <tr>
+    <th>Ilk Okul</th>
+    <th>Lise</th>
+    <th>Universite</th>
+
+  </tr>
+  <tr>
+    <td>{{ egitimArray[0][0]}}</td>
+	<td>{{ egitimArray[0][1]}}</td>
+    <td>{{ egitimArray[0][2]}}</td>
+  </tr>
+
+</table>
+	    </div>
 	    </div>
 
 	{% elif session == None %}
 		<div class="container">
-	     
+
 	    <p> You are not logged in </p>
-	      
+
 	    </div>
 
     {% endif %}
