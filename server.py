@@ -24,12 +24,12 @@ def get_elephantsql_dsn(vcap_services):
     parsed = json.loads(vcap_services)
     uri = parsed["elephantsql"][0]["credentials"]["uri"]
     match = re.match('postgres://(.*?):(.*?)@(.*?)(:(\d+))?/(.*)', uri)
-    user, password, host, _, dbname = match.groups()
-    dsn = """user='{}' password='{}' host='{}'
-             dbname='{}'""".format(user, password, host, dbname)
-    #user, password, host, _, port, dbname = match.groups()
-    #dsn = """user='{}' password='{}' host='{}' port={}
-    #         dbname='{}'""".format(user, password, host, port, dbname)
+    #user, password, host, _, dbname = match.groups()
+    #dsn = """user='{}' password='{}' host='{}'
+    #         dbname='{}'""".format(user, password, host, dbname)
+    user, password, host, _, port, dbname = match.groups()
+    dsn = """user='{}' password='{}' host='{}' port={}
+             dbname='{}'""".format(user, password, host, port, dbname)
     return dsn
 
 @app.route('/', methods=['GET', 'POST'])
@@ -723,10 +723,10 @@ if __name__ == '__main__':
     if VCAP_SERVICES is not None:
         app.config['dsn'] = get_elephantsql_dsn(VCAP_SERVICES)
     else:
-        app.config['dsn'] = """user='ggrqloat' password='Y-o7U1SQA7t70-eHhAZ61Tm5AUQ9P3E3'
-                               host='jumbo.db.elephantsql.com' dbname='ggrqloat'"""
-        #app.config['dsn'] = """user='vagrant' password='vagrant'
-        #                       host='localhost' port=5432 dbname='itucsdb'"""
+        #app.config['dsn'] = """user='ggrqloat' password='Y-o7U1SQA7t70-eHhAZ61Tm5AUQ9P3E3'
+        #                       host='jumbo.db.elephantsql.com' dbname='ggrqloat'"""
+        app.config['dsn'] = """user='vagrant' password='vagrant'
+                               host='localhost' port=5432 dbname='itucsdb'"""
     app.run(host='0.0.0.0', port=port, debug=debug)
 
 
