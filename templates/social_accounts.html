@@ -4,14 +4,14 @@
 
 	<div class="container">
       <form action="" method="post">
-        <input type="text" placeholder="Facebook account" name="facebook account" value="{{
-          request.form.facebook_account }}">
+        <input type="text" placeholder="Facebook account" name="facebook account" value={{
+          facebook }}>
           <br>
-          <input type="text" placeholder="Twitter account" name="twitter account" value="{{
-          request.form.twitter_account }}">
+          <input type="text" placeholder="Twitter account" name="twitter account" value={{
+          twitter }}>
           <br>
-          <input type="text" placeholder="Instagram account" name="instagram account" value="{{
-          request.form.instagram_account }}">
+          <input type="text" placeholder="Instagram account" name="instagram account" value={{
+          instagram }}>
           <br>
           <input type="text" placeholder="Ilk okul" name="ilk_okul" value="{{
           request.form.ilk_okul }}">
@@ -22,6 +22,37 @@
           <input type="text" placeholder="Universite" name="universite" value="{{
           request.form.universite }}">
           <br>
+
+          {%if guitar == False %}
+            <input type="checkbox" name="guitar" value="{{
+            request.form.guitar }}">I love playing guitar
+          {%else%}
+            <input type="checkbox" name="guitar" checked = "checked" value="{{
+            request.form.guitar }}">I love playing guitar
+          {%endif%}
+          <input type="hidden" name="guitar" value = "FALSE">
+          <br>
+
+          {%if basketball == False %}
+            <input type="checkbox"  name="basketball" value="{{
+            request.form.basketball }}">I love basketball
+          {%else%}
+            <input type="checkbox"  name="basketball" checked = "checked" value="{{
+            request.form.basketball }}">I love basketball
+          {%endif%}
+          <input type="hidden"  name="basketball" value="FALSE">
+          <br>
+
+          {%if football == False %}
+            <input type="checkbox"  name="football" value="{{
+            request.form.basketball }}">I love football
+          {%else%}
+            <input type="checkbox" name="football" checked = "checked" value="{{
+            request.form.basketball }}">I love football
+          {%endif%}
+          <input type="hidden"  name="football" value="FALSE">
+          <br>
+
         <input class="btn btn-default" type="submit" value="Submit">
 
       </form>

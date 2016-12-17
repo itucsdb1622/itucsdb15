@@ -106,9 +106,30 @@ def profile_page():
         else:
             egitimArray=None;
 
+        cursor.execute("SELECT Hobby_ID FROM user_tb WHERE Username = '%s' "%session['loggedUser'])
+        data = cursor.fetchall()
+
+        hobby_id = None
+
+        if len(data) > 0:
+            hobby_id = data[0][0]
+
+        guitar = False
+        basketball = False
+        football = False
+
+        if hobby_id != None:
+            cursor.execute("SELECT guitar, basketball, football FROM hobbies_tb WHERE ID = '%s' "%hobby_id)
+            data = cursor.fetchall()
+
+            guitar = data[0][0]
+            basketball = data[0][1]
+            football = data[0][2]
+
+
 
     now = datetime.datetime.now()
-    return render_template('profile_page.html', session=session['loginStatus'], facebook = facebook_acc, twitter = twitter_acc, instagram = instagram_acc, current_time=now.ctime(),egitimArray=egitimArray)
+    return render_template('profile_page.html', session=session['loginStatus'], facebook = facebook_acc, twitter = twitter_acc, instagram = instagram_acc, guitar = guitar, basketball = basketball, football = football, current_time=now.ctime(),egitimArray=egitimArray)
 
 @app.route('/update_user', methods=['GET', 'POST'])
 def update_user():
@@ -148,7 +169,50 @@ def social_accounts():
         cursor = connection.cursor()
 
         cursor.execute("SELECT Social_ID FROM user_tb WHERE Username = '%s' "%session['loggedUser'])
-        data = cursor.fetchall()
+        data_social = cursor.fetchall()
+
+        cursor.execute("SELECT Hobby_ID FROM user_tb WHERE Username = '%s' "%session['loggedUser'])
+        data_hobby = cursor.fetchall()
+
+        facebook = ''
+        twitter = ''
+        instagram = ''
+
+        guitar = False
+        basketball = False
+        football = False
+
+        if len(data_social) > 0 :
+
+            social_id = data_social[0][0]
+
+            if social_id != None : 
+
+                print("social_id", data_social)
+                cursor.execute("SELECT facebook, twitter, instagram FROM social_accounts_tb WHERE Id = '%d' "%social_id)
+                social_accs = cursor.fetchall()
+                
+                facebook = social_accs[0][0]
+                twitter = social_accs[0][1]
+                instagram = social_accs[0][2]
+
+        if len(data_hobby) > 0 :
+
+            hobby_id = data_hobby[0][0]
+
+            if hobby_id != None : 
+
+                cursor.execute("SELECT guitar, basketball, football FROM hobbies_tb WHERE Id = '%d' "%hobby_id)
+                hobbies = cursor.fetchall()
+                
+                guitar = hobbies[0][0]
+                basketball = hobbies[0][1]
+                football = hobbies[0][2]
+
+
+
+
+        
 
         error = None
         if request.method == 'POST':
@@ -157,7 +221,16 @@ def social_accounts():
             twitter_acc = request.form['twitter account']
             instagram_acc = request.form['instagram account']
 
+            hobby_guitar = request.form['guitar']
+            hobby_basketball = request.form['basketball']
+            hobby_football = request.form['football']
 
+            hobby_guitar = not bool(hobby_guitar)
+            hobby_basketball = not bool(hobby_basketball)
+            hobby_football = not bool(hobby_football)
+            
+        
+            data = data_social
 
             if len(data) > 0:
                 if data[0][0] == None:
@@ -173,6 +246,24 @@ def social_accounts():
                     cursor.execute("UPDATE social_accounts_tb SET facebook ='%s', twitter = '%s', instagram = '%s' WHERE ID='%s' "%(facebook_acc, twitter_acc, instagram_acc, data[0][0]))
 
 
+            data = data_hobby
+
+            if len(data) > 0:
+                if data[0][0] == None:
+                    
+                    cursor.execute("INSERT INTO hobbies_tb(guitar, basketball, football) VALUES (%s, %s, %s) RETURNING id"%(hobby_guitar, hobby_basketball, hobby_football))
+
+                    cursor.execute("SELECT lastval()")
+                    hobby_id = cursor.fetchall()
+                    hobby_id = hobby_id[0][0]
+
+                    cursor.execute("UPDATE user_tb SET Hobby_ID = '%d' WHERE Username = '%s' "%(hobby_id, session['loggedUser']))
+
+                else:
+
+                    cursor.execute("UPDATE hobbies_tb SET guitar ='%s', basketball = '%s', football = '%s' WHERE ID='%s' "%(hobby_guitar, hobby_basketball, hobby_football, data[0][0]))
+
+                
 
             ilk_okul=request.form['ilk_okul']
             lise=request.form['lise']
@@ -193,7 +284,7 @@ def social_accounts():
 
             return redirect(url_for('profile_page'))
     now = datetime.datetime.now()
-    return render_template('social_accounts.html', current_time=now.ctime())
+    return render_template('social_accounts.html', facebook = facebook, twitter = twitter, instagram = instagram, guitar = guitar, basketball = basketball, football = football, current_time=now.ctime())
 
 @app.route('/remove_social_accounts', methods=['GET', 'POST'])
 def remove_social_accounts():
@@ -201,26 +292,45 @@ def remove_social_accounts():
         cursor = connection.cursor()
 
         if request.method == 'POST':
-            cursor.execute("SELECT Social_ID FROM user_tb WHERE Username = '%s' "%session['loggedUser'])
-            data = cursor.fetchall()
-            if len(data) > 0:
-                print ('i am in')
-                if data[0][0] != None:
-                    cursor.execute("DELETE FROM social_accounts_tb WHERE ID = '%d' "%int(data[0][0]))
-                    return redirect(url_for('profile_page'))
 
-            ilkOkul = request.form.get('ilkOkulDelete')
-            if ilkOkul:
-                cursor.execute("UPDATE egitim_gecmisi SET ilkOkul='%s'  WHERE UserID='%d' "%("",  session['loggedUserID']))
+            if not bool(request.form['social']) == True or not bool(request.form['hobby']) == True:
+                if not bool(request.form['social']) == True :
 
-            lise = request.form.get('liseDelete')
-            if lise:
-                cursor.execute("UPDATE egitim_gecmisi SET  lise='%s' WHERE UserID='%d' "%( "",  session['loggedUserID']))
+                    cursor.execute("SELECT Social_ID FROM user_tb WHERE Username = '%s' "%session['loggedUser'])
+                    data = cursor.fetchall()
+                    if len(data) > 0:
+                        if data[0][0] != None:
+                            cursor.execute("DELETE FROM social_accounts_tb WHERE ID = '%d' "%int(data[0][0]))
 
-            universite = request.form.get('universiteDelete')
-            if universite:
-                cursor.execute("UPDATE egitim_gecmisi SET universite='%s' WHERE UserID='%d' "%("", session['loggedUserID']))
-            return redirect(url_for('profile_page'))
+                    ilkOkul = request.form.get('ilkOkulDelete')
+                    if ilkOkul:
+                        cursor.execute("UPDATE egitim_gecmisi SET ilkOkul='%s'  WHERE UserID='%d' "%("",  session['loggedUserID']))
+
+                    lise = request.form.get('liseDelete')
+                    if lise:
+                        cursor.execute("UPDATE egitim_gecmisi SET  lise='%s' WHERE UserID='%d' "%( "",  session['loggedUserID']))
+
+                    universite = request.form.get('universiteDelete')
+                    if universite:
+                        cursor.execute("UPDATE egitim_gecmisi SET universite='%s' WHERE UserID='%d' "%("", session['loggedUserID']))
+                    
+
+                if not bool(request.form['hobby']) == True : 
+
+                    cursor.execute("SELECT Hobby_ID FROM user_tb WHERE Username = '%s' "%session['loggedUser'])
+                    data = cursor.fetchall()
+
+                    if len(data) > 0:
+
+                        if data[0][0] != None:
+                            cursor.execute("DELETE FROM hobbies_tb WHERE ID = '%d' "%int(data[0][0]))
+
+
+                return redirect(url_for('profile_page'))
+            else : 
+
+                return redirect(url_for('profile_page'))
+
     now = datetime.datetime.now()
     return render_template('remove_social_accounts.html', current_time=now.ctime())
 
@@ -510,6 +620,9 @@ def create_table_for_user():
         query = """DROP TABLE IF EXISTS social_accounts_tb"""
         cursor.execute(query)
 
+        query = """DROP TABLE IF EXISTS hobbies_tb"""
+        cursor.execute(query)
+
         query="""DROP TABLE IF EXISTS COMMENT"""
         cursor.execute(query)
 
@@ -536,7 +649,10 @@ def create_table_for_user():
         query="""CREATE TABLE social_accounts_tb(ID SERIAL, facebook VARCHAR(100), twitter VARCHAR(100), instagram VARCHAR(100), PRIMARY KEY (ID))"""
         cursor.execute(query)
 
-        query="""CREATE TABLE user_tb(ID SERIAL,Username VARCHAR(40), Password VARCHAR(10), Firstname VARCHAR(40),Lastname VARCHAR(40), Age int,Gender VARCHAR(10),Email VARCHAR(100), Social_ID INTEGER REFERENCES social_accounts_tb(ID) ON DELETE SET NULL, PRIMARY KEY (ID), UNIQUE(Username))"""
+        query="""CREATE TABLE hobbies_tb(ID SERIAL, guitar BOOLEAN, basketball BOOLEAN, football BOOLEAN, PRIMARY KEY (ID))"""
+        cursor.execute(query)
+
+        query="""CREATE TABLE user_tb(ID SERIAL,Username VARCHAR(40), Password VARCHAR(10), Firstname VARCHAR(40),Lastname VARCHAR(40), Age int,Gender VARCHAR(10),Email VARCHAR(100), Social_ID INTEGER REFERENCES social_accounts_tb(ID) ON DELETE SET NULL, Hobby_ID INTEGER REFERENCES hobbies_tb(ID) ON DELETE SET NULL, PRIMARY KEY (ID), UNIQUE(Username))"""
         cursor.execute(query)
 
         query="""CREATE TABLE SEARCH(SearchID SERIAL, UserID INTEGER REFERENCES user_tb(ID) ON DELETE SET NULL, WORD VARCHAR(20), PRIMARY KEY (SearchID))"""

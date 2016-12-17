@@ -59,6 +59,8 @@
 		  </tr>
 		</table>
 
+
+
 	    <div>
 	    	<table style="width:100%" border=" 1px solid black">
   <tr>
@@ -88,6 +90,22 @@
 	    </div>
 
     {% endif %}
+
+    {%if not (guitar == False and basketball == False and football == False) and session != None %}
+			<table style="width:100%">
+			  <tr>
+			    <th>Guitar</th>
+			    <th>Basketball</th>
+			    <th>Football</th>
+			  </tr>
+			  <tr>
+			    <td>{{guitar}}</td>
+			    <td>{{basketball}}</td>
+			    <td>{{football}}</td>
+			  </tr>
+			</table>
+	{%endif%}
+
 {% endblock %}
 
 

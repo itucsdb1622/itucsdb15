@@ -9,6 +9,12 @@
         <input type="checkbox" name="twitter" value="Car"> I want to delete twitter account info<br>
         <input type="checkbox" name="instagram" value="Car"> I want to delete instagram account info<br>
         -->
+        <input type="checkbox" name="social" value="{{
+          request.form.social }}"> Social accounts<br>
+        <input type="hidden" name="social" value = "FALSE"> 
+        <input type="checkbox" name="hobby" value="{{
+          request.form.hobby }}"> Hobbies<br>
+        <input type="hidden" name="hobby" value = "FALSE"> 
         <input type="checkbox" name="ilkOkulDelete" > Ilk okul bilgimi silmek istiyorum<br>
         <input type="checkbox" name="liseDelete" > Lise bilgimi silmek istiyorum<br>
         <input type="checkbox" name="universiteDelete" > Universite bilgimi silmek istiyorum<br>
