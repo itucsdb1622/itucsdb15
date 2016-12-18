@@ -3,52 +3,8 @@
 {% block content %}
 	{% if session != None %}
 		<div class="container">
-
-	    <p> If you want to update your account info, you can do it by clicking on the button below </p>
-	    <button id="update" class="float-left submit-button" >Update</button>
-
-		<script type="text/javascript">
-		    document.getElementById("update").onclick = function () {
-		        location.href = "../update_user";
-		    };
-		</script>
-
-		<p> If you want to delete your account info, you can do it by clicking on the button below </p>
-	    <button id="delete" class="float-left submit-button" >Delete your account</button>
-
-		<script type="text/javascript">
-		    document.getElementById("delete").onclick = function () {
-		        location.href = "../delete_user";
-		    };
-		</script>
-		
-		<p> Is tecrubesi eklemek icin tiklayin </p>
-	    <button id="tecrube_ekle" class="float-left submit-button" >Tecrube ekle</button>
-
-		<p> Is tecrubesi silmek icin tiklayin </p>
-	    <button id="tecrube_sil" class="float-left submit-button" >Tecrube sil</button>
-		<script type="text/javascript">
-		    document.getElementById("tecrube_ekle").onclick = function () {
-		        location.href = "../isTecrubesi";
-		    };
-		    document.getElementById("tecrube_sil").onclick = function () {
-		        location.href = "../isTecrubesiOperations";
-		    };
-		</script>
-
-		<p> If you want to add or remove your social media account info, you can do it by clicking on the buttons below </p>
-	    <button id="add social accounts" class="float-left submit-button" >Add or update profile informations</button>
-	    <button id="remove social account info" class="float-left submit-button" >Remove profile informations</button>
-
-		<script type="text/javascript">
-		    document.getElementById("add social accounts").onclick = function () {
-		        location.href = "../social_accounts";
-		    };
-
-		    document.getElementById("remove social account info").onclick = function () {
-		        location.href = "../remove_social_accounts";
-		    };
-		</script>
+		<br><br><br>
+		<img src="../static/images/profile_default.png" style = "width:20%">
 
 		<style type="text/css">
 			table, th, td {
@@ -60,7 +16,8 @@
 			}
 		</style>
 
-		<table style="width:100%">
+		<br><br><br>
+		<table style="width:50px">
 		  <tr>
 		    <th>Facebook</th>
 		    <th>Twitter</th>
@@ -73,10 +30,10 @@
 		  </tr>
 		</table>
 
-
+		<br><br><br>	
 
 	    <div>
-	    	<table style="width:100%" border=" 1px solid black">
+	    	<table style="width:26%" border=" 1px solid black">
   <tr>
     <th>Ilk Okul</th>
     <th>Lise</th>
@@ -97,8 +54,10 @@
 
 </table>
 	    </div>
+
+	    <br><br><br>
 		<div>
-	    	<table style="width:100%" border=" 1px solid black">
+	    	<table style="width:26%" border=" 1px solid black">
 			  <tr>
 			    <th>Is yeri</th>
 			    <th>Pozisyon</th>
@@ -117,9 +76,12 @@
 
 			</table>
 	    </div>
+
+
 	    </div>
 
 	{% elif session == None %}
+
 		<div class="container">
 
 	    <p> You are not logged in </p>
@@ -129,6 +91,7 @@
     {% endif %}
 
     {%if not (guitar == False and basketball == False and football == False) and session != None %}
+    		<br><br><br>
 			<table style="width:100%">
 			  <tr>
 			    <th>Guitar</th>
@@ -141,6 +104,42 @@
 			    <td>{{football}}</td>
 			  </tr>
 			</table>
+	{%endif%}
+
+	{%if session != None %}
+		<br><br><br>
+		<button id="update" class="float-left submit-button" >Update username</button><br><br>
+		<button id="add social accounts" class="float-left submit-button" >Add or update profile informations</button><br><br>
+	    
+	    <button id="tecrube_ekle" class="float-left submit-button" >Tecrube ekle</button><br><br>
+	    <button id="tecrube_sil" class="float-left submit-button" >Tecrube sil</button><br><br>
+
+	    <button id="remove social account info" class="float-left submit-button" >Remove profile informations</button><br><br>
+	    <button id="delete" class="float-left submit-button" >Delete your account</button><br><br>
+
+	    <script type="text/javascript">
+			document.getElementById("update").onclick = function () {
+		        location.href = "../update_user";
+		    };
+		    document.getElementById("delete").onclick = function () {
+		        location.href = "../delete_user";
+		    };
+		    document.getElementById("tecrube_ekle").onclick = function () {
+		        location.href = "../isTecrubesi";
+		    };
+		    document.getElementById("tecrube_sil").onclick = function () {
+		        location.href = "../isTecrubesiOperations";
+		    };
+		    document.getElementById("add social accounts").onclick = function () {
+		        location.href = "../social_accounts";
+		    };
+
+		    document.getElementById("remove social account info").onclick = function () {
+		        location.href = "../remove_social_accounts";
+		    };
+		</script>
+
+
 	{%endif%}
 
 {% endblock %}
