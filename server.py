@@ -3,7 +3,7 @@ import json
 import os
 import re
 import psycopg2 as aligramdb
-from PIL import Image
+# from PIL import Image
 
 from flask import Flask
 from flask import render_template
