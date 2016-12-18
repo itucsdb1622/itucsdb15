@@ -126,10 +126,39 @@ def profile_page():
             basketball = data[0][1]
             football = data[0][2]
 
-
+        if session['loggedUserID']:
+            cursor.execute("SELECT isYeri, pozisyon, sure FROM is_tecrubesi WHERE UserID = '%d' "%session['loggedUserID'])
+            isTecrubesi = cursor.fetchall()
+        else:
+            isTecrubesi=None;
 
     now = datetime.datetime.now()
-    return render_template('profile_page.html', session=session['loginStatus'], facebook = facebook_acc, twitter = twitter_acc, instagram = instagram_acc, guitar = guitar, basketball = basketball, football = football, current_time=now.ctime(),egitimArray=egitimArray)
+    return render_template('profile_page.html', session=session['loginStatus'], facebook = facebook_acc, twitter = twitter_acc, instagram = instagram_acc, guitar = guitar, basketball = basketball, football = football, current_time=now.ctime(),egitimArray=egitimArray,isTecrubesi=isTecrubesi)
+
+@app.route('/isTecrubesi', methods=['GET', 'POST'])
+def is_tecrubesi_ekle():
+    with aligramdb.connect(app.config['dsn']) as connection:
+        cursor = connection.cursor()
+        if request.method == 'POST':
+
+            sirket = request.form['sirket']
+            posizyon = request.form['posizyon']
+            sure = request.form['sure']
+
+            cursor.execute("INSERT INTO is_tecrubesi(UserID, isYeri, pozisyon, sure) VALUES ('%d','%s', '%s', '%s')"%(session['loggedUserID'],sirket, posizyon, sure))
+    return render_template('add_istecrube.html')
+
+@app.route('/isTecrubesiOperations', methods=['GET', 'POST'])
+def is_tecrubesi_islemleri():
+    with aligramdb.connect(app.config['dsn']) as connection:
+        cursor = connection.cursor()
+        if request.method == 'POST':
+
+            sirket = request.form['sirket']
+            cursor.execute("DELETE FROM is_tecrubesi WHERE UserID = '%d' AND isYeri='%s'"%(session['loggedUserID'],sirket))
+
+
+    return render_template('delete_istecrube.html')
 
 @app.route('/update_user', methods=['GET', 'POST'])
 def update_user():
@@ -643,6 +672,9 @@ def create_table_for_user():
 
         query = """DROP TABLE IF EXISTS egitim_gecmisi"""
         cursor.execute(query)
+        
+        query = """DROP TABLE IF EXISTS is_tecrubesi"""
+        cursor.execute(query)
 
 
 
@@ -662,6 +694,9 @@ def create_table_for_user():
         cursor.execute(query)
 
         query="""CREATE TABLE egitim_gecmisi(ID SERIAL,UserID INTEGER REFERENCES user_tb(ID) ON DELETE SET NULL, ilkOkul VARCHAR(140),lise VARCHAR(140),universite VARCHAR(140), PRIMARY KEY (ID))"""
+        cursor.execute(query)
+        
+        query="""CREATE TABLE is_tecrubesi(ID SERIAL,UserID INTEGER REFERENCES user_tb(ID) ON DELETE SET NULL, isYeri VARCHAR(140),pozisyon VARCHAR(140),sure VARCHAR(140), PRIMARY KEY (ID))"""
         cursor.execute(query)
 
         query="""CREATE TABLE COMMENT(CommentID SERIAL,PostID INTEGER REFERENCES post_tb(ID) ON DELETE SET NULL, MESSAGE VARCHAR(140), PRIMARY KEY (CommentID))"""
