@@ -3,6 +3,7 @@ import json
 import os
 import re
 import psycopg2 as aligramdb
+from PIL import Image
 
 from flask import Flask
 from flask import render_template
@@ -467,7 +468,7 @@ def myGallery():
                 cursor.execute("INSERT INTO images_tb(userID, imageName, imageContent) VALUES ('%d','%s','%s')"%(userID, imageName, jpgFile))
                 connection.commit()
 
-           return render_template('myGallery.html', session=session['loginStatus'])
+         return render_template('myGallery.html', session=session['loginStatus'])
 
 
 
