@@ -15,19 +15,21 @@
 </head>
 
 <body>
+	
+
+<div id="page-container">
+
 	{% if session != None %}
   
-    <input type="image" src="../static/images/logout.png" id="logout" style="width:5%; border:0px; margin-left:90%; padding-top:5%" >
+    <input type="image" src="../static/images/logout.png" id="logout" style="width:7%; border:0px; margin-left:90%; margin-top:5%" >
     <script type="text/javascript">
           document.getElementById("logout").onclick = function () {
               location.href = "/logout";
           };
-      </script>
+    </script>
 
 
-  {% endif %}
-
-<div id="page-container">
+  	{% endif %}
 
 	<div id="header">
 	<h1><a href="#">Aligram</a></h1>
