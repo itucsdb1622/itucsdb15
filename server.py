@@ -215,12 +215,12 @@ def social_accounts():
 
             social_id = data_social[0][0]
 
-            if social_id != None : 
+            if social_id != None :
 
                 print("social_id", data_social)
                 cursor.execute("SELECT facebook, twitter, instagram FROM social_accounts_tb WHERE Id = '%d' "%social_id)
                 social_accs = cursor.fetchall()
-                
+
                 facebook = social_accs[0][0]
                 twitter = social_accs[0][1]
                 instagram = social_accs[0][2]
@@ -229,11 +229,11 @@ def social_accounts():
 
             hobby_id = data_hobby[0][0]
 
-            if hobby_id != None : 
+            if hobby_id != None :
 
                 cursor.execute("SELECT guitar, basketball, football FROM hobbies_tb WHERE Id = '%d' "%hobby_id)
                 hobbies = cursor.fetchall()
-                
+
                 guitar = hobbies[0][0]
                 basketball = hobbies[0][1]
                 football = hobbies[0][2]
@@ -241,7 +241,7 @@ def social_accounts():
 
 
 
-        
+
 
         error = None
         if request.method == 'POST':
@@ -257,8 +257,8 @@ def social_accounts():
             hobby_guitar = not bool(hobby_guitar)
             hobby_basketball = not bool(hobby_basketball)
             hobby_football = not bool(hobby_football)
-            
-        
+
+
             data = data_social
 
             if len(data) > 0:
@@ -279,7 +279,7 @@ def social_accounts():
 
             if len(data) > 0:
                 if data[0][0] == None:
-                    
+
                     cursor.execute("INSERT INTO hobbies_tb(guitar, basketball, football) VALUES (%s, %s, %s) RETURNING id"%(hobby_guitar, hobby_basketball, hobby_football))
 
                     cursor.execute("SELECT lastval()")
@@ -292,7 +292,7 @@ def social_accounts():
 
                     cursor.execute("UPDATE hobbies_tb SET guitar ='%s', basketball = '%s', football = '%s' WHERE ID='%s' "%(hobby_guitar, hobby_basketball, hobby_football, data[0][0]))
 
-                
+
 
             ilk_okul=request.form['ilk_okul']
             lise=request.form['lise']
@@ -342,9 +342,9 @@ def remove_social_accounts():
                     universite = request.form.get('universiteDelete')
                     if universite:
                         cursor.execute("UPDATE egitim_gecmisi SET universite='%s' WHERE UserID='%d' "%("", session['loggedUserID']))
-                    
 
-                if not bool(request.form['hobby']) == True : 
+
+                if not bool(request.form['hobby']) == True :
 
                     cursor.execute("SELECT Hobby_ID FROM user_tb WHERE Username = '%s' "%session['loggedUser'])
                     data = cursor.fetchall()
@@ -356,7 +356,7 @@ def remove_social_accounts():
 
 
                 return redirect(url_for('profile_page'))
-            else : 
+            else :
 
                 return redirect(url_for('profile_page'))
 
@@ -433,7 +433,41 @@ def logout():
 
 @app.route('/myGallery', methods=['GET', 'POST'])
 def myGallery():
-        return render_template('myGallery.html')
+         if request.method == 'POST':
+
+           userID = session["loggedUserID"]
+           imageName =  request.files['myfile'].filename.split(".")[0]
+           print("image name : ", imageName)
+
+           fileitem = request.files['myfile']
+           print(fileitem)
+           myfile =  fileitem.read()
+
+           jpgFile = Image.open(fileitem)
+
+
+
+           print("Content : ", jpgFile);
+
+
+           # print("myfile ", myfile)
+
+            # imageContent = request.form['imageContent']
+            # imageName = request.form['imageName']
+
+           # myfile = binascii.hexlify(myfile)
+           # myfile = bytes(myfile, 'utf8')
+           # myfile = bytearray(myfile, 'utf8')
+           # myfile = myfile.encode(encoding='utf_8', errors='strict')
+           # print("myfile ", myfile)
+
+           with aligramdb.connect(app.config['dsn']) as connection:
+                cursor = connection.cursor()
+
+                cursor.execute("INSERT INTO images_tb(userID, imageName, imageContent) VALUES ('%d','%s','%s')"%(userID, imageName, jpgFile))
+                connection.commit()
+
+           return render_template('myGallery.html', session=session['loginStatus'])
 
 
 
@@ -668,7 +702,7 @@ def create_table_for_user():
 
         query = """DROP TABLE IF EXISTS egitim_gecmisi"""
         cursor.execute(query)
-        
+
         query = """DROP TABLE IF EXISTS is_tecrubesi"""
         cursor.execute(query)
 
@@ -691,7 +725,7 @@ def create_table_for_user():
 
         query="""CREATE TABLE egitim_gecmisi(ID SERIAL,UserID INTEGER REFERENCES user_tb(ID) ON DELETE SET NULL, ilkOkul VARCHAR(140),lise VARCHAR(140),universite VARCHAR(140), PRIMARY KEY (ID))"""
         cursor.execute(query)
-        
+
         query="""CREATE TABLE is_tecrubesi(ID SERIAL,UserID INTEGER REFERENCES user_tb(ID) ON DELETE SET NULL, isYeri VARCHAR(140),pozisyon VARCHAR(140),sure VARCHAR(140), PRIMARY KEY (ID))"""
         cursor.execute(query)
 
@@ -715,11 +749,11 @@ def create_table_for_user():
                                     ON DELETE CASCADE ON UPDATE CASCADE)"""
         cursor.execute(query)
 
-        query="""CREATE TABLE images_tb(imageID INTEGER PRIMARY KEY, UserID INTEGER REFERENCES user_tb(ID) ON DELETE SET NULL, imageName VARCHAR(50),imageContent VARCHAR(100))"""
+        query="""CREATE TABLE images_tb(imageID SERIAL PRIMARY KEY, UserID INTEGER REFERENCES user_tb(ID) ON DELETE SET NULL, imageName VARCHAR(500),imageContent VARCHAR(500))"""
         cursor.execute(query)
-        
+
         query = """CREATE TABLE event_comments(
-                       ID       SERIAL PRIMARY KEY, 
+                       ID       SERIAL PRIMARY KEY,
                        event_id INTEGER NOT NULL REFERENCES events_tb (ID)
                                 ON DELETE CASCADE ON UPDATE CASCADE,
                        user_id  INTEGER NOT NULL REFERENCES user_tb (ID)
@@ -771,12 +805,12 @@ def display_event(event_id):
         cursor.execute(query, data)
         event_pics = cursor.fetchall()
         query = """SELECT u.username, ec.comment, ec.id FROM event_comments ec
-                   JOIN user_tb u ON ec.user_id = u.id 
+                   JOIN user_tb u ON ec.user_id = u.id
                    WHERE ec.event_id = %s"""
         cursor.execute(query, data)
         event_comments = cursor.fetchall()
 
-    return render_template('manage_event.html', session=session, event=event, 
+    return render_template('manage_event.html', session=session, event=event,
                            event_pics=event_pics, event_comments=event_comments)
 
 @app.route('/events/<event_id>/delete', methods=['POST'])
@@ -828,13 +862,13 @@ def display_image(event_id, image_id):
     with aligramdb.connect(app.config['dsn']) as connection:
         cursor = connection.cursor()
         query = """SELECT ep.id, ep.image_url, e.userid FROM event_pics_tb ep
-                   JOIN events_tb e ON ep.event_id = e.id 
+                   JOIN events_tb e ON ep.event_id = e.id
                    WHERE ep.id = %s"""
         data = (image_id,)
         cursor.execute(query, data)
         image = cursor.fetchone()
 
-    return render_template('manage_image.html', session=session, image=image, 
+    return render_template('manage_image.html', session=session, image=image,
                            event_id=event_id)
 
 @app.route('/events/<event_id>/images/<image_id>/delete', methods=['POST'])

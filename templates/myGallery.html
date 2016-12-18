@@ -1,17 +1,22 @@
-
 {% extends 'template.html' %}
 
 {% block content %}
-	<div class="container">
-		<h1>Add your photos..</h1>
-			<form action="" enctype="multipart/form-data" method="POST">
-				<input type="file" name="myfile" value="{{ request.form.myfile }}" required>
-				<input type="text" placeholder="Image Name" name="imageName" value="{{
-          request.form.imageName }}" required>
-						<input type="submit" value="Upload" name="submit" />
-				</form>
-      {% if error %}
-        <p class="error"><strong>Error:</strong> {{ error }}
-      {% endif %}
-    </div>
+	{% if session != None %}
+		<div class="container">
+			<h1>Add your photos..</h1>
+				<form action="" enctype="multipart/form-data" method="POST">
+					<input type="file" name="myfile"
+							value="{{ request.form.myfile }}" required>
+							<input type="submit" value="Upload" name="submit" />
+					</form>
+	    </div>
+
+	{% elif session == None %}
+		<div class="container">
+
+	    	<h3> You should login to see your pictures. </h3>
+
+	    </div>
+
+    {% endif %}
 {% endblock %}
