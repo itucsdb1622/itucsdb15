@@ -21,6 +21,20 @@
 		        location.href = "../delete_user";
 		    };
 		</script>
+		
+		<p> Is tecrubesi eklemek icin tiklayin </p>
+	    <button id="tecrube_ekle" class="float-left submit-button" >Tecrube ekle</button>
+
+		<p> Is tecrubesi silmek icin tiklayin </p>
+	    <button id="tecrube_sil" class="float-left submit-button" >Tecrube sil</button>
+		<script type="text/javascript">
+		    document.getElementById("tecrube_ekle").onclick = function () {
+		        location.href = "../isTecrubesi";
+		    };
+		    document.getElementById("tecrube_sil").onclick = function () {
+		        location.href = "../isTecrubesiOperations";
+		    };
+		</script>
 
 		<p> If you want to add or remove your social media account info, you can do it by clicking on the buttons below </p>
 	    <button id="add social accounts" class="float-left submit-button" >Add or update profile informations</button>
@@ -70,15 +84,38 @@
 
   </tr>
 
+    {% if egitimArray %}
     <tr>
-    <td>{{ egitimArray[0]}}</td>
-	<td>{{ egitimArray[1]}}</td>
-    <td>{{ egitimArray[2]}}</td>
+    <td>{{ egitimArray[0][0]}}</td>
+	<td>{{ egitimArray[0][1]}}</td>
+    <td>{{ egitimArray[0][2]}}</td>
+
   </tr>
+	{% endif %}
 
 
 
 </table>
+	    </div>
+		<div>
+	    	<table style="width:100%" border=" 1px solid black">
+			  <tr>
+			    <th>Is yeri</th>
+			    <th>Pozisyon</th>
+			    <th>Sure</th>
+
+			  </tr>
+				{% for is in isTecrubesi %}
+			    <tr>
+			    <td>{{ is[0]}}</td>
+				<td>{{ is[1]}}</td>
+			    <td>{{ is[2]}}</td>
+
+			  </tr>
+				{% endfor %}
+
+
+			</table>
 	    </div>
 	    </div>
 
