@@ -3,6 +3,8 @@
 
 {% block content %}
 	<div class="container">
+
+	{% if session['loggedUserID'] == event[1] %}
       <h1>Please fill in the blank fields below</h1>
       <br>
       <form action="/events/{{event[0]}}/update" method="post">
@@ -20,8 +22,46 @@
       <form action="/events/{{event[0]}}/add_picture" method="get">
         <input class="btn btn-default" type="submit" value="Add Picture">
       </form>
+      <form action="/events/{{event[0]}}/comment" method="post">
+        <input type="text" placeholder="Comment" name="event_comment" required>
+        <input class="btn btn-default" type="submit" value="Add comment">
+      </form>
+	{% elif session['loggedUserID'] != None %}
+		<div style="border:2px solid black; padding:5px; margin:3px;">
+	  	  Event: {{event[2]}}<br>
+	  	  Date: {{event[3]}}<br>
+	  	  Location: {{event[4]}}
+		</div>
+      <br>
+      <form action="/events/{{event[0]}}/comment" method="post">
+        <input type="text" placeholder="Comment" name="event_comment" required>
+        <input class="btn btn-default" type="submit" value="Add comment">
+      </form>
+	{% else %}
+		<div style="border:2px solid black; padding:5px; margin:3px;">
+	  	  Event: {{event[2]}}<br>
+	  	  Date: {{event[3]}}<br>
+	  	  Location: {{event[4]}}
+		</div>
+	{% endif %}
 	  {% for event_pic in event_pics %}
 	  	<a href=/events/{{event[0]}}/images/{{event_pic[0]}}><img src={{event_pic[1]}} width=100 height=100></img></a>
+	  {% endfor %}
+	  {% for comment in event_comments %}
+		<div style="border:1px solid #72d706; padding:5px; margin:3px;">
+		  User: {{comment[0]}}
+		  <br>
+		  Comment: {{comment[1]}}
+		  {% if session['loggedUser'] == comment[0] %}
+          <form action="/events/{{event[0]}}/comments/{{comment[2]}}/update" method="post">
+	        <input type="text" placeholder="Update comment" name="event_comment" required>
+            <input class="btn btn-default" type="submit" value="Update">
+          </form>
+          <form action="/events/{{event[0]}}/comments/{{comment[2]}}/delete" method="post">
+            <input class="btn btn-default" type="submit" value="Delete">
+          </form>
+		  {% endif %}
+		</div>
 	  {% endfor %}
       {% if error %}
         <p class="error"><strong>Error:</strong> {{ error }}

@@ -2,7 +2,6 @@
 
 {% block content %}
 	
-{% if session == None %}
 	<div class="container">
       <h1>List of events:</h1>
       <br>
@@ -11,14 +10,14 @@
 	  <th>Event Name</th>
 	  <th>Date</th>
 	  <th>Location</th>
-	  <th>Manage</th>
+	  <th>Details</th>
 	  </tr>
 	  {% for event in events %}
 	  	<tr>
 	  	<td>{{event[2]}}</td>
 	  	<td>{{event[3]}}</td>
 	  	<td>{{event[4]}}</td>
-	  	<td><a href="/events/{{event[0]}}">Manage</a></td>
+	  	<td><a href="/events/{{event[0]}}">Details</a></td>
 	  {% endfor %}
 	  </tr>
 	  </table>
@@ -26,9 +25,10 @@
     {% if error %}
         <p class="error"><strong>Error:</strong> {{ error }}
       {% endif %}
-
+	{% if session['loggedUserID'] != None %}
     <p>Create new event:</p>
     <button id="addEvent" class="float-left submit-button" >Create event</button>
+	{% endif %}
 
 	<script type="text/javascript">
 	    document.getElementById("addEvent").onclick = function () {
@@ -38,7 +38,6 @@
 
       
     </div>
-    {% endif %}
 {% endblock %}
 
 

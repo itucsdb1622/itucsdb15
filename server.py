@@ -430,10 +430,6 @@ def logout():
 
     return redirect(url_for('home_page'))
 
-@app.route('/friends')
-def friends_page():
-    now = datetime.datetime.now()
-    return render_template('friends_page.html', current_time=now.ctime())
 
 @app.route('/myGallery', methods=['GET', 'POST'])
 def myGallery():
@@ -712,11 +708,6 @@ def create_table_for_user():
 
         cursor.execute(query)
 
-
-        query="""SELECT * FROM events_tb"""
-        cursor.execute(query)
-        events = cursor.fetchall()
-
         query = """CREATE TABLE IF NOT EXISTS event_pics_tb(
                        ID           SERIAL PRIMARY KEY,
                        image_url    VARCHAR(256),
@@ -725,6 +716,15 @@ def create_table_for_user():
         cursor.execute(query)
 
         query="""CREATE TABLE images_tb(imageID INTEGER PRIMARY KEY, UserID INTEGER REFERENCES user_tb(ID) ON DELETE SET NULL, imageName VARCHAR(50),imageContent VARCHAR(100))"""
+        cursor.execute(query)
+        
+        query = """CREATE TABLE event_comments(
+                       ID       SERIAL PRIMARY KEY, 
+                       event_id INTEGER NOT NULL REFERENCES events_tb (ID)
+                                ON DELETE CASCADE ON UPDATE CASCADE,
+                       user_id  INTEGER NOT NULL REFERENCES user_tb (ID)
+                                ON DELETE CASCADE ON UPDATE CASCADE,
+                       comment  VARCHAR(256))"""
         cursor.execute(query)
 
         connection.commit()
@@ -770,8 +770,14 @@ def display_event(event_id):
         data = (event_id,)
         cursor.execute(query, data)
         event_pics = cursor.fetchall()
+        query = """SELECT u.username, ec.comment, ec.id FROM event_comments ec
+                   JOIN user_tb u ON ec.user_id = u.id 
+                   WHERE ec.event_id = %s"""
+        cursor.execute(query, data)
+        event_comments = cursor.fetchall()
 
-    return render_template('manage_event.html', event=event, event_pics=event_pics)
+    return render_template('manage_event.html', session=session, event=event, 
+                           event_pics=event_pics, event_comments=event_comments)
 
 @app.route('/events/<event_id>/delete', methods=['POST'])
 def delete_event(event_id):
@@ -821,11 +827,15 @@ def display_image(event_id, image_id):
 
     with aligramdb.connect(app.config['dsn']) as connection:
         cursor = connection.cursor()
-        query = """SELECT * FROM event_pics_tb WHERE ID = {}""".format(image_id)
-        cursor.execute(query)
+        query = """SELECT ep.id, ep.image_url, e.userid FROM event_pics_tb ep
+                   JOIN events_tb e ON ep.event_id = e.id 
+                   WHERE ep.id = %s"""
+        data = (image_id,)
+        cursor.execute(query, data)
         image = cursor.fetchone()
 
-    return render_template('manage_image.html', image=image, event_id=event_id)
+    return render_template('manage_image.html', session=session, image=image, 
+                           event_id=event_id)
 
 @app.route('/events/<event_id>/images/<image_id>/delete', methods=['POST'])
 def delete_image(event_id, image_id):
@@ -851,17 +861,56 @@ def update_image(event_id, image_id):
 
     return redirect('events/%s' % event_id)
 
-@app.route('/events')
-def create_table_for_events():
+@app.route('/events/<event_id>/comment', methods=['POST'])
+def add_comment_to_event(event_id):
     with aligramdb.connect(app.config['dsn']) as connection:
         cursor = connection.cursor()
+        comment = request.form['event_comment']
+        user_id = session['loggedUserID']
+        query = """INSERT INTO event_comments (event_id, user_id, comment)
+                       VALUES (%s, %s, %s)"""
+        data = (event_id, user_id, comment)
+        cursor.execute(query, data)
 
+    return redirect('events/%s' % event_id)
 
+@app.route('/events/<event_id>/comments/<comment_id>/delete', methods=['POST'])
+def delete_event_comment(event_id, comment_id):
+    with aligramdb.connect(app.config['dsn']) as connection:
+        cursor = connection.cursor()
+        query = """DELETE FROM event_comments WHERE ID = %s"""
+        data = (comment_id,)
+        cursor.execute(query, data)
+
+    return redirect('events/%s' % event_id)
+
+@app.route('/events/<event_id>/comments/<comment_id>/update', methods=['POST'])
+def update_event_comment(event_id, comment_id):
+
+    with aligramdb.connect(app.config['dsn']) as connection:
+        cursor = connection.cursor()
+        comment = request.form['event_comment']
+
+        query = """UPDATE event_comments
+                   SET comment = %s
+                   WHERE ID = %s"""
+        data = (comment, comment_id)
+        cursor.execute(query, data)
+
+    return redirect('events/%s' % event_id)
+
+@app.route('/events')
+def show_events():
+    with aligramdb.connect(app.config['dsn']) as connection:
+        cursor = connection.cursor()
+        query = """SELECT * FROM events_tb"""
+        cursor.execute(query)
+        events = cursor.fetchall()
 
         connection.commit()
 
     now = datetime.datetime.now()
-    return render_template('events.html', session=None, current_time=now.ctime(), events=events)
+    return render_template('events.html', session=session, current_time=now.ctime(), events=events)
 
 
 if __name__ == '__main__':
