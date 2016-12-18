@@ -15,6 +15,17 @@
 </head>
 
 <body>
+	{% if session != None %}
+  
+    <input type="image" src="../static/images/logout.png" id="logout" style="width:5%; border:0px; margin-left:90%; padding-top:5%" >
+    <script type="text/javascript">
+          document.getElementById("logout").onclick = function () {
+              location.href = "/logout";
+          };
+      </script>
+
+
+  {% endif %}
 
 <div id="page-container">
 

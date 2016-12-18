@@ -32,18 +32,9 @@
 
         
       </div>
+  {%endif%}
 
-  {% elif session != None %}
-  
-    <button id="logout" class="float-left submit-button" >Logout</button>
-    <script type="text/javascript">
-          document.getElementById("logout").onclick = function () {
-              location.href = "/logout";
-          };
-      </script>
-
-
-  {% endif %}
+    
 {% endblock %}
 
 
