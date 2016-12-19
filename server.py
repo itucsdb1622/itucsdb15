@@ -694,6 +694,9 @@ def create_table_for_user():
         query = """DROP TABLE IF EXISTS SEARCH"""
         cursor.execute(query)
 
+        query = """DROP TABLE IF EXISTS event_comments"""
+        cursor.execute(query)
+
         query = """DROP TABLE IF EXISTS event_pics_tb"""
         cursor.execute(query)
 
