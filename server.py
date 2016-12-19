@@ -322,6 +322,16 @@ def remove_social_accounts():
         cursor = connection.cursor()
 
         if request.method == 'POST':
+            if ilkOkul:
+                cursor.execute("UPDATE egitim_gecmisi SET ilkOkul='%s'  WHERE UserID='%d' "%("",  session['loggedUserID']))
+
+            lise = request.form.get('liseDelete')
+            if lise:
+                cursor.execute("UPDATE egitim_gecmisi SET  lise='%s' WHERE UserID='%d' "%( "",  session['loggedUserID']))
+
+            universite = request.form.get('universiteDelete')
+            if universite:
+                cursor.execute("UPDATE egitim_gecmisi SET universite='%s' WHERE UserID='%d' "%("", session['loggedUserID']))
 
             if not bool(request.form['social']) == True or not bool(request.form['hobby']) == True:
                 if not bool(request.form['social']) == True :
@@ -333,16 +343,7 @@ def remove_social_accounts():
                             cursor.execute("DELETE FROM social_accounts_tb WHERE ID = '%d' "%int(data[0][0]))
 
                     ilkOkul = request.form.get('ilkOkulDelete')
-                    if ilkOkul:
-                        cursor.execute("UPDATE egitim_gecmisi SET ilkOkul='%s'  WHERE UserID='%d' "%("",  session['loggedUserID']))
-
-                    lise = request.form.get('liseDelete')
-                    if lise:
-                        cursor.execute("UPDATE egitim_gecmisi SET  lise='%s' WHERE UserID='%d' "%( "",  session['loggedUserID']))
-
-                    universite = request.form.get('universiteDelete')
-                    if universite:
-                        cursor.execute("UPDATE egitim_gecmisi SET universite='%s' WHERE UserID='%d' "%("", session['loggedUserID']))
+                    
 
 
                 if not bool(request.form['hobby']) == True :
