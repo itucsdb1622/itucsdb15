@@ -322,6 +322,7 @@ def remove_social_accounts():
         cursor = connection.cursor()
 
         if request.method == 'POST':
+            ilkOkul = request.form.get('ilkOkulDelete')
             if ilkOkul:
                 cursor.execute("UPDATE egitim_gecmisi SET ilkOkul='%s'  WHERE UserID='%d' "%("",  session['loggedUserID']))
 
@@ -342,7 +343,7 @@ def remove_social_accounts():
                         if data[0][0] != None:
                             cursor.execute("DELETE FROM social_accounts_tb WHERE ID = '%d' "%int(data[0][0]))
 
-                    ilkOkul = request.form.get('ilkOkulDelete')
+                    
                     
 
 
