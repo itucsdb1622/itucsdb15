@@ -3,7 +3,7 @@ import json
 import os
 import re
 import psycopg2 as aligramdb
-# from PIL import Image
+from PIL import Image
 
 from flask import Flask
 from flask import render_template
@@ -343,8 +343,8 @@ def remove_social_accounts():
                         if data[0][0] != None:
                             cursor.execute("DELETE FROM social_accounts_tb WHERE ID = '%d' "%int(data[0][0]))
 
-                    
-                    
+
+
 
 
                 if not bool(request.form['hobby']) == True :
