@@ -112,6 +112,35 @@ Bu işlem daha önceden eklenmiş olan bir satırın "word" bilgisini değiştir
  
 Bu işlem parametrelerini html arayüzüyle kullanıcıdan alıyor.
 
+Silme
+^^^^^
+ Bu işlem istenilen bir satırın silinmesi için kullanılıyor.
+
+ Python kodu aşağıdaki gibidir.
+
+.. code-block:: python
+ def delete_search():
+    message=" "
+
+    if request.method == 'POST':
+        id = int(request.form['id_del'])
+        with aligramdb.connect(app.config['dsn']) as connection:
+            cursor = connection.cursor()
+            query=""""""
+            cursor.execute("DELETE FROM SEARCH WHERE SearchID = '%d'"%(id))
+
+            connection.commit()
+    with aligramdb.connect(app.config['dsn']) as connection:
+        cursor = connection.cursor()
+
+        query="""SELECT * FROM SEARCH"""
+        cursor.execute(query)
+        data = cursor.fetchall()
+
+
+    return render_template('delete_search.html', search_list=data)
+
+Bu işlem parametrelerini html arayüzüyle kullanıcıdan alıyor.
 
 
 
