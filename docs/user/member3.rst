@@ -14,4 +14,15 @@ Kullanıcı girişi yapıldıktan sonra Post sayfasına giriyoruz. Kullanıcın�
 .. figure:: https://github.com/itucsdb1622/itucsdb1622/blob/master/docs/user/images/member3/postsuz.PNG
       :scale: 100 %
 
-      eg. Herhangi bir Post olmadığı durumda 
+*Postlu Ekranlar
+
+Kullanıcı sırasıyla postlar yaptığında post sayfası örnek olarak şu şekilde gözüküyor:
+
+.. figure:: https://github.com/itucsdb1622/itucsdb1622/blob/master/docs/user/images/member3/1.post.PNG
+      :scale: 100 %
+      
+      
+      
+.. figure:: https://github.com/itucsdb1622/itucsdb1622/blob/master/docs/user/images/member3/2.post.PNG
+      :scale: 100 %
+
