@@ -62,7 +62,7 @@ Bir commenti güncellemek için ise güncelleme sayfasına giderek güncellemek 
    
  Silme işlemi için ise silme sayfasına gittikten sonra silmek istediğimiz commentin idsini giriyoruz.
  
- .. figure:: images/member2/comment_update.JPG
+.. figure:: images/member2/comment_update.JPG
    :scale: 75 %
    :align: center
    *Resim 8: Comment Silme
@@ -73,14 +73,14 @@ Bir commenti güncellemek için ise güncelleme sayfasına giderek güncellemek 
  Bu işlem kullanıcıların eğitim geçmişi bilgilerini girerek profil sayfasında gözükmesini sağlıyor. Kullanıcı "Add or Update Profil
  Information" butonuna basarak bu sayfaya gider ve ilgili kısımları doldurarak "Submit" butonuna basar.
  
-  .. figure:: images/member2/egitim_ekleme.JPG
+ .. figure:: images/member2/egitim_ekleme.JPG
    :scale: 75 %
    :align: center
    *Resim 9: Eğitim Geçmişi Ekleme
    
 Bu işlemden sonra kullanıcı eğitim geçmişi bilgilerini profil sayfasında görebilir.
 
-  .. figure:: images/member2/egitim_ekleme_sonuc.JPG
+.. figure:: images/member2/egitim_ekleme_sonuc.JPG
    :scale: 75 %
    :align: center
    *Resim 10: Eğitim Geçmişi Profil Sayfası
@@ -88,13 +88,13 @@ Bu işlemden sonra kullanıcı eğitim geçmişi bilgilerini profil sayfasında 
 Eğitim geçmişinde güncelleme yapmak için tekrar "Add or Update Profil Information" butonuna basarak bu sayfaya gidiyoruz. Güncelleme
 yapmak istediğimiz verinin bilgisini doldurup "Submit" butonuna basıyoruz. Aşağıda lise bilgisinin güncellenmesi gösterilmiştir.
 
-  .. figure:: images/member2/egitim_güncelleme.JPG
+.. figure:: images/member2/egitim_güncelleme.JPG
    :scale: 75 %
    :align: center
    *Resim 11: Eğitim Geçmişi Güncelleme
    
  
-   .. figure:: images/member2/egitim_güncelleme_sonuc.JPG
+.. figure:: images/member2/egitim_güncelleme_sonuc.JPG
    :scale: 75 %
    :align: center
    *Resim 12: Eğitim Geçmişi Güncelleme Profil Sayfası Sonucu
@@ -103,13 +103,13 @@ yapmak istediğimiz verinin bilgisini doldurup "Submit" butonuna basıyoruz. Aş
 Silme işlemi için ise "Remove Profil Information" butonuna basarak silme sayfasına gidiyoruz. Burada silmek istediğimiz bilgileri
 seçerek "Yes" butonuna basıyoruz. Aşağıda ilkokul ve lise bilgilerinin silindiği bir örnek gösterilmiştir.
 
-  .. figure:: images/member2/egitim_silme.JPG
+.. figure:: images/member2/egitim_silme.JPG
    :scale: 75 %
    :align: center
    *Resim 13: Eğitim Geçmişi Silme
    
  
-   .. figure:: images/member2/egitim_silme_sonuc.JPG
+.. figure:: images/member2/egitim_silme_sonuc.JPG
    :scale: 75 %
    :align: center
    *Resim 14: Eğitim Geçmişi Silme Profil Sayfası Sonucu
