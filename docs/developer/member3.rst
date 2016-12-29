@@ -81,7 +81,8 @@ Bu işlem daha önceden eklenmiş olan bir Post'un bilgisini değiştirmemizi sa
  Python kodu aşağıdaki gibidir.
 
 .. code-block:: python
-def update_post():
+
+ def update_post():
     message=" "
 
     if request.method == 'POST':
@@ -132,7 +133,56 @@ Python kodu aşağıdaki gibidir.
 
 İş Tecrübesi Tablosu
 ---------------
-Bu tablo kullanıcıların profil sayfalarında iş tecrübesi bilgilerinin tutulması için tasarlandı.
+Bu tablo kullanıcıların profil sayfalarında iş tecrübesi bilgilerinin tutulması için tasarlandı. Primary key ve foreign key post id ve user id olarak tanımlandı.
 
 Tabloyu Oluşturma 
 ^^^^^^^^^^^^^^^^
+Bu işlemde öncelikle tablo daha önce var mı diye kontrol ediyor. Eger varsa bu varlığı dropluyorum. Daha sonra create işlemi gerçekleşiyor.
+
+Python kodu aşağıdaki gibidir:
+
+.. code-block:: python
+
+    def create_table_for_user():
+        with aligramdb.connect(app.config['dsn']) as connection:
+            cursor = connection.cursor()
+
+            query = """DROP TABLE IF EXISTS is_tecrubesi"""
+            cursor.execute(query)
+
+            query="""CREATE TABLE is_tecrubesi(ID SERIAL,UserID INTEGER REFERENCES user_tb(ID) ON DELETE SET NULL, isYeri 
+            VARCHAR(140),pozisyon VARCHAR(140),sure VARCHAR(140), PRIMARY KEY (ID))"""
+            cursor.execute(query)
+
+            
+            cursor.execute(query)
+
+
+Ekleme ve Güncelleme
+^^^^^^
+Bu operasyon iş tecrübesine yeni bir kayıt eklemek için ve o kullanıcının iş tecrübelerini güncellemesi için kullanılır. 
+ 
+ Python kodu aşağıdaki gibidir:
+ 
+ .. code-block:: python
+
+ def comment():
+    message=" "
+
+    if request.method == 'POST':
+        post_id =  request.form['post_id']
+        comment = request.form['comment']
+        with aligramdb.connect(app.config['dsn']) as connection:
+            cursor = connection.cursor()
+            cursor.execute("INSERT INTO COMMENT(PostID, MESSAGE) VALUES ('%d', '%s')"%(int(post_id), comment))
+            connection.commit()
+
+    with aligramdb.connect(app.config['dsn']) as connection:
+        cursor = connection.cursor()
+
+        query="""SELECT * FROM COMMENT"""
+        cursor.execute(query)
+        data = cursor.fetchall()
+
+    return render_template('add_comment.html', comment_list=data)
+
