@@ -92,7 +92,8 @@ yapmak istediğimiz verinin bilgisini doldurup "Submit" butonuna basıyoruz. Aş
    :scale: 75 %
    :align: center
    *Resim 11: Eğitim Geçmişi Güncelleme
-   
+  
+Güncelledikten sonra profil sayfası aşağıdaki gibi gözükür.
  
 .. figure:: images/member2/egitim_güncelleme_sonuc.JPG
    :scale: 75 %
@@ -108,7 +109,8 @@ seçerek "Yes" butonuna basıyoruz. Aşağıda ilkokul ve lise bilgilerinin sili
    :align: center
    *Resim 13: Eğitim Geçmişi Silme
    
- 
+Sildikten sonra profil sayfası aşağıdaki gibi gözükür. 
+
 .. figure:: images/member2/egitim_silme_sonuc.JPG
    :scale: 75 %
    :align: center
