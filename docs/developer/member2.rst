@@ -137,7 +137,6 @@ Bu işlem istenilen bir satırın silinmesi için kullanılıyor.
         cursor.execute(query)
         data = cursor.fetchall()
 
-
     return render_template('delete_search.html', search_list=data)
 
 Bu işlem parametrelerini html arayüzüyle kullanıcıdan alıyor.
@@ -199,7 +198,6 @@ Bu operasyon comment tablosuna yeni bir kayıt eklmek için kullanılır.
         query="""SELECT * FROM COMMENT"""
         cursor.execute(query)
         data = cursor.fetchall()
-
 
     return render_template('add_comment.html', comment_list=data)
 
