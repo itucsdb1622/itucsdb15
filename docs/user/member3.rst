@@ -1,7 +1,6 @@
 Parts Implemented by Muhammet Berhak Demir
 ================================
 
-Yaptığımız projede benim veri tabanında tutup düzenlediğim varlıklar Postlar ve Kullanıcının İş Tecrübeleri. Bu varlıklara ilişkin temel işlemlerin nasıl yapıldığını yazacağım. 
 
 POSTLAR
 ----------------------
