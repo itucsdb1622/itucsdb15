@@ -26,3 +26,19 @@ Kullanıcı sırasıyla postlar yaptığında post sayfası örnek olarak şu ş
 .. figure:: https://github.com/itucsdb1622/itucsdb1622/blob/master/docs/user/images/member3/2.post.PNG
       :scale: 100 %
 
+*Post için Update
+
+Kullanıcı önceden yapmış olduğu Postu güncelleyebilir:
+
+
+.. figure:: https://github.com/itucsdb1622/itucsdb1622/blob/master/docs/user/images/member3/updatepost.PNG
+      :scale: 100 %
+
+Post sayfası bu şekilde güncellenmiş olur:
+
+
+.. figure:: https://github.com/itucsdb1622/itucsdb1622/blob/master/docs/user/images/member3/updatedeneme1.PNG
+      :scale: 100 %
+      
+      
+      
