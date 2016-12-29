@@ -26,7 +26,7 @@ Kullanıcı sırasıyla postlar yaptığında post sayfası örnek olarak şu ş
 .. figure:: https://github.com/itucsdb1622/itucsdb1622/blob/master/docs/user/images/member3/2.post.PNG
       :scale: 100 %
 
-*Post için Update
+*Post İçin Update İşlemi
 
 Kullanıcı önceden yapmış olduğu Postu güncelleyebilir:
 
@@ -34,11 +34,41 @@ Kullanıcı önceden yapmış olduğu Postu güncelleyebilir:
 .. figure:: https://github.com/itucsdb1622/itucsdb1622/blob/master/docs/user/images/member3/updatepost.PNG
       :scale: 100 %
 
-Post sayfası bu şekilde güncellenmiş olur:
+Post sayfası şu şekilde güncellenmiş olur:
 
 
 .. figure:: https://github.com/itucsdb1622/itucsdb1622/blob/master/docs/user/images/member3/updatedeneme1.PNG
       :scale: 100 %
       
-      
-      
+*Post İçin Delete İşlemi
+
+Kullanıcı önceden yapmış olduğu Postu silebilir:
+
+.. figure:: https://github.com/itucsdb1622/itucsdb1622/blob/master/docs/user/images/member3/deletepost.PNG
+      :scale: 100 %
+
+Post sayfasında son hal şu şekilde olur:
+
+.. figure:: https://github.com/itucsdb1622/itucsdb1622/blob/master/docs/user/images/member3/deletepost2.PNG
+      :scale: 100 %
+
+
+İŞ TECRÜBELERİ
+----------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
