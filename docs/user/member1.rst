@@ -8,6 +8,6 @@ Kullanıcı
 
 Siteye ilk kez giriş yaptığımızda alttaki görseldeki sayfa bizi karşılıyor.
 
-.. figure:: images/member1/login.PNG
+.. figure:: images/member1/login.png
    :scale: 75 %
    :align: center
