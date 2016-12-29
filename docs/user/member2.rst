@@ -7,6 +7,6 @@ Search
 ------
 Bu işlem için öncelikle search sayfasına giriyoruz ve aramak istediğimiz kelimeyi sağ taraftaki alana girerek search butonuna basıyoruz.
 
-.. figure:: images/member3/search_atma.JPG
+.. figure:: images/member2/search_atma.JPG
    :scale: 75 %
    :align: center
