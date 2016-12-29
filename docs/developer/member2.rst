@@ -119,6 +119,7 @@ Bu işlem istenilen bir satırın silinmesi için kullanılıyor.
 Python kodu aşağıdaki gibidir.
 
 .. code-block:: python
+
  def delete_search():
     message=" "
 
@@ -181,6 +182,7 @@ Bu operasyon comment tablosuna yeni bir kayıt eklmek için kullanılır.
  Python kodu aşağıdaki gibidir.
 
 .. code-block:: python
+
  def comment():
     message=" "
 
@@ -209,6 +211,7 @@ Bu işlem daha önceden eklenmiş olan bir satırın "message" bilgisini değiş
  Python kodu aşağıdaki gibidir.
 
 .. code-block:: python
+
  def update_comment():
 
     if request.method == 'POST':
@@ -235,6 +238,7 @@ Bu işlem istenilen bir satırın silinmesi için kullanılıyor.
  Python kodu aşağıdaki gibidir.
 
 .. code-block:: python
+
  def delete_comment():
 
     if request.method == 'POST':
