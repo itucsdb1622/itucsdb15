@@ -41,3 +41,8 @@ Tabloyu Oluşturma
             query="""CREATE TABLE post_tb(ID SERIAL,UserID INTEGER REFERENCES user_tb(ID) ON DELETE SET NULL, MESSAGE VARCHAR(140),     
             PRIMARY KEY (ID))"""
             cursor.execute(query)
+
+Ekleme
+^^^^^^^^^^^^^^^^
+Bu operasyon Postlara yeni bir kayıt ekelmek için kullanılır:
+
