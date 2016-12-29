@@ -189,7 +189,8 @@ Bu işlem kullanıcının silmek istediği bir iş tecrübesi için kullanılır
 Python kodu aşağıdaki gibidir:
  
  .. code-block:: python
-def is_tecrubesi_islemleri():
+  
+   def is_tecrubesi_islemleri():
     with aligramdb.connect(app.config['dsn']) as connection:
         cursor = connection.cursor()
         if request.method == 'POST':
@@ -199,6 +200,4 @@ def is_tecrubesi_islemleri():
 
 
     return render_template('delete_istecrube.html')
-
-
 
