@@ -11,7 +11,7 @@ POSTLAR
 
 Kullanıcı girişi yapıldıktan sonra Post sayfasına giriyoruz. Kullanıcının herhangi bir Post yapmadıysa sayfa şu şekilde gözüküyor:
 
-.. figure:: images/member3/postsuz.png
+.. figure:: https://github.com/itucsdb1622/itucsdb1622/blob/master/docs/user/images/member3/postsuz.PNG
       :scale: 100 %
 
       eg. Herhangi bir Post olmadığı durumda 
