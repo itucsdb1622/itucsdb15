@@ -166,23 +166,35 @@ Bu operasyon iş tecrübesine yeni bir kayıt eklemek için ve o kullanıcının
  
  .. code-block:: python
 
- def comment():
-    message=" "
-
-    if request.method == 'POST':
-        post_id =  request.form['post_id']
-        comment = request.form['comment']
-        with aligramdb.connect(app.config['dsn']) as connection:
-            cursor = connection.cursor()
-            cursor.execute("INSERT INTO COMMENT(PostID, MESSAGE) VALUES ('%d', '%s')"%(int(post_id), comment))
-            connection.commit()
-
+   def is_tecrubesi_ekle():
     with aligramdb.connect(app.config['dsn']) as connection:
         cursor = connection.cursor()
+        if request.method == 'POST':
 
-        query="""SELECT * FROM COMMENT"""
-        cursor.execute(query)
-        data = cursor.fetchall()
+            sirket = request.form['sirket']
+            posizyon = request.form['posizyon']
+            sure = request.form['sure']
+
+            cursor.execute("INSERT INTO is_tecrubesi(UserID, isYeri, pozisyon, sure) VALUES ('%d','%s', '%s', '%s')"%
+            (session['loggedUserID'],sirket, posizyon, sure))
+            return render_template('add_istecrube.html')
+
 
     return render_template('add_comment.html', comment_list=data)
+
+Silme
+^^^^^
+Bu işlem kullanıcının silmek istediği bir iş tecrübesi için kullanılır. İşyeri ismini girerek ilgili iş tecrübesi silinmiş olur.
+
+Python kodu aşağıdaki gibidir:
+ 
+ .. code-block:: python
+ def is_tecrubesi_islemleri():
+    with aligramdb.connect(app.config['dsn']) as connection:
+        cursor = connection.cursor()
+        if request.method == 'POST':
+
+            sirket = request.form['sirket']
+            cursor.execute("DELETE FROM is_tecrubesi WHERE UserID = '%d' AND isYeri='%s'"%(session['loggedUserID'],sirket))
+
 
