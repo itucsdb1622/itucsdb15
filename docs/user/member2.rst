@@ -68,7 +68,7 @@ Bir commenti güncellemek için ise güncelleme sayfasına giderek güncellemek 
    
    *Resim 7: Comment Güncelleme
    
- Silme işlemi için ise silme sayfasına gittikten sonra silmek istediğimiz commentin idsini giriyoruz.
+Silme işlemi için ise silme sayfasına gittikten sonra silmek istediğimiz commentin idsini giriyoruz.
  
    
 Eğitim Geçmişi
