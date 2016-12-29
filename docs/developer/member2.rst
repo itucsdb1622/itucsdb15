@@ -31,6 +31,10 @@ Operasyonlar
  Python kodu aşağıdaki gibidir.
  .. code-block:: python
     @app.route('/DbCreate')
+    
+
+.. code-block:: python
+
     def create_table_for_user():
     with aligramdb.connect(app.config['dsn']) as connection:
         cursor = connection.cursor()
@@ -40,8 +44,8 @@ Operasyonlar
         
         query="""CREATE TABLE SEARCH(SearchID SERIAL, UserID INTEGER REFERENCES user_tb(ID) ON DELETE SET NULL, WORD VARCHAR(20),   PRIMARY KEY (SearchID))"""
         cursor.execute(query)
-
-
+ 
+ 
 
 
 
