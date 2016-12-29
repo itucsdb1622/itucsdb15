@@ -21,7 +21,8 @@ Daha sonra arama yaptığımız kelime arama yapan userın idsi ile birlikte ekr
    
    *Resim 2: Search yaptıktan sonraki durum
    
-Searc tablosunda güncelleme yapmak için ise "Update Search" butonuna basarak güncelleme sayfasına geçiyoruz. Burada güncellemek istediğimiz
+Searc tablosunda güncelleme yapmak için ise "Update Search" butonuna basarak güncelleme sayfasına geçiyoruz. Burada güncellemek
+istediğimiz
 search satırının idsini ve yeni metini giriyoruz. Ardından "search_update" butonuna basıyoruz.
 
 .. figure:: images/member2/search_update.JPG
