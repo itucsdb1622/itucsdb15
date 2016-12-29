@@ -1,16 +1,16 @@
 Umut Yazgan Tarafından Eklenen Kısımlar
 ================================
 
+blabla
+
 Events Sayfası
 --------------
 
 Kullanıcılar bu sayfa aracılığı ile event(etkinlik) oluşturabilir, düzenleyebilir ve oluşturulan event'leri görüntüleyebilirler.
 
-.. figure:: images/member4/main-page.png
-   :scale: 100 %
+.. figure:: images/member1/login.png
+   :scale: 75 %
    :align: center
-   
-   *events sayfasına sitenin üst ve alt menülerinin en son bağlantısından erişilebilir.*
    
 Sayfaya ilk girildiğinde kullanıcı açılmış olan event'lerin bir listesini görür. Eğer kullanıcı giriş yaptıysa "Create Event" butonuna tıklayarak kendi event'ini oluşturabilir. Misafir kullanıcılar bu butonu göremez, event oluşturamaz.
    
