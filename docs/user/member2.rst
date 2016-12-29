@@ -73,7 +73,7 @@ Bir commenti güncellemek için ise güncelleme sayfasına giderek güncellemek 
  Bu işlem kullanıcıların eğitim geçmişi bilgilerini girerek profil sayfasında gözükmesini sağlıyor. Kullanıcı "Add or Update Profil
  Information" butonuna basarak bu sayfaya gider ve ilgili kısımları doldurarak "Submit" butonuna basar.
  
- .. figure:: images/member2/egitim_ekleme.JPG
+.. figure:: images/member2/egitim_ekleme.JPG
    :scale: 75 %
    :align: center
    *Resim 9: Eğitim Geçmişi Ekleme
