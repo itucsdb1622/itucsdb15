@@ -1,69 +1,127 @@
-Umut Yazgan Tarafından Eklenen Kısımlar
+Parts Implemented by Ali KADAM
 ================================
 
-blabla
+Bu kısımda comment, search ve egitim geçmişi işlemlerinin nasıl yapıldığı görsellerle birlikte anlatılacaktır.
 
-Events Sayfası
---------------
+Search
+------
+Bu işlem için öncelikle search sayfasına giriyoruz ve aramak istediğimiz kelimeyi sağ taraftaki alana girerek search butonuna basıyoruz.
 
-Kullanıcılar bu sayfa aracılığı ile event(etkinlik) oluşturabilir, düzenleyebilir ve oluşturulan event'leri görüntüleyebilirler.
-
-.. figure:: images/member1/login.png
+.. figure:: images/member2/search_atma.JPG
    :scale: 75 %
    :align: center
    
-Sayfaya ilk girildiğinde kullanıcı açılmış olan event'lerin bir listesini görür. Eğer kullanıcı giriş yaptıysa "Create Event" butonuna tıklayarak kendi event'ini oluşturabilir. Misafir kullanıcılar bu butonu göremez, event oluşturamaz.
+   *Resim 1: Search yapma
    
-.. figure:: images/member4/events-page.png
-   :scale: 100 %
+Daha sonra arama yaptığımız kelime arama yapan userın idsi ile birlikte ekranda gözükür.
+
+.. figure:: images/member2/search_attıktan_sonraki_hal.JPG
+   :scale: 75 %
    :align: center
    
-   *Resim 2: İki event eklendikten sonra "events" sayfasının giriş yapmış kullanıcı gözünden görünümü.*
+   *Resim 2: Search yaptıktan sonraki durum
    
-Giriş yapmış kullanıcı "Create Event" butonuna tıkladığı zaman event oluşturma sayfasına yönlendirilir. Bu sayfada event'in adını, zamanını ve konumunu girip "Add Event" butonuna tıklayarak event oluşturulabilir.
+Searc tablosunda güncelleme yapmak için ise "Update Search" butonuna basarak güncelleme sayfasına geçiyoruz. Burada güncellemek
+istediğimiz
+search satırının idsini ve yeni metini giriyoruz. Ardından "search_update" butonuna basıyoruz.
 
-.. figure:: images/member4/create-event.png
-   :scale: 100 %
+.. figure:: images/member2/search_update.JPG
+   :scale: 75 %
    :align: center
    
-   *Resim 3: event ekleme sayfası*
+   *Resim 3: Search güncelleme
    
-events sayfasında listelenen event'lerden birinin sağındaki "Details" bağlantısına tıkladığı takdirde kullanıcı o event'in sayfasına yönlendirilir. Burada event'i oluşturan kullanıcı "Delete" butonuna tıklayarak event'i silebilir veya event'in bilgilerini yeniden girip "Update" butonuna tıklayarak event'i güncelleyebilir. Diğer kullanıcılar ise yalnızca event'i görüntüleyebilir.
+Silme işemi için ise  "Delete Search" butonuna basarak silme sayfasına geçiyoruz. Burada silmek istediğimiz
+search satırının idsini giriyoruz. Ardından "search_delete" butonuna basıyoruz.
 
-.. figure:: images/member4/event-details-creator-perspective.png
-   :scale: 100 %
+.. figure:: images/member2/search_delete.JPG
+   :scale: 75 %
    :align: center
    
-   *Resim 4: event'i oluşturan kişinin gözünden event'in sayfası*
+   *Resim 4: Search silme
    
-Event'e Görsel Ekleme
----------------------
+Comment
+-------
+Bu işlem daha önce yapılmış bir posta yorum yapabilmek için tasarlandı. Öncelikle post sayfasından yapılan yönlendirmeyle comment
+sayfasına geçiyoruz. Burada comment yapmak istediğimiz postun idsini ve yapacağımız yorumu giriyoruz.
 
-event'i oluşturan kişi "events" sayfasında kendi event'inin sağındaki "Details" bağlantısına tıklayarak event'in sayfasına ulaştıktan sonra burada "Add Picture" butonuna tıklayarak event'in görsel ekleme sayfasına ulaşabilir. Diğer kullanıcılar bu butonu göremez ve bu sayfaya ulaşamaz. Bu sayfada görselin URL'si girilerek "Add" butonuna tıklandığında görsel event'e eklenecektir. Eklenen görsel event'in sayfasında tıklanabilir bir küçük görsel olarak görünür.
-
-.. figure:: images/member4/add-image.png
-   :scale: 100 %
+.. figure:: images/member2/posta_comment_ilk.JPG
+   :scale: 75 %
    :align: center
    
-   *Resim 5: event'e görsel ekleme sayfası*
+   *Resim 5: Comment Atma
    
-Görsel eklendikten sonra event'in sayfasındaki küçük görsele tıklanarak görselin sayfasına ulaşılabilir. Bu sayfada görselin daha büyük boyutlu bir hali mevcuttur. Eğer event'i oluşturan kişi bu sayfaya girerse görseli silmek için bir "Delete" butonu ile beraber güncellemek için yeni URL girebileceği bir kutu ve bir "Update" butonu görecektir.
+Bu işlem sonrasında commentimiz ekranda gözüküyor.
 
-.. figure:: images/member4/image-page.png
-   :scale: 100 %
+.. figure:: images/member2/posta_comment_2.JPG
+   :scale: 75 %
    :align: center
    
-   *Resim 6: event'i ekleyen kişi gözünden eklediği bir görselin sayfası*
+   *Resim 6: Commentler
    
-Event'e Yorum Ekleme
---------------------
 
-Kullanıcı herhangi bir event'in sayfasında "Comment" kutusuna yorumunu girip "Add Comment" butonuna tıklayarak event'e yorum ekleyebilir. Yorum yapabilmek için giriş yapmış olmak gereklidir, misafir kullanıcılar bu yorum kutucuğunu ve "Add Comment" butonunu göremezler.
+Bir commenti güncellemek için ise güncelleme sayfasına giderek güncellemek istediğimiz commentin idsini ve yeni yorumu giriyoruz.
 
-Yorumu yazan kullanıcı yorumunun altındaki "Update" ve "Delete" butonlarını kullanarak yorumunu düzenleyebilir veya silebilir. Her kullanıcı bu işlemleri ancak kendi yorumları üzerinde yapabilir, kullanıcılar birbirlerinin yorumlarına müdahalede bulunamazlar.
-
-.. figure:: images/member4/comment-from-another-user.png
-   :scale: 100 %
+.. figure:: images/member2/comment_update.JPG
+   :scale: 75 %
    :align: center
    
-   *Resim 7: iki farklı kullanıcının bir event'e yaptığı yorumlar*
+   *Resim 7: Comment Güncelleme
+   
+Silme işlemi için ise silme sayfasına gittikten sonra silmek istediğimiz commentin idsini giriyoruz.
+ 
+   
+Eğitim Geçmişi
+-------------- 
+ Bu işlem kullanıcıların eğitim geçmişi bilgilerini girerek profil sayfasında gözükmesini sağlıyor. Kullanıcı "Add or Update Profil
+ Information" butonuna basarak bu sayfaya gider ve ilgili kısımları doldurarak "Submit" butonuna basar.
+
+.. figure:: images/member2/egitim_ekleme.JPG
+   :scale: 75 %
+   :align: center
+   
+   *Resim 8: Eğitim Geçmişi Ekleme
+
+Bu işlemden sonra kullanıcı eğitim geçmişi bilgilerini profil sayfasında görebilir.
+
+.. figure:: images/member2/egitim_ekleme_sonuc.JPG
+   :scale: 75 %
+   :align: center
+   
+   *Resim 9: Eğitim Geçmişi Profil Sayfası
+   
+Eğitim geçmişinde güncelleme yapmak için tekrar "Add or Update Profil Information" butonuna basarak bu sayfaya gidiyoruz. Güncelleme
+yapmak istediğimiz verinin bilgisini doldurup "Submit" butonuna basıyoruz. Aşağıda lise bilgisinin güncellenmesi gösterilmiştir.
+
+.. figure:: images/member2/egitim_güncelleme.JPG
+   :scale: 75 %
+   :align: center
+   
+   *Resim 10: Eğitim Geçmişi Güncelleme
+  
+Güncelledikten sonra profil sayfası aşağıdaki gibi gözükür.
+
+.. figure:: images/member2/egitim_güncelleme_sonuc.JPG
+   :scale: 75 %
+   :align: center
+   
+   *Resim 11: Eğitim Geçmişi Güncelleme Profil Sayfası Sonucu
+   
+
+Silme işlemi için ise "Remove Profil Information" butonuna basarak silme sayfasına gidiyoruz. Burada silmek istediğimiz bilgileri
+seçerek "Yes" butonuna basıyoruz. Aşağıda ilkokul ve lise bilgilerinin silindiği bir örnek gösterilmiştir.
+
+.. figure:: images/member2/egitim_silme.JPG
+   :scale: 75 %
+   :align: center
+   
+   *Resim 12: Eğitim Geçmişi Silme
+   
+Sildikten sonra profil sayfası aşağıdaki gibi gözükür. 
+
+.. figure:: images/member2/egitim_silme_sonuc.JPG
+   :scale: 75 %
+   :align: center
+   
+   *Resim 13: Eğitim Geçmişi Silme Profil Sayfası Sonucu
+
