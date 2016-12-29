@@ -63,6 +63,41 @@ bir tanesi de kazanmış olduğu iş tecrübeleri. İş tecrübesini yazmamış 
 
 .. figure:: https://github.com/itucsdb1622/itucsdb1622/blob/master/docs/user/images/member3/tecrübesayfa.PNG
       :scale: 100 %
+      
+Kullanıcı yeni bir tecrübe eklemek istediğinde "tecrübe ekle" butonuna tıkladıktan sonra çıkan ekrana bilgilerini şu şekilde girer:
+
+.. figure:: https://github.com/itucsdb1622/itucsdb1622/blob/master/docs/user/images/member3/tecrübe.PNG
+      :scale: 100 %
+
+Kullanıcının profil sayfası şu şekilde güncellenmiş olur:
+
+.. figure:: https://github.com/itucsdb1622/itucsdb1622/blob/master/docs/user/images/member3/tecrübe1.PNG
+      :scale: 100 %
+
+* İş Tecrübeleri Güncelleme
+
+Kullanıcı yeni bir iş tecrübesi eklemek istediğinde yine "tecrübe ekle" butonuna bastıktan sonra bilgilerini girebilir. Yeni bilgiler 
+yazıldığında profil sayfası da güncellenir:
+
+.. figure:: https://github.com/itucsdb1622/itucsdb1622/blob/master/docs/user/images/member3/tecrübe2.PNG
+      :scale: 100 %
+
+* İş Tecrübeleri Silme
+
+Kullanıcı önceden girmiş olduğu iş tecrübesini silmek için "tecrübe sil" butonuna tıkladıktan sonra çıkan ekrana işyerinin ismini girer:
+
+.. figure:: https://github.com/itucsdb1622/itucsdb1622/blob/master/docs/user/images/member3/tecrübesil.PNG
+      :scale: 100 %
+      
+Kullanıcı sileceği işyerinin ismini girdikten sonra o iş tecrübesi profil sayfasından kaldırılır:
+
+.. figure:: https://github.com/itucsdb1622/itucsdb1622/blob/master/docs/user/images/member3/tecrübesil2.PNG
+      :scale: 100 %
+
+
+
+
+      
 
 
 
