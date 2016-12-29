@@ -112,11 +112,11 @@ Bu işlem daha önceden eklenmiş olan bir satırın "word" bilgisini değiştir
  
 Bu işlem parametrelerini html arayüzüyle kullanıcıdan alıyor.
 
-Silme
+Silme 
 ^^^^^
 Bu işlem istenilen bir satırın silinmesi için kullanılıyor.
 
- Python kodu aşağıdaki gibidir.
+Python kodu aşağıdaki gibidir.
 
 .. code-block:: python
  def delete_search():
@@ -146,7 +146,7 @@ Comment Tablosu
 ---------------
 Bu tablo kullanıcıların yapılan postlara yorum yapabilmesi için tasarlandı.
 
-Tabloyu Oluşturma
+Tabloyu Oluşturma 
 ^^^^^^^^^^^^^^^^
 Bu işlemde öncelikle tablo daha önce varmı diye kontrol ediyor. Eger varsa bu varlığı dropluyorum. Daha sonra create işlemi
  gerçekleşiyor.
