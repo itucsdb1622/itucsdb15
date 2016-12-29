@@ -29,9 +29,6 @@ Operasyonlar
  * WORD: Varchar olarak tanımlandı. Aranmış kelimeyi tutmak için tasarlandı.
  
  Python kodu aşağıdaki gibidir.
- .. code-block:: python
-    @app.route('/DbCreate')
-    
 
 .. code-block:: python
 
