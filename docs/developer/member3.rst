@@ -44,5 +44,95 @@ Tabloyu Oluşturma
 
 Ekleme
 ^^^^^^^^^^^^^^^^
-Bu operasyon Postlara yeni bir kayıt ekelmek için kullanılır:
+Bu operasyon Postlara yeni bir kayıt eklemek için kullanılır:
 
+Python kodu aşağıdaki gibidir:
+
+.. code-block:: python
+ 
+ def post():
+    message=" "
+
+    if request.method == 'POST':
+        post_word = request.form['post_word']
+        with aligramdb.connect(app.config['dsn']) as connection:
+            cursor = connection.cursor()
+            query="""SELECT MAX(ID) FROM post_tb ID"""
+            cursor.execute(query)
+            data = cursor.fetchall()
+
+            cursor.execute("INSERT INTO post_tb(UserID,MESSAGE) VALUES ('%d','%s')"%(session['loggedUserID'],post_word))
+
+            connection.commit()
+    with aligramdb.connect(app.config['dsn']) as connection:
+        cursor = connection.cursor()
+
+        query="""SELECT * FROM post_tb"""
+        cursor.execute(query)
+        data = cursor.fetchall()
+
+
+    return render_template('post.html', post_list=data)
+
+Güncelleme 
+^^^^^^^^^^
+Bu işlem daha önceden eklenmiş olan bir Post'un bilgisini değiştirmemizi sağlıyor.
+
+ Python kodu aşağıdaki gibidir.
+
+.. code-block:: python
+def update_post():
+    message=" "
+
+    if request.method == 'POST':
+        id = int(request.form['id_post_update'])
+        text = request.form['new_post_text']
+        with aligramdb.connect(app.config['dsn']) as connection:
+            cursor = connection.cursor()
+            cursor.execute("UPDATE post_tb SET MESSAGE = '%s' WHERE ID = '%d'"%(text, id))
+
+            connection.commit()
+    with aligramdb.connect(app.config['dsn']) as connection:
+        cursor = connection.cursor()
+
+        query="""SELECT * FROM post_tb"""
+        cursor.execute(query)
+        data = cursor.fetchall()
+
+    return render_template('update_post.html',  post_list=data)
+
+Silme 
+^^^^^
+Bu işlem istenilen bir Post satırının silinmesi için kullanılıyor.
+
+Python kodu aşağıdaki gibidir.
+
+.. code-block:: python
+
+ def delete_post():
+    message=" "
+
+    if request.method == 'POST':
+        id = int(request.form['id_post_delete'])
+        with aligramdb.connect(app.config['dsn']) as connection:
+            cursor = connection.cursor()
+            cursor.execute("DELETE FROM post_tb WHERE ID = '%d'"%(id))
+
+            connection.commit()
+    with aligramdb.connect(app.config['dsn']) as connection:
+        cursor = connection.cursor()
+
+        query="""SELECT * FROM post_tb"""
+        cursor.execute(query)
+        data = cursor.fetchall()
+
+
+    return render_template('delete_post.html',  post_list=data)
+
+
+İş Tecrübesi Tablosu
+---------------
+Bu tablo kullanıcıların profil sayfalarında iş tecrübesi bilgilerinin tutulması için tasarlandı.
+
+Tabloyu Oluşturma 
+^^^^^^^^^^^^^^^^
