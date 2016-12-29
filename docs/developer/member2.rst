@@ -150,7 +150,7 @@ Tabloyu Oluşturma
 ^^^^^^^^^^^^^^^^
 Bu işlemde öncelikle tablo daha önce varmı diye kontrol ediyor. Eger varsa bu varlığı dropluyorum. Daha sonra create işlemi
  gerçekleşiyor.
- Bu varlık aşağıdaki kolonları içeriyor.
+Bu varlık aşağıdaki kolonları içeriyor.
  * CommentID: 
   Primary key, integer olarak tanımlandı. Satırın id değerini tutuyor.
  * PostID: 
