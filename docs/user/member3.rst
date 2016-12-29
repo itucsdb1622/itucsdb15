@@ -56,6 +56,16 @@ Post sayfasında son hal şu şekilde olur:
 İŞ TECRÜBELERİ
 ----------------------
 
+* İş Tecrübeleri Ekranı
+
+Kullanıcı girişi yapıldıktan sonra Profile sayfasına giriyoruz. Kullanıcını ile ilgili bir çok bilgi bu sayfada mevcut. Bu bilgilerden 
+bir tanesi de kazanmış olduğu iş tecrübeleri. İş tecrübesini yazmamış bir kullanıcının sayfası şu şekilde gözüküyor:
+
+.. figure:: https://github.com/itucsdb1622/itucsdb1622/blob/master/docs/user/images/member3/tecrübesayfa.PNG
+      :scale: 100 %
+
+
+
 
 
 
