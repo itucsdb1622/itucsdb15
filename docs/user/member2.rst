@@ -40,3 +40,40 @@ search satırının idsini giriyoruz. Ardından "search_delete" butonuna basıyo
    
    *Resim 4: Search silme
    
+Comment
+-------
+Bu işlem daha önce yapılmış bir posta yorum yapabilmek için tasarlandı. Öncelikle post sayfasından yapılan yönlendirmeyle comment
+sayfasına geçiyoruz. Burada comment yapmak istediğimiz postun idsini ve yapacağımız yorumu giriyoruz.
+
+.. figure:: images/member2/posta_comment_ilk.JPG
+   :scale: 75 %
+   :align: center
+   
+   *Resim 5: Comment Atma
+   
+Bu işlem sonrasında commentimiz ekranda gözüküyor.
+
+.. figure:: images/member2/posta_comment_2.JPG
+   :scale: 75 %
+   :align: center
+   
+   *Resim 6: Commentler
+   
+
+Bir commenti güncellemek için ise güncelleme sayfasına giderek güncellemek istediğimiz commentin idsini ve yeni yorumu giriyoruz.
+
+.. figure:: images/member2/comment_update.JPG
+   :scale: 75 %
+   :align: center
+   
+   *Resim 7: Comment Güncelleme
+   
+ Silme işlemi için ise silme sayfasına gittikten sonra silmek istediğimiz commentin idsini giriyoruz.
+ 
+.. figure:: images/member2/comment_update.JPG
+   :scale: 75 %
+   :align: center
+   
+   *Resim 8: Comment Silme
+   
+
