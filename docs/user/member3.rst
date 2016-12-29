@@ -7,14 +7,14 @@ POSTLAR
 ----------------------
 
 
-*Postsuz Ekran
+* Postsuz Ekran
 
 Kullanıcı girişi yapıldıktan sonra Post sayfasına giriyoruz. Kullanıcının herhangi bir Post yapmadıysa sayfa şu şekilde gözüküyor:
 
 .. figure:: https://github.com/itucsdb1622/itucsdb1622/blob/master/docs/user/images/member3/postsuz.PNG
       :scale: 100 %
 
-*Postlu Ekranlar
+* Postlu Ekranlar
 
 Kullanıcı sırasıyla postlar yaptığında post sayfası örnek olarak şu şekilde gözüküyor:
 
@@ -26,7 +26,7 @@ Kullanıcı sırasıyla postlar yaptığında post sayfası örnek olarak şu ş
 .. figure:: https://github.com/itucsdb1622/itucsdb1622/blob/master/docs/user/images/member3/2.post.PNG
       :scale: 100 %
 
-*Post İçin Update İşlemi
+* Post İçin Update İşlemi
 
 Kullanıcı önceden yapmış olduğu Postu güncelleyebilir:
 
@@ -40,7 +40,7 @@ Post sayfası şu şekilde güncellenmiş olur:
 .. figure:: https://github.com/itucsdb1622/itucsdb1622/blob/master/docs/user/images/member3/updatedeneme1.PNG
       :scale: 100 %
       
-*Post İçin Delete İşlemi
+* Post İçin Delete İşlemi
 
 Kullanıcı önceden yapmış olduğu Postu silebilir:
 
