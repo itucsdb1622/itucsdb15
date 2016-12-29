@@ -114,7 +114,7 @@ Bu işlem parametrelerini html arayüzüyle kullanıcıdan alıyor.
 
 Silme
 ^^^^^
- Bu işlem istenilen bir satırın silinmesi için kullanılıyor.
+Bu işlem istenilen bir satırın silinmesi için kullanılıyor.
 
  Python kodu aşağıdaki gibidir.
 
@@ -143,6 +143,117 @@ Silme
 Bu işlem parametrelerini html arayüzüyle kullanıcıdan alıyor.
 
 
+Comment Tablosu
+---------------
+Bu tablo kullanıcıların yapılan postlara yorum yapabilmesi için tasarlandı.
+
+Tabloyu Oluşturma
+^^^^^^^^^^^^^^^^
+Bu işlemde öncelikle tablo daha önce varmı diye kontrol ediyor. Eger varsa bu varlığı dropluyorum. Daha sonra create işlemi
+ gerçekleşiyor.
+ Bu varlık aşağıdaki kolonları içeriyor.
+ * CommentID: 
+  Primary key, integer olarak tanımlandı. Satırın id değerini tutuyor.
+ * PostID: 
+  Foreign Key, integer olarak tanımlandı. Commnet yapılmış olan postun id değerini tutmak için tasarlandı.
+ * MESSAGE: 
+  Varchar olarak tanımlandı. Yapılmış yorumu tutmak için tasarlandı.
+ 
+Python kodu aşağıdaki gibidir.
+
+.. code-block:: python
+
+    def create_table_for_user():
+        with aligramdb.connect(app.config['dsn']) as connection:
+            cursor = connection.cursor()
+
+            query = """DROP TABLE IF EXISTS COMMENT"""
+            cursor.execute(query)
+
+            query="""CREATE TABLE COMMENT(CommentID SERIAL,PostID INTEGER REFERENCES post_tb(ID) ON DELETE SET NULL, MESSAGE
+            VARCHAR(140), PRIMARY KEY (CommentID))"""
+
+            cursor.execute(query)
+ 
+Ekleme 
+^^^^^^
+Bu operasyon comment tablosuna yeni bir kayıt eklmek için kullanılır. 
+ 
+ Python kodu aşağıdaki gibidir.
+
+.. code-block:: python
+ def comment():
+    message=" "
+
+    if request.method == 'POST':
+        post_id =  request.form['post_id']
+        comment = request.form['comment']
+        with aligramdb.connect(app.config['dsn']) as connection:
+            cursor = connection.cursor()
+            cursor.execute("INSERT INTO COMMENT(PostID, MESSAGE) VALUES ('%d', '%s')"%(int(post_id), comment))
+            connection.commit()
+
+    with aligramdb.connect(app.config['dsn']) as connection:
+        cursor = connection.cursor()
+
+        query="""SELECT * FROM COMMENT"""
+        cursor.execute(query)
+        data = cursor.fetchall()
 
 
+    return render_template('add_comment.html', comment_list=data)
 
+
+Güncelleme 
+^^^^^^^^^^
+Bu işlem daha önceden eklenmiş olan bir satırın "message" bilgisini değiştirmemizi sağlıyor.
+
+ Python kodu aşağıdaki gibidir.
+
+.. code-block:: python
+ def update_comment():
+
+    if request.method == 'POST':
+        id = int(request.form['commment_update_id'])
+        text = request.form['new_commment_text']
+        with aligramdb.connect(app.config['dsn']) as connection:
+            cursor = connection.cursor()
+            cursor.execute("UPDATE COMMENT SET MESSAGE = '%s' WHERE CommentID = '%d'"%(text, id))
+
+            connection.commit()
+    with aligramdb.connect(app.config['dsn']) as connection:
+        cursor = connection.cursor()
+
+        query="""SELECT * FROM COMMENT"""
+        cursor.execute(query)
+        data = cursor.fetchall()
+
+    return render_template('update_comment.html', comment_list=data)
+    
+Silme
+^^^^^
+Bu işlem istenilen bir satırın silinmesi için kullanılıyor.
+
+ Python kodu aşağıdaki gibidir.
+
+.. code-block:: python
+ def delete_comment():
+
+    if request.method == 'POST':
+        id = int(request.form['comment_delete_id'])
+        with aligramdb.connect(app.config['dsn']) as connection:
+            cursor = connection.cursor()
+            cursor.execute("DELETE FROM COMMENT WHERE CommentID = '%d'"%(id))
+
+            connection.commit()
+    with aligramdb.connect(app.config['dsn']) as connection:
+        cursor = connection.cursor()
+
+        query="""SELECT * FROM COMMENT"""
+        cursor.execute(query)
+        data = cursor.fetchall()
+
+
+    return render_template('delete_comment.html', comment_list=data)
+    
+ 
