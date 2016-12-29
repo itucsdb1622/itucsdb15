@@ -6,9 +6,11 @@ Events Sayfası
 
 Kullanıcılar bu sayfa aracılığı ile event(etkinlik) oluşturabilir, düzenleyebilir ve oluşturulan event'leri görüntüleyebilirler.
 
-.. image:: images/member4/main-page.png
+.. figure:: images/member4/main-page.png
+   :scale: 100 %
+   :align: center
    
-*Resim 1: events sayfasına sitenin üst ve alt menülerinin en son bağlantısından erişilebilir.*
+   *events sayfasına sitenin üst ve alt menülerinin en son bağlantısından erişilebilir.*
    
 Sayfaya ilk girildiğinde kullanıcı açılmış olan event'lerin bir listesini görür. Eğer kullanıcı giriş yaptıysa "Create Event" butonuna tıklayarak kendi event'ini oluşturabilir. Misafir kullanıcılar bu butonu göremez, event oluşturamaz.
    
