@@ -71,8 +71,8 @@ Bir commenti güncellemek için ise güncelleme sayfasına giderek güncellemek 
  Silme işlemi için ise silme sayfasına gittikten sonra silmek istediğimiz commentin idsini giriyoruz.
  
    
- Eğitim Geçmişi
- -------------- 
+Eğitim Geçmişi
+-------------- 
  Bu işlem kullanıcıların eğitim geçmişi bilgilerini girerek profil sayfasında gözükmesini sağlıyor. Kullanıcı "Add or Update Profil
  Information" butonuna basarak bu sayfaya gider ve ilgili kısımları doldurarak "Submit" butonuna basar.
 
@@ -81,7 +81,7 @@ Bir commenti güncellemek için ise güncelleme sayfasına giderek güncellemek 
    :align: center
    
    *Resim 8: Eğitim Geçmişi Ekleme
-   
+
 Bu işlemden sonra kullanıcı eğitim geçmişi bilgilerini profil sayfasında görebilir.
 
 .. figure:: images/member2/egitim_ekleme_sonuc.JPG
@@ -124,3 +124,4 @@ Sildikten sonra profil sayfası aşağıdaki gibi gözükür.
    :align: center
    
    *Resim 13: Eğitim Geçmişi Silme Profil Sayfası Sonucu
+
