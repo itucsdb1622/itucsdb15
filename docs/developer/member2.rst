@@ -15,6 +15,33 @@ Operasyonlar
  Bu işlem ise bazı bilgilerini değiştirmek istediğimiz elemanların verilerini değiştirmek için kullanılıyor.
 * Arama
  Bu işlemde belirli bir özelliğe göre tablodan elemanları aramamız için kullanılıyor.
+ 
+ Searc Tablosu
+ -------------
+ Bu tablo kullanıcıların arama geçmişini tutmak için tasarlandı. 
+ 
+ Tabloyu Oluşturma
+ ^^^^^^^^^^^^^^^^^
+ Bu işlemde öncelikle tablo daha önce varmı diye kontrol ediyor. Eger varsa bu varlığı dropluyorum. Daha sonra create işlemi gerçekleşiyor.
+ Bu varlık aşağıdaki kolonları içeriyor.
+ * SearchID: Primary key, integer olarak tanımlandı. Satırın id değerini tutuyor.
+ * UserID: Foreign Key, integer olarak tanımlandı. Arama yapmış olan kullanıcın id değerini tutmak için tasarlandı.
+ * WORD: Varchar olarak tanımlandı. Aranmış kelimeyi tutmak için tasarlandı.
+ 
+ Python kodu aşağıdaki gibidir.
+ .. code-block:: python
+    @app.route('/DbCreate')
+    def create_table_for_user():
+    with aligramdb.connect(app.config['dsn']) as connection:
+        cursor = connection.cursor()
+        
+        query = """DROP TABLE IF EXISTS SEARCH"""
+        cursor.execute(query)
+        
+        query="""CREATE TABLE SEARCH(SearchID SERIAL, UserID INTEGER REFERENCES user_tb(ID) ON DELETE SET NULL, WORD VARCHAR(20),   PRIMARY KEY (SearchID))"""
+        cursor.execute(query)
+
+
 
 
 
