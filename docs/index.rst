@@ -19,4 +19,12 @@ Contents:
    :maxdepth: 1
 
    user/index
+   user/member1
+   user/member2
+   user/member3
+   user/member4
    developer/index
+   developer/member1
+   developer/member2
+   developer/member3
+   developer/member4
