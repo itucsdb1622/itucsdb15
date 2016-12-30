@@ -48,16 +48,16 @@ sayfasına geçiyoruz. Burada comment yapmak istediğimiz postun idsini ve yapac
 |U2_5|
 
 .. |U2_5| image:: images/member2/posta_comment_ilk.JPG
-   
-   *Resim 5: Comment Atma
+
+*Resim 5: Comment Atma
    
 Bu işlem sonrasında commentimiz ekranda gözüküyor.
 
 |U2_6|
 
 .. |U2_6| image:: images/member2/posta_comment_2.JPG
-   
-   *Resim 6: Commentler
+
+*Resim 6: Commentler
    
 
 Bir commenti güncellemek için ise güncelleme sayfasına giderek güncellemek istediğimiz commentin idsini ve yeni yorumu giriyoruz.
@@ -65,8 +65,8 @@ Bir commenti güncellemek için ise güncelleme sayfasına giderek güncellemek 
 |U2_7|
 
 .. |U2_7| image:: images/member2/comment_update.JPG
-   
-   *Resim 7: Comment Güncelleme
+
+*Resim 7: Comment Güncelleme
    
 Silme işlemi için ise silme sayfasına gittikten sonra silmek istediğimiz commentin idsini giriyoruz.
  
@@ -79,16 +79,16 @@ Eğitim Geçmişi
 |U2_8|
 
 .. |U2_8| image:: images/member2/egitim_ekleme.JPG
-   
-   *Resim 8: Eğitim Geçmişi Ekleme
+
+*Resim 8: Eğitim Geçmişi Ekleme
 
 Bu işlemden sonra kullanıcı eğitim geçmişi bilgilerini profil sayfasında görebilir.
 
 |U2_9|
 
 .. |U2_9| image:: images/member2/egitim_ekleme_sonuc.JPG
-   
-   *Resim 9: Eğitim Geçmişi Profil Sayfası
+
+*Resim 9: Eğitim Geçmişi Profil Sayfası
    
 Eğitim geçmişinde güncelleme yapmak için tekrar "Add or Update Profil Information" butonuna basarak bu sayfaya gidiyoruz. Güncelleme
 yapmak istediğimiz verinin bilgisini doldurup "Submit" butonuna basıyoruz. Aşağıda lise bilgisinin güncellenmesi gösterilmiştir.
@@ -96,16 +96,16 @@ yapmak istediğimiz verinin bilgisini doldurup "Submit" butonuna basıyoruz. Aş
 |U2_10|
 
 .. |U2_10| image:: images/member2/egitim_güncelleme.JPG
-   
-   *Resim 10: Eğitim Geçmişi Güncelleme
+
+*Resim 10: Eğitim Geçmişi Güncelleme
   
 Güncelledikten sonra profil sayfası aşağıdaki gibi gözükür.
 
 |U2_11|
 
 .. |U2_11| image:: images/member2/egitim_güncelleme_sonuc.JPG
-   
-   *Resim 11: Eğitim Geçmişi Güncelleme Profil Sayfası Sonucu
+
+*Resim 11: Eğitim Geçmişi Güncelleme Profil Sayfası Sonucu
    
 
 Silme işlemi için ise "Remove Profil Information" butonuna basarak silme sayfasına gidiyoruz. Burada silmek istediğimiz bilgileri
@@ -114,14 +114,14 @@ seçerek "Yes" butonuna basıyoruz. Aşağıda ilkokul ve lise bilgilerinin sili
 |U2_12|
 
 .. |U2_12| image:: images/member2/egitim_silme.JPG
-   
-   *Resim 12: Eğitim Geçmişi Silme
+
+*Resim 12: Eğitim Geçmişi Silme
    
 Sildikten sonra profil sayfası aşağıdaki gibi gözükür. 
 
 |U2_13|
 
 .. |U2_13| image:: images/member2/egitim_silme_sonuc.JPG
-   
-   *Resim 13: Eğitim Geçmişi Silme Profil Sayfası Sonucu
+
+*Resim 13: Eğitim Geçmişi Silme Profil Sayfası Sonucu
 
