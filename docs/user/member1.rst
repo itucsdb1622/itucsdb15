@@ -12,6 +12,8 @@ Siteye ilk kez giriş yaptığımızda alttaki görseldeki sayfa bizi karşılı
 
 .. |H| image:: images/member1/login.png
 
+*resim 1: login olma
+
 Sistemde kayıtlı olmayan bir kullanıcı adıyla giriş yapmaya kalktığımızda sistem "Invalid credentials" hatası vermektedir. Yani kullanıcı bilgileri yanlış diye uyarıyor. Eğer bir kullanıcı oluşturmadıysak "register" butonuna tıklayarak kayıt sayfasına ulaşabiliriz. Kayıt sayfasının görseli alttadır. 
 
 |H|
