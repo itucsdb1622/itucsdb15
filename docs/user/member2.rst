@@ -17,7 +17,7 @@ Daha sonra arama yaptığımız kelime arama yapan userın idsi ile birlikte ekr
 
 |U2_2|
 
-.. |U2_2| image:: images/member2/search_attıktan_sonraki_hal.JPG
+.. |U2_2| image:: images/member2/search_attiktan_sonraki_hal.JPG
 
 *Resim 2: Search yaptıktan sonraki durum
    
