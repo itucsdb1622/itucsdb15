@@ -11,7 +11,9 @@ Welcome to Aligram's documentation!
    * Umut Yazgan
    * Adem Yenice
 
-**project description goes here (a few paragraphs)**
+Aligram, kullanıcıların kayıt olup çeşitli paylaşımlar yapabileceği, aynı zamanda kişisel bilgilerini kaydedebileceği bir sosyal paylaşım
+platformudur. BLG361 dersinin projesi olarak geliştirilmiştir.
+
 
 Contents:
 
