@@ -27,10 +27,9 @@ Giriş işlemimizi başarılı şekilde gerçekleştirdikten sonra "my profile" 
 .. |H| image:: images/member1/profile_page.png
 
 Profil sayfamıza biraz daha yakından bakalım. Profil sayfamızda iki tip öğe bulunuyor; profil fotoğrafımız ve çeşitli bilgilerimizin bulunduğu alanlar ve diğer öğeler ise değişik işlemler yapmamıza olanak sağlayan butonlardır. 
-|H|
+
 
 .. |H| image:: images/member1/profile_page_1.png
 
-|H|
 
 .. |H| image:: images/member1/profile_page_2.png
