@@ -21,40 +21,53 @@ Kullanıcı girişi yapıldıktan sonra Post sayfasına giriyoruz. Kullanıcın�
 
 Kullanıcı sırasıyla postlar yaptığında post sayfası örnek olarak şu şekilde gözüküyor:
 
-.. figure:: https://github.com/itucsdb1622/itucsdb1622/blob/master/docs/user/images/member3/1.post.PNG
-      :scale: 100 %
+|U2_2|
+
+.. |U2_2| image:: images/member3/1.post.PNG
       
+*Resim 2:Postlu Ekran-1     
       
-      
-.. figure:: https://github.com/itucsdb1622/itucsdb1622/blob/master/docs/user/images/member3/2.post.PNG
-      :scale: 100 %
+|U2_3|
+
+.. |U2_3| image:: images/member3/2.post.PNG
+
+*Resim 3:Postlu Ekran-2
 
 * Post İçin Update İşlemi
 
 Kullanıcı önceden yapmış olduğu Postu güncelleyebilir:
 
+|U2_4|
 
-.. figure:: https://github.com/itucsdb1622/itucsdb1622/blob/master/docs/user/images/member3/updatepost.PNG
-      :scale: 100 %
+.. |U2_4| image:: images/member3/updatepost.PNG
+
+*Resim 4:Post Güncellemesi-1
 
 Post sayfası şu şekilde güncellenmiş olur:
 
+|U2_5|
 
-.. figure:: https://github.com/itucsdb1622/itucsdb1622/blob/master/docs/user/images/member3/updatedeneme1.PNG
-      :scale: 100 %
+.. |U2_5| image:: images/member3/updatedeneme1.PNG
       
+*Resim 5:Post Güncellemesi-2    
+
 * Post İçin Delete İşlemi
 
 Kullanıcı önceden yapmış olduğu Postu silebilir:
 
-.. figure:: https://github.com/itucsdb1622/itucsdb1622/blob/master/docs/user/images/member3/deletepost.PNG
-      :scale: 100 %
+|U2_6|
+
+.. |U2_6| image:: images/member3/deletepost.PNG
+
+*Resim 6:Post Silinmesi-1
 
 Post sayfasında son hal şu şekilde olur:
 
-.. figure:: https://github.com/itucsdb1622/itucsdb1622/blob/master/docs/user/images/member3/deletepost2.PNG
-      :scale: 100 %
+|U2_7|
 
+.. |U2_7| image:: images/member3/deletepost2.PNG
+
+*Resim 7:Post Silinmesi-2
 
 İŞ TECRÜBELERİ
 ----------------------
@@ -64,43 +77,57 @@ Post sayfasında son hal şu şekilde olur:
 Kullanıcı girişi yapıldıktan sonra Profile sayfasına giriyoruz. Kullanıcını ile ilgili bir çok bilgi bu sayfada mevcut. Bu bilgilerden 
 bir tanesi de kazanmış olduğu iş tecrübeleri. İş tecrübesini yazmamış bir kullanıcının sayfası şu şekilde gözüküyor:
 
-.. figure:: https://github.com/itucsdb1622/itucsdb1622/blob/master/docs/user/images/member3/tecrübesayfa.PNG
-      :scale: 100 %
+|U2_8|
+
+.. |U2_8| image:: images/member3/tecrübesayfa.PNG
+
+*Resim 8:İş Tecrübesi Ekranı
       
 Kullanıcı yeni bir tecrübe eklemek istediğinde "tecrübe ekle" butonuna tıkladıktan sonra çıkan ekrana bilgilerini şu şekilde girer:
 
-.. figure:: https://github.com/itucsdb1622/itucsdb1622/blob/master/docs/user/images/member3/tecrübe.PNG
-      :scale: 100 %
+|U2_9|
+
+.. |U2_9| image:: images/member3/tecrübe.PNG
+
+*Resim 9:Tecrübe Ekleme Ekranı
 
 Kullanıcının profil sayfası şu şekilde güncellenmiş olur:
 
-.. figure:: https://github.com/itucsdb1622/itucsdb1622/blob/master/docs/user/images/member3/tecrübe1.PNG
-      :scale: 100 %
+|U2_10|
+
+.. |U2_10| image:: images/member3/tecrübe1.PNG
+
+*Resim 10:Eklenmiş İş Tecrübesi
 
 * İş Tecrübeleri Güncelleme
 
 Kullanıcı yeni bir iş tecrübesi eklemek istediğinde yine "tecrübe ekle" butonuna bastıktan sonra bilgilerini girebilir. Yeni bilgiler 
 yazıldığında profil sayfası da güncellenir:
 
-.. figure:: https://github.com/itucsdb1622/itucsdb1622/blob/master/docs/user/images/member3/tecrübe2.PNG
-      :scale: 100 %
+|U2_11|
+
+.. |U2_11| image:: images/member3/tecrübe2.PNG
+
+*Resim 11:Güncellenmiş İş Tecrübesi
 
 * İş Tecrübeleri Silme
 
 Kullanıcı önceden girmiş olduğu iş tecrübesini silmek için "tecrübe sil" butonuna tıkladıktan sonra çıkan ekrana işyerinin ismini girer:
 
-.. figure:: https://github.com/itucsdb1622/itucsdb1622/blob/master/docs/user/images/member3/tecrübesil.PNG
-      :scale: 100 %
+|U2_12|
+
+.. |U2_12| image:: images/member3/tecrübesil.PNG
+
+*Resim 12:Tecrübe Silme Ekranı
+
       
 Kullanıcı sileceği işyerinin ismini girdikten sonra o iş tecrübesi profil sayfasından kaldırılır:
 
-.. figure:: https://github.com/itucsdb1622/itucsdb1622/blob/master/docs/user/images/member3/tecrübesil2.PNG
-      :scale: 100 %
+|U2_13|
 
+.. |U2_13| image:: images/member3/tecrübesil2.PNG
 
-
-
-      
+*Resim 13:Silinmiş İş Tecrübesi
 
 
 
