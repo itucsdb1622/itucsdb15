@@ -8,17 +8,16 @@ Kullanıcı
 
 Siteye ilk kez giriş yaptığımızda alttaki görseldeki sayfa bizi karşılıyor.
 
-|H|
+|I1|
 
-.. |H| image:: images/member1/login.png
+.. |I1| image:: images/member1/login.png
 
-*resim 1: login olma
 
 Sistemde kayıtlı olmayan bir kullanıcı adıyla giriş yapmaya kalktığımızda sistem "Invalid credentials" hatası vermektedir. Yani kullanıcı bilgileri yanlış diye uyarıyor. Eğer bir kullanıcı oluşturmadıysak "register" butonuna tıklayarak kayıt sayfasına ulaşabiliriz. Kayıt sayfasının görseli alttadır. 
 
-|H|
+|I2|
 
-.. |H| image:: images/member1/register_screen.png
+.. |I2| image:: images/member1/register_screen.png
    
 Bu safada kullanıcı ismimizi ve belirlediğimiz şifremizi girerek ilgili alanlara yeni bir kullanıcı oluşturabiliriz. Daha sonra da anasayfaya dönerek oluşturduğumuz kullanıcının bilgileriyle sisteme giriş yapabiliriz.
 
