@@ -56,6 +56,9 @@ Sistemde olan bir kullanıcı adı girdiğiniz zaman sistem hata mesajı göster
 
 "Add or update profile informations" butonuna tıkladığınızda ise daha önceki görsellerde görmüş olduğunuz profilimizde bulunan alanlara bilgilerimizi girme imkanı bulacaksınız. Alttaki görseldeki sayfaya yönlendirileceksiniz ve oradan kolayca bilgi girişi yapabilirsiniz.
 
+Sosyal hesaplar / Hobiler
+------
+
 |I9|
 
 .. |I9| image:: images/member1/update_social_hobby.png
