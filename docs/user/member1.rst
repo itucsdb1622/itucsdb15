@@ -70,5 +70,17 @@ Görseller ile ilgili kısım benim alanım olmadığı için profil fotoğraf e
 
 Örneğin "Social accounts" alanına tick koyduğunuz zaman tüm sosyal hesap bilgileriniz silinecektir. Keza "Hobbies" alanına tick koyduğunuzda tüm hobi bilgileriniz silinecektir ve hobi ile ilgili kısım profil sayfanızda gözükmeyecektir. Tabi bu alanların birden fazlasına tick koyup submit butonuna basarak aynı anda birden fazla işlem yapma komutu verebilirsiniz.
 
+"Delete your account" butonuna bastığınızda ise site sizi hesabınızı silebileceğiniz bir sayfaya yönlendirecektir. Bu sayfada güvenlik unsuru olarak ilgili giriş alanına "id" 'nizi girmeniz beklenecektir. id'yi doğru şekilde girdiğiniz takdirde hesabınız silinecektir. Sayfanın görünümüne alttaki görselden ulaşabilirsiniz.
 
+
+|I11|
+
+.. |I11| image:: images/member1/delete_account.png
+
+Son olarak ise eğer sisteme hali hazırda başarılı bir şekilde giriş yaptıysanız ve sitemizi kullandıktan sonra çıkmak istiyorsanız görselde de görülen sağ üst taraftaki "logout" görseline tıklayarak çıkış işlemini başarıyla gerçekleştirebilirsiniz. 
+
+
+|I12|
+
+.. |I12| image:: images/member1/logout.png
 
