@@ -95,7 +95,7 @@ yapmak istediğimiz verinin bilgisini doldurup "Submit" butonuna basıyoruz. Aş
 
 |U2_10|
 
-.. |U2_10| image:: images/member2/egitim_güncelleme.JPG
+.. |U2_10| image:: images/member2/egitim_guncelleme.JPG
 
 *Resim 10: Eğitim Geçmişi Güncelleme
   
@@ -103,7 +103,7 @@ Güncelledikten sonra profil sayfası aşağıdaki gibi gözükür.
 
 |U2_11|
 
-.. |U2_11| image:: images/member2/egitim_güncelleme_sonuc.JPG
+.. |U2_11| image:: images/member2/egitim_guncelleme_sonuc.JPG
 
 *Resim 11: Eğitim Geçmişi Güncelleme Profil Sayfası Sonucu
    

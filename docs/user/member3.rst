@@ -79,7 +79,7 @@ bir tanesi de kazanmış olduğu iş tecrübeleri. İş tecrübesini yazmamış 
 
 |U2_8|
 
-.. |U2_8| image:: images/member3/tecrübesayfa.PNG
+.. |U2_8| image:: images/member3/tecrubesayfa.PNG
 
 *Resim 8: İş Tecrübesi Ekranı
       
@@ -87,7 +87,7 @@ Kullanıcı yeni bir tecrübe eklemek istediğinde "tecrübe ekle" butonuna tık
 
 |U2_9|
 
-.. |U2_9| image:: images/member3/tecrübe.PNG
+.. |U2_9| image:: images/member3/tecrube.PNG
 
 *Resim 9: Tecrübe Ekleme Ekranı
 
@@ -95,7 +95,7 @@ Kullanıcının profil sayfası şu şekilde güncellenmiş olur:
 
 |U2_10|
 
-.. |U2_10| image:: images/member3/tecrübe1.PNG
+.. |U2_10| image:: images/member3/tecrube1.PNG
 
 *Resim 10: Eklenmiş İş Tecrübesi
 
@@ -106,7 +106,7 @@ yazıldığında profil sayfası da güncellenir:
 
 |U2_11|
 
-.. |U2_11| image:: images/member3/tecrübe2.PNG
+.. |U2_11| image:: images/member3/tecrube2.PNG
 
 *Resim 11: Güncellenmiş İş Tecrübesi
 
@@ -116,7 +116,7 @@ Kullanıcı önceden girmiş olduğu iş tecrübesini silmek için "tecrübe sil
 
 |U2_12|
 
-.. |U2_12| image:: images/member3/tecrübesil.PNG
+.. |U2_12| image:: images/member3/tecrubesil.PNG
 
 *Resim 12: Tecrübe Silme Ekranı
 
@@ -125,7 +125,7 @@ Kullanıcı sileceği işyerinin ismini girdikten sonra o iş tecrübesi profil 
 
 |U2_13|
 
-.. |U2_13| image:: images/member3/tecrübesil2.PNG
+.. |U2_13| image:: images/member3/tecrubesil2.PNG
 
 *Resim 13: Silinmiş İş Tecrübesi
 
