@@ -1,6 +1,6 @@
 User Guide
 ==========
-Bu aşamama kullanıcının olulturduğumuz sosyal paylaşım sitesini nasıl kullancağı görsellerle birlikte açıklnamıştır. 
+Bu aşamada kullanıcının oluşturduğumuz sosyal paylaşım sitesini nasıl kullanacağı görsellerle birlikte açıklanmıştır. 
 
 .. toctree::
 
