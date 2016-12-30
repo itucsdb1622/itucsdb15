@@ -23,14 +23,16 @@ Bu safada kullanıcı ismimizi ve belirlediğimiz şifremizi girerek ilgili alan
 
 Giriş işlemimizi başarılı şekilde gerçekleştirdikten sonra "my profile" sekmesinden profil sayfamıza girebiliriz. Profil sayfamızın görünümünü alttaki görsel vasıtasıyla görebilirsiniz.
 
-|H|
+|I3|
 
-.. |H| image:: images/member1/profile_page.png
+.. |I3| image:: images/member1/profile_page.png
 
 Profil sayfamıza biraz daha yakından bakalım. Profil sayfamızda iki tip öğe bulunuyor; profil fotoğrafımız ve çeşitli bilgilerimizin bulunduğu alanlar ve diğer öğeler ise değişik işlemler yapmamıza olanak sağlayan butonlardır. 
 
+|I4|
 
-.. |H| image:: images/member1/profile_page_1.png
+.. |I4| image:: images/member1/profile_page.png
 
+|I5|
 
-.. |H| image:: images/member1/profile_page_2.png
+.. |I5| image:: images/member1/profile_page.png
