@@ -54,6 +54,14 @@ Sistemde olan bir kullanıcı adı girdiğiniz zaman sistem hata mesajı göster
 
 .. |I8| image:: images/member1/update_username.png
 
+"Add or update profile informations" butonuna tıkladığınızda ise daha önceki görsellerde görmüş olduğunuz profilimizde bulunan alanlara bilgilerimizi girme imkanı bulacaksınız. Alttaki görseldeki sayfaya yönlendirileceksiniz ve oradan kolayca bilgi girişi yapabilirsiniz.
+
+|I9|
+
+.. |I9| image:: images/member1/update_social_hobby.png
+
+Görseller ile ilgili kısım benim alanım olmadığı için profil fotoğraf ekleme mekanizmasını yapmadım.
+
 
 
 
