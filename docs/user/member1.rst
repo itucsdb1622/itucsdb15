@@ -47,3 +47,14 @@ Alttaki görsel vasıtasıyla ise çeşitli işlemler yapmamıza olanak sağlaya
 
 .. |I7| image:: images/member1/profile_page_2.png
 
+"update username" butonuna tıkladığımızda, site bizi kullanıcı adımızı değiştirebileceğimiz bir sayfaya yönlendirir ve alttaki görselde de görebildiğiniz üzere yeni bir kullanıcı adı girip "submit" butonuna bastığınıda kullanıcı isminiz değişecektir. 
+Sistemde olan bir kullanıcı adı girdiğiniz zaman sistem hata mesajı gösterecektir ve talebinizi yerine getirmeyecektir.
+
+|I8|
+
+.. |I8| image:: images/member1/update_username.png
+
+
+
+
+
