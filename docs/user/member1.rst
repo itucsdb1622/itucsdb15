@@ -13,26 +13,37 @@ Siteye ilk kez giriş yaptığımızda alttaki görseldeki sayfa bizi karşılı
 .. |I1| image:: images/member1/login.png
 
 
-Sistemde kayıtlı olmayan bir kullanıcı adıyla giriş yapmaya kalktığımızda sistem "Invalid credentials" hatası vermektedir. Yani kullanıcı bilgileri yanlış diye uyarıyor. Eğer bir kullanıcı oluşturmadıysak "register" butonuna tıklayarak kayıt sayfasına ulaşabiliriz. Kayıt sayfasının görseli alttadır. 
+Sistemde kayıtlı olmayan bir kullanıcı adıyla giriş yapmaya kalktığımızda sistem "Invalid credentials" hatası vermektedir. Yani kullanıcı bilgileri yanlış diye uyarıyor. 
 
 |I2|
 
-.. |I2| image:: images/member1/register_screen.png
+.. |I2| image:: images/member1/invalid_credentials.png
+
+Eğer bir kullanıcı oluşturmadıysak "register" butonuna tıklayarak kayıt sayfasına ulaşabiliriz. Kayıt sayfasının görseli alttadır. 
+
+|I3|
+
+.. |I4| image:: images/member1/register_screen.png
    
 Bu safada kullanıcı ismimizi ve belirlediğimiz şifremizi girerek ilgili alanlara yeni bir kullanıcı oluşturabiliriz. Daha sonra da anasayfaya dönerek oluşturduğumuz kullanıcının bilgileriyle sisteme giriş yapabiliriz.
 
 Giriş işlemimizi başarılı şekilde gerçekleştirdikten sonra "my profile" sekmesinden profil sayfamıza girebiliriz. Profil sayfamızın görünümünü alttaki görsel vasıtasıyla görebilirsiniz.
 
-|I3|
-
-.. |I3| image:: images/member1/profile_page.png
-
-Profil sayfamıza biraz daha yakından bakalım. Profil sayfamızda iki tip öğe bulunuyor; profil fotoğrafımız ve çeşitli bilgilerimizin bulunduğu alanlar ve diğer öğeler ise değişik işlemler yapmamıza olanak sağlayan butonlardır. 
-
-|I4|
-
-.. |I4| image:: images/member1/profile_page.png
-
 |I5|
 
 .. |I5| image:: images/member1/profile_page.png
+
+Profil sayfamıza biraz daha yakından bakalım. Profil sayfamızda iki tip öğe bulunuyor; profil fotoğrafımız ve çeşitli bilgilerimizin bulunduğu alanlar ve diğer öğeler ise değişik işlemler yapmamıza olanak sağlayan butonlardır. 
+
+Alttaki görsel vasıtasıyla profil sayfamızdaki alanlara yakından bakabilirsiniz.
+
+|I6|
+
+.. |I6| image:: images/member1/profile_page_1.png
+
+Alttaki görsel vasıtasıyla ise çeşitli işlemler yapmamıza olanak sağlayan butonlara yakından bakabilirsiniz.
+
+|I7|
+
+.. |I7| image:: images/member1/profile_page_2.png
+
