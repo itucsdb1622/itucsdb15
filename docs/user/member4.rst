@@ -8,12 +8,11 @@ Events Sayfası
 
 Kullanıcılar bu sayfa aracılığı ile event(etkinlik) oluşturabilir, düzenleyebilir ve oluşturulan event'leri görüntüleyebilirler.
 
-.. figure:: images/member4/main-page.png
-   :figclass: align-center
-   :scale: 75%
-   :alt: İş İlanları Görüntüleme Sayfası Ekran Görüntüsü
+|H|
 
-   İş İlanları Görüntüleme Sayfası
+.. |H| image:: images/member4/main-page.png
+
+
    
 Sayfaya ilk girildiğinde kullanıcı açılmış olan event'lerin bir listesini görür. Eğer kullanıcı giriş yaptıysa "Create Event" butonuna tıklayarak kendi event'ini oluşturabilir. Misafir kullanıcılar bu butonu göremez, event oluşturamaz.
    
