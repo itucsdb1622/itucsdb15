@@ -62,7 +62,13 @@ Sistemde olan bir kullanıcı adı girdiğiniz zaman sistem hata mesajı göster
 
 Görseller ile ilgili kısım benim alanım olmadığı için profil fotoğraf ekleme mekanizmasını yapmadım.
 
+"Remove profile informations" butonuna tıkladığınızda ise hangi tip bilgilerinizi silmek istediğinizi belirtip gerekli işlemlerin yapılması için komut verebileceğiniz bir sayfaya yönlendirileceksiniz. Bu yönlendirileceğiniz sayfanın görünümüne alttaki görselden ulaşabilirsiniz.
 
+|I10|
+
+.. |I10| image:: images/member1/remove_user_info.png
+
+Örneğin "Social accounts" alanına tick koyduğunuz zaman tüm sosyal hesap bilgileriniz silinecektir. Keza "Hobbies" alanına tick koyduğunuzda tüm hobi bilgileriniz silinecektir ve hobi ile ilgili kısım profil sayfanızda gözükmeyecektir. Tabi bu alanların birden fazlasına tick koyup submit butonuna basarak aynı anda birden fazla işlem yapma komutu verebilirsiniz.
 
 
 
