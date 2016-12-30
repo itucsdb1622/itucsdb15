@@ -10,16 +10,16 @@ Bu işlem için öncelikle search sayfasına giriyoruz ve aramak istediğimiz ke
 |U2_1|
 
 .. |U2_1| image:: images/member2/search_atma.JPG
-   
-   *Resim 1: Search yapma
+
+*Resim 1: Search yapma
    
 Daha sonra arama yaptığımız kelime arama yapan userın idsi ile birlikte ekranda gözükür.
 
 |U2_2|
 
 .. |U2_2| image:: images/member2/search_attıktan_sonraki_hal.JPG
-   
-   *Resim 2: Search yaptıktan sonraki durum
+
+*Resim 2: Search yaptıktan sonraki durum
    
 Searc tablosunda güncelleme yapmak için ise "Update Search" butonuna basarak güncelleme sayfasına geçiyoruz. Burada güncellemek
 istediğimiz
@@ -28,8 +28,8 @@ search satırının idsini ve yeni metini giriyoruz. Ardından "search_update" b
 |U2_3|
 
 .. |U2_3| image:: images/member2/search_update.JPG
-   
-   *Resim 3: Search güncelleme
+
+*Resim 3: Search güncelleme
    
 Silme işemi için ise  "Delete Search" butonuna basarak silme sayfasına geçiyoruz. Burada silmek istediğimiz
 search satırının idsini giriyoruz. Ardından "search_delete" butonuna basıyoruz.
@@ -37,8 +37,8 @@ search satırının idsini giriyoruz. Ardından "search_delete" butonuna basıyo
 |U2_4|
 
 .. |U2_4| image:: images/member2/search_delete.JPG
-   
-   *Resim 4: Search silme
+
+*Resim 4: Search silme
    
 Comment
 -------
