@@ -1,7 +1,7 @@
-Welcome to itucsdb's documentation!
+Welcome to Aligram's documentation!
 ===================================
 
-:Team: Team Name
+:Team: itucsdb1622
 
 :Members:
 
@@ -9,7 +9,7 @@ Welcome to itucsdb's documentation!
    * Ali Kadam
    * Muhammet Berhak Demir
    * Umut Yazgan
-   * Member 5
+   * Adem Yenice
 
 **project description goes here (a few paragraphs)**
 
